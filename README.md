@@ -110,7 +110,10 @@ Teensy 4 is a very powerful device. It supports floating point math in hardware 
 ## Code architecture
 
 Code has been crafted carefully, splitting responsibilites across a number of classes and introducing several useful abstractions.
+
 All effects are independent from each other, and all effect state is self-contained in its own class members.
+
+Most effects are designed to be strip length agnostic and to rely on timers so that animation speed doesn't depend on global update rate.
 
 # API
 
@@ -119,24 +122,24 @@ All effects are independent from each other, and all effect state is self-contai
 *Strip* is a wrapper to a FastLED CRGBArray, providing convenience methods for absolute (integer, 0 to pixel count - 1) or normalized (float, 0 to 1) LED addressing.
 It makes it easier to manipulate strips in a length-agnostic way.
 
+## Fx
+
+*Fx* is the abstract class you'll need to extend for defining your effects (see *Implementing your effects*).
+
+It defines the abstract methods to be implemented by any effect:
+- reset(), called once when the effect is selected or reset;
+- loop(), called by the main loop when the effect is selected.
+
 ## Stage
 
 *Stage* is the abstract class you'll need to extend for defining your setup (see *Implementing your stage*).
 It provides methods for adding strips and effects to your stage and to data to the *Controller*.
-It is also where you can call FastLED methods for setting color correction and maximum allowed power, to comply with your power supply limits.
-Please do not call FastLED.setBrightness(..) as global brightness is handled in *Controller* and accessible from the remote control.
+It is also the right place for calling native FastLED methods for setting color correction and maximum allowed power, to comply with your power supply limits.
+Please do not call FastLED.setBrightness(..) as global brightness is handled by *Brightness*.
 
-Two sample implementations are provided in the *stage* directory:
-- *Stage1* (4 channels on Teensy 4.1) is my current living room setup: the *left* and *right* strips (192 leds, 144 led/m) are placed side by side in a single 2.7m long aluminium bar between a piece of furniture (where the tv set is placed) and the floor, pointing outwards, while the *top* strip (169 leds, 60 led/m) is placed on the wall (behind the tv set) at about half a meter from ceiling, pointing upwards. Well, there's a fourth strip called *xmasTree*, guess what it is :-)
-- *Stage2* (2 channels on Teensy 4.0) is my kids' room setup :-)
-
-## Fx
-
-*Fx* defines the abstract methods to be implemented by effects:
-- reset(), called once when the effect is selected or reset;
-- loop(), called by the main loop when the effect is selected.
-
-Most effects are designed to be strip length agnostic and to rely on timers so that animation speed doesn't depend on global update rate.
+Two sample implementations are provided in the *examples* directory:
+- *example1* (4 channels on Teensy 4.1) is my current living room setup: the *left* and *right* strips (192 leds, 144 led/m) are placed side by side in a single 2.7m long aluminium bar between a piece of furniture (where the tv set is placed) and the floor, pointing outwards, while the *top* strip (169 leds, 60 led/m) is placed on the wall (behind the tv set) at about half a meter from ceiling, pointing upwards. Well, there's a fourth strip called *xmasTree*, guess what it is :-)
+- *example2* (2 channels on Teensy 4.0) is my kids' room setup :-)
 
 ## Multiplex
 
@@ -144,7 +147,7 @@ Most effects are designed to be strip length agnostic and to rely on timers so t
 
 ## Controller
 
-*Controller* exposes actions for the remotes to call (e.g. *play*, *pause*, *stop*, *increaseBrightness*, etc.).
+*Controller* exposes high-level actions for the remotes to invoke (e.g. *play*, *pause*, *stop*, *increaseBrightness*, etc.).
 It takes care of displaying the selected effect, cycling effects in manual or timed mode, loading and storing effect speed from non-volatile memory and for temporarily displaying systems effects (e.g. for setting input level, cycle speed, effect speed, etc.)
 
 ### void toggleInput()
