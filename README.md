@@ -10,10 +10,10 @@ I **love** lights, especially LED lights.
 
 The goals of this library are:
 
-- simplify the development of visual effects to be rendered on LED strips by providing useful abstractions
-- provide support for rendering effects on multiple strips, controlling the transitions and adjusting parameters in real time
+- to simplify the development of visual effects to be rendered on LED strips by providing useful abstractions
+- to provide runtime support for rendering effects on multiple strips, controlling the transitions and adjusting parameters in real time
 
-Using an infrared remote (more or less anything can be used) the following functions can be controlled:
+Using an infrared remote (more or less anything can be used), the following action can be performed:
 
 - stop (fade out to black all strips)
 - sequential (start in timed/sequential mode)
@@ -44,7 +44,7 @@ It has been chosen for a number of reasons:
 
 - It's an extremely capable Arduino-compatible board, running an ARM Cortex-M7 at 600 MHz with a float point math unit, 64 & 32 bits;
 - It can be combined with the [Audio Adapter Board by PJRC](https://www.pjrc.com/store/teensy3_audio.html) for audio I/O and processing;
-- It comes with a large set of libraries including two amazing ones by Paul Stoffregen (Audio and WS2812Serial), described below;
+- It comes with a large set of libraries including two great ones by Paul Stoffregen (Audio and WS2812Serial), described below;
 - It's relatively cheap, compared to what it offers.
 
 I guess it can work on Teensy 3 too, but I could not verify as I don't own this board (and the corresponding Audio Adapter Board).
