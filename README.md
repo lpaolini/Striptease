@@ -150,7 +150,8 @@ Two sample implementations are provided in the *examples* directory:
 *Controller* exposes high-level actions for the remotes to invoke (e.g. *play*, *pause*, *stop*, *increaseBrightness*, etc.).
 It takes care of displaying the selected effect, cycling effects in manual or timed mode, loading and storing effect speed from non-volatile memory and for temporarily displaying systems effects (e.g. for setting input level, cycle speed, effect speed, etc.)
 
-### void toggleInput()
+    void toggleInput()
+    
 Enter input sensitivity setting mode.
 If already in input sensitivity setting mode, toggle stereo line input / mono microphone input.
 
@@ -160,7 +161,8 @@ When in input sensitivity setting, a virtual slider fx replaces the currently se
 - beat detected (peak hold indicator turn cyan)
 - clipping detected (peak hold indicator turns red)
 
-### void increaseInputSensitivity()
+    void increaseInputSensitivity()
+    
 Enter input sensitivity setting mode.
 If already in input sensitivity setting mode, increase the sensitivity for the active input.
 
