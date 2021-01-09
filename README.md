@@ -339,7 +339,7 @@ The following example would animate a 6-pixel red segment starting at position 0
 
 # Implementing new effects
 
-You can create new effects by extending the *Fx* class
+You can create new effects by extending the *Fx* class.
         
 # Implementing your stage
 
