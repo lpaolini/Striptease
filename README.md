@@ -13,23 +13,6 @@ The goals of this library are:
 - to simplify the development of visual effects to be rendered on LED strips by providing useful abstractions
 - to provide runtime support for rendering effects on multiple strips, controlling the transitions and adjusting parameters in real time
 
-Using an infrared remote (more or less anything can be used), the following action can be performed:
-
-- stop (fade out to black all strips)
-- sequential (start in timed/sequential mode)
-- shuffle (start in timed/random mode)
-- play (start in timed mode, either sequential or random depending on what is currently set)
-- pause (start in manual mode)
-- next (manually select next effect)
-- previuos (manually select previous effect)
-- select (start effect by number)
-- reset (reset current effect)
-- increase brightness
-- decrease brightness
-- change effect parameter (usually speed) with virtual slider
-- toggle input (line in or mic) with virtual slider and peak meter
-- change effect duration time with virtual slider
-
 # Credits
 
 This work has been heavlily inspired by the excellent projects published on the [Cine-Lights](https://www.youtube.com/channel/UCOG6Bi2kvpDa1c8gHWZI5CQ) YouTube channel.
@@ -129,12 +112,14 @@ Teensy 4 is a very powerful device. It supports floating point math in hardware 
 Code has been crafted carefully, splitting responsibilites across a number of classes and introducing several useful abstractions.
 All effects are independent from each other, and all effect state is self-contained in its own class members.
 
-### Strip
+# API
+
+## Strip
 
 *Strip* is a wrapper to a FastLED CRGBArray, providing convenience methods for absolute (integer, 0 to pixel count - 1) or normalized (float, 0 to 1) LED addressing.
 It makes it easier to manipulate strips in a length-agnostic way.
 
-### Stage
+## Stage
 
 *Stage* is the abstract class you'll need to extend for defining your setup (see *Implementing your stage*).
 It provides methods for adding strips and effects to your stage and to data to the *Controller*.
@@ -145,7 +130,7 @@ Two sample implementations are provided in the *stage* directory:
 - *Stage1* (4 channels on Teensy 4.1) is my current living room setup: the *left* and *right* strips (192 leds, 144 led/m) are placed side by side in a single 2.7m long aluminium bar between a piece of furniture (where the tv set is placed) and the floor, pointing outwards, while the *top* strip (169 leds, 60 led/m) is placed on the wall (behind the tv set) at about half a meter from ceiling, pointing upwards. Well, there's a fourth strip called *xmasTree*, guess what it is :-)
 - *Stage2* (2 channels on Teensy 4.0) is my kids' room setup :-)
 
-### Fx
+## Fx
 
 *Fx* defines the abstract methods to be implemented by effects:
 - reset(), called once when the effect is selected or reset;
@@ -153,28 +138,126 @@ Two sample implementations are provided in the *stage* directory:
 
 Most effects are designed to be strip length agnostic and to rely on timers so that animation speed doesn't depend on global update rate.
 
-### Multiplex
+## Multiplex
 
 *Multiplex* is a virtual effect (it implements the *Fx* interface) which combines up to six effects to be played in parallel, usually on distinct channels, as if they were one.
 
-### Controller
+## Controller
 
 *Controller* exposes actions for the remotes to call (e.g. *play*, *pause*, *stop*, *increaseBrightness*, etc.).
 It takes care of displaying the selected effect, cycling effects in manual or timed mode, loading and storing effect speed from non-volatile memory and for temporarily displaying systems effects (e.g. for setting input level, cycle speed, effect speed, etc.)
 
-### State
+### void toggleInput()
+Enter input sensitivity setting mode.
+If already in input sensitivity setting mode, toggle stereo line input / mono microphone input.
+
+When in input sensitivity setting, a virtual slider fx replaces the currently selected fx for providing a visual indication of:
+- current input sensitivity
+- current audio signal peak and peak hold
+- beat detected (peak hold indicator turn cyan)
+- clipping detected (peak hold indicator turns red)
+
+### void increaseInputSensitivity()
+Enter input sensitivity setting mode.
+If already in input sensitivity setting mode, increase the sensitivity for the active input.
+
+### void decreaseInputSensitivity()
+Enter input sensitivity setting mode.
+If already in input sensitivity setting mode, decrease the sensitivity for the active input.
+
+### void reset()
+Reset current effect.
+
+### void increaseBrightness()
+Increase global brightness.
+
+### void decreaseBrightness()
+Decrease global brightness.
+
+### void setParam(uint8_t value)
+Set a numeric value for the current parameter (can be effect number, input sensitivity, etc., depending on current context).
+
+### void increaseParam()
+Increase the current parameter (can be effect number, input sensitivity, etc., depending on current context).
+
+### void decreaseParam()
+Decrease the current parameter (can be effect number, input sensitivity, etc., depending on current context).
+
+### void selectFx(uint8_t fx)
+Select fx by index number.
+
+### void previousFx()
+Select previous fx.
+
+### void nextFx()
+Select next fx.
+
+### void randomFx()
+Select a random fx.
+
+### void play()
+Enter timed play mode (either sequential or shuffle, based on last selection).
+
+### void sequential()
+Enter timed/sequential play mode.
+
+### void shuffle()
+Enter timer/shuffle play mode.
+
+### void pause()
+Enter manual play mode.
+
+### void playPause()
+Toggle timed/manual play mode.
+
+### void stop()
+Fade out all strips and enter stop mode.
+
+### void cycleSpeed()
+Enter cycle speed setting mode.
+
+A virtual slider fx replaces the currently selected fx for providing a visual indication of the current value.
+
+In this mode setParam(0..10), increaseParam() and decreaseParam() can be used to change the value.
+
+### void setCycleSpeed(uint8_t speed)
+Enter cycle speed setting mode and set cycle speed (0..10).
+
+When in cycle speed setting mode, a virtual slider fx replaces the currently selected fx for providing a visual indication of the current value.
+
+### void increaseCycleSpeed()
+Enter cycle speed setting mode and increase cycle speed.
+
+### void decreaseCycleSpeed()
+Enter cycle speed setting mode and decrease cycle speed.
+
+### void fxSpeed()
+Enter fx speed setting mode.
+
+When in fx speed setting mode, a virtual slider fx replaces the currently selected fx for providing a visual indication of the current value.
+
+### void setFxSpeed(uint8_t speed)
+Enter fx speed setting mode and set cycle speed (0..10).
+
+### void increaseFxSpeed()
+Enter fx speed setting mode and increase fx speed.
+
+### void decreaseFxSpeed()
+Enter fx speed setting mode and decrease fx speed.
+
+## State
 
 Effects running in parallel on distinct strips are independent instances with no shared data.
 
 *State* keeps shared, read-only state for use by any effect (mainly a couple of *rotating hue* values).
 
-### AudioChannel
+## AudioChannel
 
 *AudioChannel* consumes peak and rms values provided by the Audio library and exposes them along with some derived indicators: peakSmooth, peakHold, signalDetected, beatDetected, clipping and fft. Beat detection is implemented in the *PeakDetector* class, by keeping a circular buffer of rms values on which average and standard deviation are calculated at every new value and used for discriminating peaks with sufficient energy from normal signal fluctuations.
 
 Three audio channels are available: left, right and mono (average of left and right input channels).
 
-### Remote
+## Remote
 
 *Remote* is the abstract class you'll need to extend for supporting your infrared remote.
 Basically, its purpose is to match remote keypresses with *Controller* high-level actions.
@@ -183,12 +266,12 @@ In the provided examples I'm using a Sony RM-D420, but more or less any spare re
 
 You would just need to write down the IR codes sent by your remote (you can use the [IRMP AllProtocols example](https://github.com/ukw100/IRMP/tree/master/examples/AllProtocols) for that, just be sure to change the input pin to 22) and write your own implementation of Remote (SonyRemote_RMD420.h as a reference), for matching remote keys with *Controller* actions. Please be sure to add the relevant #define for enabling the specific IR protocol *before* importing the library (see IRMP documentation).
 
-### Brightness
+## Brightness
 
 *Brightness* controls... global brightness.
 It also takes care of rendering quick flases for providing a visual feedback of buttons pressed on the remote control.
 
-# HarmonicMotion
+## HarmonicMotion
 
 The foundation for the majority of the effects implemented so far is the *HarmonicMotion* class, which implements physics for the [harmonic motion](https://en.wikipedia.org/wiki/Simple_harmonic_motion). It emulates the behavior of an object linked with a spring and a damper to a fixed point, with given initial position, fixed point position, velocity, acceleration, elastic constant of the spring, damping, lower and upper bounds with rebound coefficients.
 External acceleration (e.g. gravity) is also supported.
@@ -235,8 +318,6 @@ Some very weird behavior can be obtained by using values not possible in the rea
 Please note all parameters can be changed during the animation (in the *loop* method) for implementing discontinuities or any kind of non-standard behavior.
 
 Most effects use arrays of *HarmonicMotion* instances. A single Teensy 4 can animate a huge number of them at the same time, for very complex animations.
-
-## HarmonicMotion API
 
 ### HarmonicMotion& setup(Strip *strip);
 Initialize an HarmonicMotion instance with a Strip pointer.
