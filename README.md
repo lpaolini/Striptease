@@ -189,13 +189,13 @@ Decrease the current parameter (can be effect number, input sensitivity, etc., d
 ### void selectFx(uint8_t fx)
 Select fx by index number.
 
-### void previousFx()
+### void selectPreviousFx()
 Select previous fx.
 
-### void nextFx()
+### void selectNextFx()
 Select next fx.
 
-### void randomFx()
+### void selectRandomFx()
 Select a random fx.
 
 ### void play()
