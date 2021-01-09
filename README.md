@@ -2,7 +2,7 @@
 
 Sexy, audio-responsive effects on LED strips.
 
-For [Teensy 4](https://www.pjrc.com/store/teensy40.html) with [Audio Adapter Board](https://www.pjrc.com/store/teensy3_audio.html), both by [PJRC](https://www.pjrc.com).
+For [Teensy 4](https://www.pjrc.com/store/teensy40.html) with [Audio Adapter Board](https://www.pjrc.com/store/teensy3_audio.html), by [PJRC](https://www.pjrc.com).
 
 # Intro
 
