@@ -16,9 +16,7 @@
     },
     "dependencies": {
         "fastled/FastLED": "^3.4.0",
-        "ukw100/IRMP": "^3.3.5",
-        "PaulStoffregen/Audio": "^1.3",
-        "PaulStoffregen/WS2812Serial": "*"
+        "ukw100/IRMP": "^3.3.5"
     },
     "license": "GPL-3.0-or-later"
 }
