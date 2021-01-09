@@ -1,2 +1,2 @@
 # Striptease
-Render sexy audio-responsive effects on LED strips.
+Sexy, audio-responsive effects on LED strips.
