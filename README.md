@@ -65,7 +65,7 @@ Teensy 4 internal voltage is 3.3v and all I/O ports operate exclusively at this 
     
 I've designed a couple of custom PCBs, available in the *hardware* directory: one for Teensy 4.0, the other one for Teensy 4.1, housing connectors (power, IR receiver and LEDs), the DIL socket for the 74HCT245 IC, and a pair of stripline sockets for the Teensy, plus a few passive components. The Audio Adapter Board is sandwiched between the main board and the Teensy using long-terminal stripline connectors soldered to the Audio Adapter Board.
 
-![PCB](hardware/img/pcb.jpg)
+![PCB](hardware/pcb.jpg)
 
 PCBs have been designed using [EAGLE PCB](https://www.autodesk.com/products/eagle) and built by [JLCPCB](https://jlcpcb.com/).
 
