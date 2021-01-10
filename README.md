@@ -8,9 +8,9 @@ For [Teensy 4](https://www.pjrc.com/store/teensy40.html) with [Audio Adapter Boa
 
 Shooting video of LEDs is tricky. Getting the right exposure, the right focus and the right colors is not easy at all.
 
-This is just a quick demo, but it doesn't look as lively as the real thing. I'll try to improve it soon.
+This new video should be closer to the "live" version from my couch :-)
 
-[![Demo](https://img.youtube.com/vi/nvevHjqDAOw/0.jpg)](http://www.youtube.com/watch?v=nvevHjqDAOw)
+[![Demo](https://img.youtube.com/vi/GwfFWWeZfM0/0.jpg)](http://www.youtube.com/watch?v=GwfFWWeZfM0)
 
 # Intro
 
