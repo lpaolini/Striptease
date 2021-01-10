@@ -12,6 +12,10 @@ This new video should be closer to the "live" version from my couch :-)
 
 [![Demo](https://img.youtube.com/vi/GwfFWWeZfM0/0.jpg)](http://www.youtube.com/watch?v=GwfFWWeZfM0)
 
+One of my favorite effects (DeepSpace), not shown in previous video.
+
+[![Demo](https://img.youtube.com/vi/eymehYBFZOA/0.jpg)](http://www.youtube.com/watch?v=eymehYBFZOA)
+
 # Intro
 
 I **love** lights, especially LED lights.
