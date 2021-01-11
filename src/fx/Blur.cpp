@@ -16,7 +16,6 @@ void Blur::loop() {
     uint16_t k = beatsin16(5, 0, strip->last());
 
     unsigned long ms = millis();
-    // TODO: check if it's better to overwrite or not
     strip->paint((i + j) / 2, CHSV(ms / 29, 200, 255));
     strip->paint((j + k) / 2, CHSV(ms / 41, 200, 255));
     strip->paint((k + i) / 2, CHSV(ms / 73, 200, 255));
