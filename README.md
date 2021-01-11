@@ -93,7 +93,14 @@ PCBs have been designed using [EAGLE PCB](https://www.autodesk.com/products/eagl
 
 ## WS2812B LED strips
 
-For my projects I prefer the higher density version (144 LED/m) with frost diffuser, because they look amazing on the short distance.
+For my projects I prefer the high density WS2812B LED strips (144 LED/m) with semi-transparent diffuser, because they look amazing on the short distance.
+I'm providing photos of the diffuser on top of a printed page, to give you an idea of the transparency.
+
+![Diffuser - top](hardware/img/diffuser-top.jpg)
+
+![Diffuser - bottom](hardware/img/diffuser-bottom.jpg)
+
+![Rail](hardware/img/rail.jpg)
 
 ### Update rate (FPS)
 
