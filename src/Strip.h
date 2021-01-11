@@ -18,8 +18,8 @@ class Strip {
     uint16_t toNormalizedPosition(float x, uint16_t excludeCount = 0);
     bool isInRange(int16_t position);
     uint16_t limitToRange(int16_t position);
-    CRGB shiftUp(CRGB in);
-    CRGB shiftDown(CRGB in);
+    CRGB shiftUp(CRGB in = CRGB::Black);
+    CRGB shiftDown(CRGB in = CRGB::Black);
     uint16_t randomPos(uint16_t excludeCount = 0);
     uint16_t randomPosRange(float from, float to);
     uint16_t randomPosExclude(uint16_t excludePosition, uint16_t excludeCount);
