@@ -11,7 +11,7 @@ Beat::Beat(Strip *strip, AudioChannel *audioChannel) {
 
 void Beat::reset() {
     clear(strip);
-    uint16_t center = strip->centerPos();
+    uint16_t center = strip->center();
 
     peak.reset()
         .setColor(CRGB::Blue)
@@ -50,7 +50,7 @@ void Beat::loop() {
     strip->off();
     if (timer.isElapsed()) {
         if (audioChannel->beatDetected) {
-            uint16_t pos = (1 + audioChannel->rms) * strip->centerPos(); 
+            uint16_t pos = (1 + audioChannel->rms) * strip->center(); 
             peak.setPosition(max(peak.getPosition(), pos));
             peak.setVelocity(-50);
             peakHold.setPosition(max(peakHold.getPosition(), pos));

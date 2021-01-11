@@ -119,10 +119,6 @@ float HarmonicMotion::getPosition() {
     return x;
 }
 
-float HarmonicMotion::getNormalizedPosition() {
-    return x / (strip->count - 1);
-}
-
 float HarmonicMotion::getFixedPointPosition() {
     return x0;
 }

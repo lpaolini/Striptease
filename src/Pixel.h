@@ -15,8 +15,8 @@ class Pixel {
         Pixel();
         void setup(Strip *strip);
         void reset();
-        void set(int pos, CRGB color, bool add = true);
-        void setNormalized(float pos, CRGB color);
+        bool set(int pos, CRGB color, bool add = true);
+        bool setNormalized(float pos, CRGB color);
 };
 
 #endif

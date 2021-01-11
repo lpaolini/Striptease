@@ -60,7 +60,6 @@ class HarmonicMotion {
         HarmonicMotion& setShowWhenStable(bool showWhenStable);
         HarmonicMotion& setOverwrite(bool overwrite);
         float getPosition();
-        float getNormalizedPosition();
         float getVelocity();
         float getFixedPointPosition();
         bool isStable();

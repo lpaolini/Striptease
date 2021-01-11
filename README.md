@@ -448,9 +448,6 @@ Add or overwrite existing color data.
 ### float getPosition();
 Get current object position.
 
-### float getNormalizedPosition();
-Get current object normalized position (0 to 1).
-
 ### float getVelocity();
 Get current object velocity.
 
@@ -477,7 +474,7 @@ The following example would animate a 6-pixel red segment starting at position 0
         .setColor(CRGB::Red)
         .setPosition(0)
         .setVelocity(random8(100, 200))
-        .setUpperBound(strip->count - 1, -1, 1)
+        .setUpperBound(strip->last(), -1, 1)
         .setLowerBound(0, 0, -1)
         .setRange(0, 5);
 

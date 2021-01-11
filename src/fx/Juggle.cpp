@@ -18,6 +18,6 @@ void Juggle::loop() {
     strip->fade(faderate);
     
     for(uint8_t i = 0; i < dots; i++) {
-        pixel[i].set(beatsin16(basebeat + i, 0, strip->count - 1), CHSV(hue + i * hueIncrement, saturation, brightness));
+        pixel[i].set(beatsin16(basebeat + i, 0, strip->last()), CHSV(hue + i * hueIncrement, saturation, brightness));
     }
 }

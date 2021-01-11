@@ -18,6 +18,6 @@ void SineMeter::loop() {
         fadeTimer -= 10;
         strip->fade(1 + 10 * state->parabolicFxSpeed);
     }
-    int pos = beatsin16(10 + 100 * state->parabolicFxSpeed, 0, strip->count - 1);
+    int pos = beatsin16(10 + 100 * state->parabolicFxSpeed, 0, strip->last());
     pixel.set(pos, ColorFromPalette(PALETTE, min(255, audioChannel->rms * 1000)));
 }

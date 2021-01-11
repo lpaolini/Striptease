@@ -19,7 +19,6 @@ void PeakMeter::loop() {
     if (audioChannel->beatDetected) {
         beat = 0;
     }
-    CRGB color = beat < 100 ? CRGB::Aqua : CRGB::Blue;
-    (*(strip->leds))(0, peakSmooth * (strip->count - 1)) = color;
-    (*(strip->leds))(peakHold * (strip->count - 1), strip->count - 1) = CRGB::DarkRed;
+    strip->paintNormalized(0, peakSmooth, beat < 100 ? CRGB::Aqua : CRGB::Blue, false);
+    strip->paintNormalized(peakHold, 1, CRGB::DarkRed, false);
 }

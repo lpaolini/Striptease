@@ -45,6 +45,6 @@ void Vertigo::randomizeItem(Item &item, float strength) {
         // .setAcceleration(100 + 1000 * state->linearFxSpeed)
         .setAcceleration(50, 0, 2000 * state->linearFxSpeed)
         .setPosition(0)
-        .setUpperBound(strip->count - 1);
+        .setUpperBound(strip->last());
     item.timer = 0;
 }

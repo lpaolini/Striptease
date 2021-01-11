@@ -11,5 +11,5 @@ void Rainbow::reset() {
 }
 
 void Rainbow::loop() {
-    strip->fullRainbow(state->fastRotatingHue + phase);
+    strip->rainbow(state->fastRotatingHue + phase);
 }

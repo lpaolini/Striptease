@@ -14,7 +14,7 @@ void Strobe::reset() {
 void Strobe::loop() {
     if (timer.isElapsed()) {
         strip->fade(1);
-        strip->leds->blur1d(100);
+        strip->blur(100);
     }
 
     bool trigger = audioChannel->signalDetected

@@ -2,40 +2,68 @@
 
 Strip::Strip(CRGBSet &leds, uint16_t density) {
     this->leds = &leds;
+    this->density = density;
     this->count = this->leds->size();
-    this->length = float(this->count) / density;
+}
+
+uint16_t Strip::size() {
+    return count;
+}
+
+uint16_t Strip::first() {
+    return 0;
+}
+
+uint16_t Strip::center() {
+    return count / 2;    
+}
+
+uint16_t Strip::last() {
+    return count - 1;    
+}
+
+uint16_t Strip::random() {
+    return random16(count);
+}
+
+uint16_t Strip::randomExclude(uint16_t excludeIndex, uint16_t excludeCount) {
+    return (excludeIndex + excludeCount + random16(count - 2 * excludeCount)) % count;
+}
+
+uint16_t Strip::randomInRange(float from, float to) {
+    return random16(from * count, to * count);
+}
+
+uint16_t Strip::fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount) {
+    return int(normalizedPosition * (count - 1 - excludeCount));
+}
+
+bool Strip::isInRange(int16_t index) {
+    return index >= 0 && index < count;
+}
+
+uint16_t Strip::limitToRange(int16_t index) {
+    return max(min(index, count - 1), 0);
 }
 
 void Strip::off() {
     *leds = CRGB::Black;
 }
 
-void Strip::fill(CRGB color) {
-    *leds = color;
+void Strip::rainbow(uint8_t initialHue) {
+    rainbow(initialHue, max(255 / count, 1));
 }
 
-void Strip::fullRainbow(uint8_t initialHue) {
-    leds->fill_rainbow(initialHue, max(256 / count, 1));
+void Strip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
+    leds->fill_rainbow(initialHue, deltaHue);
 }
 
 void Strip::fade(uint8_t amount) {
     leds->fadeToBlackBy(amount);
 }
 
-uint16_t Strip::toPosition(float x) {
-    return int(x * (count - 1) / length);
-}
-
-uint16_t Strip::toNormalizedPosition(float x, uint16_t excludeCount) {
-    return int(x * (count - 1 - excludeCount));
-}
-
-bool Strip::isInRange(int16_t position) {
-    return position >= 0 && position < count;
-}
-
-uint16_t Strip::limitToRange(int16_t position) {
-    return max(min(position, count - 1), 0);
+void Strip::blur(uint8_t amount) {
+    leds->blur1d(amount);
 }
 
 CRGB Strip::shiftUp(CRGB in) {
@@ -56,29 +84,29 @@ CRGB Strip::shiftDown(CRGB in) {
     return out;
 }
 
-uint16_t Strip::randomPos(uint16_t excludeCount) {
-    return random16(count - excludeCount);
+void Strip::paint(CRGB color, bool add) {
+    if (add) {
+        *leds |= color;
+    } else {
+        *leds = color;
+    }
 }
 
-uint16_t Strip::randomPosRange(float from, float to) {
-    return random16(from * count, to * count);
+bool Strip::paint(int16_t index, CRGB color, bool add) {
+    if (isInRange(index)) {
+        if (add) {
+            (*leds)[index] |= color;
+        } else {
+            (*leds)[index] = color;
+        }
+        return true;
+    }
+    return false;
 }
 
-uint16_t Strip::randomPosExclude(uint16_t excludePosition, uint16_t excludeCount) {
-    return (excludePosition + excludeCount + random16(count - 2 * excludeCount)) % count;
-}
-
-uint16_t Strip::centerPos() {
-    return count / 2;    
-}
-
-uint16_t Strip::lastPos() {
-    return count - 1;    
-}
-
-bool Strip::paint(int16_t from, int16_t to, CRGB color, bool add) {
-    int16_t posMin = min(from, to);
-    int16_t posMax = max(from, to);
+bool Strip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+    int16_t posMin = min(indexFrom, indexTo);
+    int16_t posMax = max(indexFrom, indexTo);
     if (isInRange(posMin) || isInRange(posMax)) {
         if (add) {
             (*leds)(limitToRange(posMin), limitToRange(posMax)) |= color;
@@ -90,16 +118,20 @@ bool Strip::paint(int16_t from, int16_t to, CRGB color, bool add) {
     return false;
 }
 
-bool Strip::paintNormalized(float from, float to, CRGB color, bool add) {
-    return paint(toNormalizedPosition(from), toNormalizedPosition(to), color, add);
+bool Strip::paintNormalized(float position, CRGB color, bool add) {
+    return paint(fromNormalizedPosition(position), color, add);
 }
 
-bool Strip::paintNormalizedSize(float from, uint16_t size, CRGB color, bool add) {
-    uint16_t start = toNormalizedPosition(from, size);
+bool Strip::paintNormalized(float positionFrom, float positionTo, CRGB color, bool add) {
+    return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
+}
+
+bool Strip::paintNormalizedSize(float positionFrom, uint16_t size, CRGB color, bool add) {
+    uint16_t start = fromNormalizedPosition(positionFrom, size);
     return paint(start, start + size, color, add);
 }
 
 bool Strip::paintRandomPos(uint16_t size, CRGB color, bool add) {
-    uint16_t pos = randomPos(size);
+    uint16_t pos = random16(count - size);
     return paint(pos, pos + size, color, add);
 }

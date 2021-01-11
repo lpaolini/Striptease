@@ -4,7 +4,7 @@ Fire::Fire(Strip *strip, AudioChannel *audioChannel) {
     this->strip = strip;
     this->audioChannel = audioChannel;
     // Array of temperature readings at each simulation cell
-    heat = new uint8_t[strip->count];
+    heat = new uint8_t[strip->size()];
     reset();
 }
 
@@ -27,12 +27,12 @@ void Fire::loop() {
 
     if (timer.isElapsed()) {
         // Step 1.  Cool down every cell a little
-        for(int i = 0; i < strip->count; i++) {
-            heat[i] = qsub8(heat[i],  random8(0, ((COOLING * 10) / strip->count) + 2));
+        for(int i = 0; i < strip->size(); i++) {
+            heat[i] = qsub8(heat[i],  random8(0, ((COOLING * 10) / strip->size()) + 2));
         }
     
         // Step 2.  Heat from each cell drifts 'up' and diffuses a little
-        for(int k = strip->count - 1; k >= 2; k--) {
+        for(int k = strip->last(); k >= 2; k--) {
             heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2] ) / 3;
         }
         
@@ -47,18 +47,18 @@ void Fire::loop() {
         }
 
         // Step 4.  Map from heat cells to LED colors
-        for( int j = 0; j < strip->count; j++) {
+        for( int j = 0; j < strip->size(); j++) {
             // Scale the heat value from 0-255 down to 0-240
             // for best results with color palettes.
             byte colorindex = scale8(heat[j], 240);
             CRGB color = ColorFromPalette(palette, colorindex);
             int pixelnumber;
             if(reversed) {
-                pixelnumber = (strip->count-1) - j;
+                pixelnumber = strip->last() - j;
             } else {
                 pixelnumber = j;
             }
-            (*(strip->leds))[pixelnumber] = color;
+            strip->paint(pixelnumber, color, false);
         }
     }
 }

@@ -33,7 +33,7 @@ void Ripple::reset() {
 }
 
 void Ripple::loop() {
-    *(strip->leds) = BACKGROUND_COLOR;
+    strip->paint(BACKGROUND_COLOR, false);
 
     bool signal = audioChannel->signalDetected;
     bool beat = audioChannel->beatDetected;
@@ -66,7 +66,7 @@ void Ripple::loopItem(Item &item, bool &reset, float strength) {
 }
 
 void Ripple::randomizeItem(Item &item, float strength) {
-    uint16_t pos = strip->randomPos();
+    uint16_t pos = strip->random();
     uint8_t size = 5;
     item.ball.reset()
         .setColor(ColorFromPalette(PALETTE, random8()))

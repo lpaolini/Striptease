@@ -12,13 +12,12 @@ Jelly::Jelly(Strip *strip, AudioChannel *audioChannel, State *state) {
 void Jelly::reset() {
     clear(strip);
     for (int i = 0; i < ITEMS; i++) {
-        uint16_t pos = strip->randomPos();
         uint8_t size = random8(2, 5);
         items[i].reset()
             .setColor(ColorFromPalette(PALETTE, random8()))
             .setElasticConstant(4)
             .setCriticalDamping()
-            .setFixedPointPosition(pos)
+            .setFixedPointPosition(strip->random())
             .setVelocity(10)
             .setRange(-size, size)
             .setMirror(false)
@@ -36,7 +35,7 @@ void Jelly::loop() {
     if (moveTimer.isElapsed()) {
         for (int i = 0; i < ITEMS; i++) {
             if (random8(5) == 0) {
-                items[i].setFixedPointPosition(strip->randomPosExclude(items[i].getPosition(), 5));
+                items[i].setFixedPointPosition(strip->randomExclude(items[i].getPosition(), 5));
             }
         }
     }

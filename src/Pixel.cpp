@@ -11,7 +11,7 @@ void Pixel::reset() {
     first = true;
 }
 
-void Pixel::set(int pos, CRGB color, bool add) {
+bool Pixel::set(int pos, CRGB color, bool add) {
     if (first) {
         pos0 = pos;
         first = false;
@@ -35,9 +35,9 @@ void Pixel::set(int pos, CRGB color, bool add) {
 
     pos0 = pos;
 
-    strip->paint(posMin, posMax, color, add);
+    return strip->paint(posMin, posMax, color, add);
 }
 
-void Pixel::setNormalized(float pos, CRGB color) {
-    set(pos * (strip->count - 1), color);
+bool Pixel::setNormalized(float pos, CRGB color) {
+    return set(pos * strip->last(), color);
 }

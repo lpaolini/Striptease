@@ -24,7 +24,7 @@ void Drops::reset() {
 }
 
 void Drops::loop() {
-    *(strip->leds) = BACKGROUND_COLOR;
+    strip->paint(BACKGROUND_COLOR);
 
     bool signal = audioChannel->signalDetected;
     bool beat = audioChannel->beatDetected;
@@ -49,7 +49,7 @@ void Drops::loopItem(Item &item, bool &reset, float strength) {
 }
 
 void Drops::randomizeItem(Item &item, float strength) {
-    uint16_t pos = strip->randomPosRange(.1, .9);
+    uint16_t pos = strip->randomInRange(.1, .9);
     item.center.reset()
         .setColor(CRGB::Aqua)
         .setPosition(pos)

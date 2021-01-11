@@ -51,7 +51,7 @@ void Ants::randomizeItem(Item &item, float strength) {
         .setPosition(0)
         .setVelocity(100 + 200 * state->parabolicFxSpeed)
         .setLowerBound(0, 0, 1)
-        .setUpperBound(strip->count - 1, -1, 1)
+        .setUpperBound(strip->last(), -1, 1)
         .setRange(0, 5);
     item.decay = 5;
 }

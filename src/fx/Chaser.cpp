@@ -12,13 +12,12 @@ Chaser::Chaser(Strip *strip, AudioChannel *audioChannel, State *state) {
 void Chaser::reset() {
     clear(strip);
     for (int i = 0; i < ITEMS; i++) {
-        uint16_t pos = strip->randomPos();
         uint8_t size = random8(2, 5);
         items[i].reset()
             .setColor(ColorFromPalette(PALETTE, random8()))
             .setElasticConstant(4)
             .setCriticalDamping()
-            .setFixedPointPosition(pos)
+            .setFixedPointPosition(strip->random())
             .setVelocity(10)
             .setRange(-size, size)
             .setMirror(false)
@@ -35,7 +34,7 @@ void Chaser::loop() {
 
     if (moveTimer.isElapsed()) {
         if (random8(5) == 0) {
-            items[0].setFixedPointPosition(strip->randomPosExclude(items[0].getPosition(), 5));
+            items[0].setFixedPointPosition(strip->randomExclude(items[0].getPosition(), 5));
         }
     }
     
