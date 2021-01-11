@@ -6,8 +6,12 @@
 - dropped method **getNormalizedPosition**
 
 ### Strip
-- removed public member **length**
-- changed visibility of public members **leds**, **count** to private
+
+- turned into abstract class, with three concrete implementations:
+	- **PhysicalStrip(CRGBSet &leds, uint16_t density)**
+	- **ReversedStrip(Strip *strip)**
+	- **JoinedStrip(Strip *strip1, Strip *strip2, uint16_t distance = 0)**
+- removed public members **leds**, **count** and **length**
 - renamed method **fill** to **paint**, with optional **add** argument
 - renamed method **fullRainbow** to **rainbow**, with optional **deltaHue** argument
 - removed method **randomPos** method, replaced by **random**
