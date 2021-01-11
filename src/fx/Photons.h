@@ -5,21 +5,26 @@
 #include <FastLED.h>
 #include "AudioSensor.h"
 #include "Fx.h"
-#include "Photon.h"
+#include "HarmonicMotion.h"
 #include "State.h"
 
 class Photons: public Fx {
     private:
-        static const uint8_t NUM_PHOTONS = 6;
+        const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::White, CRGB::Aqua, CRGB::Red, CRGB::Blue);
+        static constexpr float MIN_SPEED = 100;
+        static constexpr float MAX_SPEED = 1000;
+        static const uint8_t NUM_PHOTONS = 10;
+        static const uint8_t MAX_CONCURRENT = 3;
         Strip *strip;
         State *state;
         AudioChannel *audioChannel;
-        Photon photons[NUM_PHOTONS];
-
+        HarmonicMotion items[NUM_PHOTONS];
+        
     public:
         Photons(Strip *strip, AudioChannel *audioChannel, State *state);
-        void loop();
+        void resetItem(HarmonicMotion &item);
         void reset();
+        void loop();
 };
 
 #endif
