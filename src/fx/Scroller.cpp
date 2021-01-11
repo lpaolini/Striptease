@@ -16,7 +16,6 @@ void Scroller::loop() {
     unsigned int delay = 10 + 20 * (1 - state->linearFxSpeed);
     if (shiftTimer > delay) {
         shiftTimer -= delay;
-        strip->shiftUp();
-        (*(strip->leds))[0] = ColorFromPalette(PALETTE, audioChannel->peak * 255, audioChannel->peak * 255);
+        strip->shiftUp(ColorFromPalette(PALETTE, audioChannel->peak * 255, audioChannel->peak * 255));
     }
 }
