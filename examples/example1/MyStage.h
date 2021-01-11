@@ -1,9 +1,7 @@
 #ifndef MyStage_h
 #define MyStage_h
 
-#include "Stage.h"
-#include "AudioSensor.h"
-#include "State.h"
+#include <Striptease.h>
 
 class MyStage : public Stage {
     private:

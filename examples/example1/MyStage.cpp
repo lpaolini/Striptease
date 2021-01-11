@@ -1,10 +1,10 @@
 #include "MyStage.h"
 
 MyStage::MyStage(AudioSensor *audioSensor, State *state) {
-    Strip *left = new Strip(leftArray, STRIP_LEFT_DENSITY);
-    Strip *right = new Strip(rightArray, STRIP_RIGHT_DENSITY);
-    Strip *top = new Strip(topArray, STRIP_TOP_DENSITY);
-    Strip *xmasTree = new Strip(xmasTreeArray, STRIP_XMASTREE_DENSITY);
+    Strip *left = new PhysicalStrip(leftArray, STRIP_LEFT_DENSITY);
+    Strip *right = new PhysicalStrip(rightArray, STRIP_RIGHT_DENSITY);
+    Strip *top = new PhysicalStrip(topArray, STRIP_TOP_DENSITY);
+    Strip *xmasTree = new PhysicalStrip(xmasTreeArray, STRIP_XMASTREE_DENSITY);
 
     addStrip(left);
     addStrip(right);
