@@ -6,12 +6,17 @@
 class JoinedStrip : public Strip {
     private: 
         Strip *strip1, *strip2;
+        uint16_t distance;
+        CRGB *buffer;
         bool isInRange(int16_t index);
         uint16_t limitToRange(int16_t index);
 
     public:
-        JoinedStrip(Strip *strip, Strip *strip2);
+        JoinedStrip(Strip *strip, Strip *strip2, uint16_t distance = 0);
 
+        CRGB bufferShiftUp(CRGB in);
+        CRGB bufferShiftDown(CRGB in);
+        
         uint16_t size();
         uint16_t first();
         uint16_t center();
