@@ -27,5 +27,6 @@
 #include "SerialRemote.h"
 #include "State.h"
 #include "Strip.h"
+#include "JoinedStrip.h"
 #include "PhysicalStrip.h"
 #include "ReversedStrip.h"
