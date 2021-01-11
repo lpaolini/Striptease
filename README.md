@@ -6,15 +6,13 @@ For [Teensy 4](https://www.pjrc.com/store/teensy40.html) with [Audio Adapter Boa
 
 ## Quick demo
 
-Shooting video of LEDs is tricky. Getting the right exposure, the right focus and the right colors is not easy at all.
+Shooting video of LEDs is very tricky. Getting the right exposure, focus and colors is not easy at all.
+I did my best, but the live effect from my couch is simply not comparable with what you get on video.
+I think the main reason is frame rate. This video has been shot at 60 fps, but the real animation runs at about __170 fps__...
 
-This new video should be closer to the "live" version from my couch :-)
+[Quick demo](http://www.youtube.com/watch?v=GwfFWWeZfM0)
 
-[![Demo](https://img.youtube.com/vi/GwfFWWeZfM0/0.jpg)](http://www.youtube.com/watch?v=GwfFWWeZfM0)
-
-One of my favorite effects (DeepSpace), not shown in previous video.
-
-[![Demo](https://img.youtube.com/vi/eymehYBFZOA/0.jpg)](http://www.youtube.com/watch?v=eymehYBFZOA)
+[Effect showcase](https://www.youtube.com/playlist?list=PLWqF5fpWRY7WeD_1VaEDTdr6MzqzkYRuW)
 
 # Intro
 
