@@ -38,18 +38,22 @@ uint16_t Strip::limitToRange(int16_t position) {
     return max(min(position, count - 1), 0);
 }
 
-void Strip::shiftUp() {
-    // (*leds)(1, count - 1) = (*leds)(0, count - 2);
+CRGB Strip::shiftUp(CRGB in) {
+    CRGB out = (*leds)[count - 1];
     for (int i = count - 1; i > 0 ; i--) {
         (*leds)[i] = (*leds)[i - 1];
     }
+    (*leds)[0] = in;
+    return out;
 }
 
-void Strip::shiftDown() {
-    // (*leds)(0, count - 2) = (*leds)(1, count - 1);
+CRGB Strip::shiftDown(CRGB in) {
+    CRGB out = (*leds)[0];
     for (int i = 0; i < count - 1; i++) {
         (*leds)[i] = (*leds)[i + 1];
     }
+    (*leds)[count - 1] = in;
+    return out;
 }
 
 uint16_t Strip::randomPos(uint16_t excludeCount) {
