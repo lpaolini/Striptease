@@ -8,9 +8,9 @@
 ### Strip
 
 - turned into abstract class, with three concrete implementations:
-	- **PhysicalStrip(CRGBSet &leds, uint16_t density)**
-	- **ReversedStrip(Strip *strip)**
-	- **JoinedStrip(Strip *strip1, Strip *strip2, uint16_t distance = 0)**
+	- __PhysicalStrip(CRGBSet &leds, uint16_t density)__
+	- __ReversedStrip(Strip *strip)__
+	- __JoinedStrip(Strip *strip1, Strip *strip2, uint16_t distance = 0)__
 - removed public members **leds**, **count** and **length**
 - renamed method **fill** to **paint**, with optional **add** argument
 - renamed method **fullRainbow** to **rainbow**, with optional **deltaHue** argument
