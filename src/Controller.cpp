@@ -22,7 +22,7 @@ void Controller::loop() {
     if (mode == STOP) {
         stage->fadeOut();
     } else {
-        if (mode == NORMAL) {
+        if (mode == PLAY) {
             bool signalTrigger = !audioSensor->mono->signalDetected || audioSensor->mono->beatDetected;
             if (!playMode.manual && signalTrigger) {
                 if (cycleTimer.isElapsed()) {
@@ -71,7 +71,7 @@ void Controller::loop() {
 void Controller::setMode(Mode mode, unsigned long duration) {
     this->mode = mode;
     switch (mode) {
-        case NORMAL:
+        case PLAY:
             modeTimer.stop();
             break;
         case SET_MIC_GAIN:
@@ -191,7 +191,7 @@ void Controller::resetCycleTimer() {
 void Controller::info() {
     Serial.print("Mode: ");
     switch (mode) {
-        case NORMAL:
+        case PLAY:
             if (playMode.manual) {
                 Serial.print("manual");
             } else {
@@ -237,7 +237,7 @@ void Controller::feedback(uint8_t count) {
 }
 
 void Controller::reset() {
-    setMode(NORMAL);
+    setMode(PLAY);
     resetCycleTimer();
     stage->getFx(fx)->reset();
 }
@@ -255,7 +255,7 @@ void Controller::setParam(uint8_t value) {
         case STOP:
             selectFx(value - 1);
             break;
-        case NORMAL:
+        case PLAY:
             selectFx(value - 1);
             break;
         case SET_CYCLE_SPEED:

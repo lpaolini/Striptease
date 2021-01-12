@@ -16,7 +16,7 @@
 
 class Controller {
     private:
-        enum Mode {STOP, NORMAL, SET_MIC_GAIN, SET_INPUT_LEVEL, SET_CYCLE_SPEED, SET_FX_SPEED};
+        enum Mode {STOP, PLAY, SET_MIC_GAIN, SET_INPUT_LEVEL, SET_CYCLE_SPEED, SET_FX_SPEED};
         enum Input {mic, line};
         static const uint16_t MAX_PATTERN_DELAY_S = 60;
         static const unsigned long INPUT_TIMER_DURATION = 5000;
@@ -33,7 +33,7 @@ class Controller {
             bool shuffle = false;
         } playMode;
         Input input;
-        Mode mode = NORMAL;
+        Mode mode = PLAY;
         Timer cycleTimer = Timer(0, false);
         Timer feedbackTimer = Timer(50, false);
         Timer modeTimer = Timer(0, false);
@@ -57,7 +57,7 @@ class Controller {
         void setup();
         void loop();
 
-        void setMode(Mode mode = NORMAL, unsigned long duration = 0);
+        void setMode(Mode mode = PLAY, unsigned long duration = 0);
 
         void setInput(Input input, bool feedback);
         void toggleInput();
