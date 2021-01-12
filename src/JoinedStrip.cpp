@@ -8,21 +8,27 @@ JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, uint16_t distance) {
 }
 
 CRGB JoinedStrip::bufferShiftUp(CRGB in) {
-    CRGB out = buffer[distance - 1];
-    for (int i = distance - 1; i > 0 ; i--) {
-        buffer[i] = buffer[i - 1];
+    if (distance > 0) {
+        CRGB out = buffer[distance - 1];
+        for (int i = distance - 1; i > 0 ; i--) {
+            buffer[i] = buffer[i - 1];
+        }
+        buffer[0] = in;
+        return out;
     }
-    buffer[0] = in;
-    return out;
+    return in;
 }
 
 CRGB JoinedStrip::bufferShiftDown(CRGB in) {
-    CRGB out = buffer[0];
-    for (int i = 0; i < distance - 1; i++) {
-        buffer[i] = buffer[i + 1];
+    if (distance > 0) {
+        CRGB out = buffer[0];
+        for (int i = 0; i < distance - 1; i++) {
+            buffer[i] = buffer[i + 1];
+        }
+        buffer[distance - 1] = in;
+        return out;
     }
-    buffer[distance - 1] = in;
-    return out;
+    return in;
 }
 
 uint16_t JoinedStrip::size() {

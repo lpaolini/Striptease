@@ -1,3 +1,10 @@
+# version 1.1.1
+
+## Bugfixes
+
+### JoinedStrip
+- bypass buffer when distance is zero
+
 # version 1.1.0
 
 ## BREAKING CHANGES
