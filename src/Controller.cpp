@@ -252,6 +252,9 @@ void Controller::decreaseBrightness() {
 
 void Controller::setParam(uint8_t value) {
     switch (mode) {
+        case STOP:
+            selectFx(value - 1);
+            break;
         case NORMAL:
             selectFx(value - 1);
             break;

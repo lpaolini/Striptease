@@ -1,3 +1,10 @@
+# version 1.1.2
+
+## Additions and improvements
+
+### Controller
+- allow direct effect selection to enter play mode (e.g. when pressing a number on the remote)
+
 # version 1.1.1
 
 ## Bugfixes
