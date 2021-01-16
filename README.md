@@ -525,6 +525,6 @@ See provided examples as a reference.
 
 # Feedback
 
-Please be free to contact me, open issues and submit PRs.
+Please be free to [contact me](mailto:lookap@gmail.com), open issues and submit PRs.
 
 Happy Stripteasing! :-)
