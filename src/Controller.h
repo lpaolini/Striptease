@@ -35,10 +35,8 @@ class Controller {
         Input input;
         Mode mode = PLAY;
         Timer cycleTimer = Timer(0, false);
-        Timer feedbackTimer = Timer(50, false);
         Timer modeTimer = Timer(0, false);
-        Timer fadeTimer = Timer(10, true);
-        Timer fpsTimer = Timer(5000, false);
+        Timer fpsTimer = Timer(10000, false);
         void saveParam();
         void loadParam();
         void resetCycleTimer();
