@@ -176,8 +176,8 @@ Teensy 4 is a very powerful device. It supports floating point math in hardware 
 
 Example
 
-    Strip A = PhysicalStrip(...) => [1, 2, 3]
-    Strip B = ReversedStrip(A)   => [3, 2, 1] // now it's left to right
+    Strip A = PhysicalStrip(...) => [3, 2, 1]
+    Strip B = ReversedStrip(A)   => [1, 2, 3]
 
 ### JoinedStrip
 
@@ -189,19 +189,19 @@ Example 1 - two strips with the same orientation
     Strip B = PhysicalStrip(...) => [B1, B2, B4, B4, B5, B6]
     Strip C = JoinedStrip(A, B)  => [A1, A2, A3, A4, B1, B2, B3, B4, B5, B6]
 
-Example 2 - two strips with different orientation
+Example 2 - two strips with the same, but inverted, orientation
+
+    Strip A = PhysicalStrip(...) => [A5, A4, A3, A2, A1] // inverted orientation
+    Strip B = PhysicalStrip(...) => [B5, B4, B3, B2, B1] // inverted orientation
+    Strip C = JoinedStrip(B, A)  => [B5, B4, B3, B2, B1, A5, A4, A3, A2, A1]
+    Strip D = ReversedStrip(C)   => [A1, A2, A3, A4, A5, B1, B2, B3, B4, B5]
+
+Example 3 - two strips with opposite orientations
 
     Strip A = PhysicalStrip(...) => [A1, A2, A3, A4, A5]
-    Strip B = PhysicalStrip(...) => [B5, B4, B3, B2, B1] // right to left
+    Strip B = PhysicalStrip(...) => [B5, B4, B3, B2, B1] // inverted orientation
     Strip C = ReversedStrip(B)   => [B1, B2, B4, B4, B5]
     Strip D = JoinedStrip(A, C)  => [A1, A2, A3, A4, A5, B1, B2, B3, B4, B5]
-
-Example
-
-    Strip A = PhysicalStrip(...) => [A5, A4, A3, A2, A1] // right to left
-    Strip B = PhysicalStrip(...) => [B5, B4, B3, B2, B1] // right to left
-    Strip C = JoinedStrip(A, B)  => [A5, A4, A3, A2, A1, B5, B4, B3, B2, B1]
-    Strip D = ReversedStrip(C)   => [B1, B2, B3, B4, B5, A1, A2, A3, A4, A5]
 
 ## Fx
 

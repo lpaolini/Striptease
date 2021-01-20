@@ -1,8 +1,8 @@
 #include "MyStage.h"
 
 MyStage::MyStage(AudioSensor *audioSensor, State *state) {
-    Strip *left = new PhysicalStrip(leftArray, STRIP_LEFT_DENSITY);
-    Strip *right = new PhysicalStrip(rightArray, STRIP_RIGHT_DENSITY);
+    PhysicalStrip *left = new PhysicalStrip(leftArray, STRIP_LEFT_DENSITY);
+    PhysicalStrip *right = new PhysicalStrip(rightArray, STRIP_RIGHT_DENSITY);
 
     addStrip(left);
     addStrip(right);

@@ -9,7 +9,7 @@
 
 #include "Fx.h"
 #include "Multiplex.h"
-#include "Strip.h"
+#include "PhysicalStrip.h"
 
 // System fxs
 
@@ -84,7 +84,7 @@ class Stage {
         }
         #endif
 
-        void addStrip(Strip *strip) {
+        void addStrip(PhysicalStrip *strip) {
             strips.push_back(strip);
         }
         void setCycleSpeedFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr) {
