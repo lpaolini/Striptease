@@ -103,6 +103,7 @@ class SerialRemote {
                 case CMD_CHECK:
                     break;
                 case CMD_REPEAT:
+                    controller->reset();
                     break;
                 case CMD_FADER:
                     break;
