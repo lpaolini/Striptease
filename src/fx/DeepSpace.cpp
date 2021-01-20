@@ -30,19 +30,20 @@ void DeepSpace::loop() {
         ? audioChannel->beatDetected
         : random8() == 0;
 
-    float rotationAngle = 0;
+    float translationY = SPEED * dT;
+    float rotation = 0;
 
     if (transition == 1) {
         if (timer.isElapsed()) {
             switch (random(5)) {
                 case 1:
                     steeringAngle = -random(MIN_STEERING, MAX_STEERING);
-                    transitionSpeed = -.001 * random(1, 5) * steeringAngle;
+                    transitionSpeed = .001 * random(MIN_TRANSITION_SPEED, MAX_TRANSITION_SPEED);
                     transition = 0;
                     break;
                 case 2:
                     steeringAngle = random(MIN_STEERING, MAX_STEERING);
-                    transitionSpeed = .001 * random(1, 5) * steeringAngle;
+                    transitionSpeed = .001 * random(MIN_TRANSITION_SPEED, MAX_TRANSITION_SPEED);
                     transition = 0;
                     break;
                 default:
@@ -55,41 +56,27 @@ void DeepSpace::loop() {
     } else {
         float previousTransition = transition;
         transition = min(1, transition + transitionSpeed * dT);
-        rotationAngle = steeringAngle * deltaEaseInOutSine(transition, previousTransition) / 180 * TWO_PI;
+        rotation = steeringAngle * Easing::deltaEaseInOutCubic(transition, previousTransition) / 180 * TWO_PI;
     }
 
     for (uint8_t i = 0; i < ITEMS; i++) {
-        moveItem(items[i], speed * dT);
-        rotateItem(items[i], rotationAngle);
-        loopItem(items[i], dT, trigger);
+        loopItem(items[i], translationY, rotation, trigger);
     }
 }
 
-float DeepSpace::deltaEaseInOutSine(float x1, float x0) {
-    return (cos(PI * x0) - cos(PI * x1)) / 2;
-}
+void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &trigger) {
+    item.point.translate(0, translationY).rotate(rotation);
 
-void DeepSpace::rotateItem(Item &item, float theta) {
-    float cosTheta = cos(theta);
-    float sinTheta = sin(theta);
-    item.x = item.x * cosTheta - item.y * sinTheta;
-    item.y = item.x * sinTheta + item.y * cosTheta;
-}
-
-void DeepSpace::moveItem(Item &item, float distance) {
-    item.y -= distance;
-}
-
-void DeepSpace::loopItem(Item &item, float dT, bool &trigger) {
-    if (item.y < 0) {
+    if (item.point.y < 0) {
         randomizeItem(item);
     } 
 
-    float angle = atan2f(item.y, item.x);
-    float distanceSquared = powf(item.x, 2) + powf(item.y, 2);
-    float distance = sqrt(distanceSquared);
+    float angle = item.point.angle();
+    float distance = item.point.radius();
+    float distanceSquared = pow(distance, 2);
+
     float pos = min(max(0, 1 - (angle / PI)), 1);
-    uint8_t brightness = min(255, 5 * MAX_SQUARE_DISTANCE / distanceSquared);
+    uint8_t brightness = min(255, 5 * MAX_SQUARED_DISTANCE / distanceSquared);
 
     if (trigger && item.type == BLUE && distance < MAX_MUTATION_DISTANCE) {
         trigger = false;
@@ -115,8 +102,7 @@ void DeepSpace::loopItem(Item &item, float dT, bool &trigger) {
 void DeepSpace::randomizeItem(Item &item) {
     long distance = random(MIN_DISTANCE, MAX_DISTANCE);
     float angle = random(0, 18000) / (100 * PI);
-    item.x = distance * cosf(angle);
-    item.y = distance * sinf(angle);
+    item.point = Point::fromPolar(distance, angle);
     item.type = random(100) < 100 * state->parabolicFxSpeed 
         ? BLUE
         : HIDDEN;
