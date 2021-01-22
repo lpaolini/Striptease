@@ -23,7 +23,7 @@ class Drops : public Fx {
         AudioChannel *audioChannel;
         State *state;
         Item *items;
-        void loopItem(Item &item, bool &reset, float strength);
+        void loopItem(Item &item, bool &trigger, float strength);
         void randomizeItem(Item &item, float strength);
 
     public:

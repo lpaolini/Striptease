@@ -22,13 +22,11 @@ void Elastic::loop() {
         strip->fade(FADE_RATE);
     }
 
-    bool signal = audioChannel->signalDetected;
-    bool beat = audioChannel->beatDetected;
-    bool trigger = (signal && beat) || (!signal && random8(100) == 0);
+    bool trigger = audioChannel->trigger(3);
 
     if (trigger) {
         clear(strip);
-        randomizeItem(items[nextItem], beat ? audioChannel->rms : .1f);
+        randomizeItem(items[nextItem], audioChannel->beatDetected ? audioChannel->rms : .1f);
         nextItem = (nextItem + 1) % ITEMS;
     }
 

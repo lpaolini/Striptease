@@ -24,12 +24,10 @@ void Ants::reset() {
 void Ants::loop() {
     strip->off();
 
-    bool signal = audioChannel->signalDetected;
-    bool beat = audioChannel->beatDetected;
-    bool trigger = (signal && beat) || (!signal && random8(100) == 0);
+    bool trigger = audioChannel->trigger(3);
 
     for (uint8_t i = 0; i < ITEMS; i++) {
-        loopItem(items[i], trigger, beat ? audioChannel->rms : .1f);
+        loopItem(items[i], trigger, audioChannel->beatDetected ? audioChannel->rms : .1f);
     }
 }
 

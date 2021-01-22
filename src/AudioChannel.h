@@ -37,6 +37,7 @@ class AudioChannel {
 
         AudioChannel();
         void loop(AudioAnalyzePeak *peak = nullptr, AudioAnalyzeRMS *rms = nullptr, AudioAnalyzeFFT256 *fft = nullptr);
+        bool trigger(uint8_t noSignalRandomness = 0, uint8_t signalRandomness = 0);
 };
 
 #endif

@@ -41,9 +41,8 @@ void Volcane::restart(Item *item) {
 
 void Volcane::loop() {
     strip->off();
-    bool trigger = audioChannel->signalDetected
-        ? audioChannel->beatDetected
-        : random8() < 5;
+    bool trigger = audioChannel->trigger(3);
+    
     for (int i = 0; i < NUM_ITEMS; i++) {
         Item *item = items[i];
         if (trigger && item->tail->isStable()) {

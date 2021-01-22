@@ -24,7 +24,7 @@ class Ripple : public Fx {
         State *state;
         Item *items;
         Timer fadeTimer = Timer(10);
-        void loopItem(Item &item, bool &reset, float strength);
+        void loopItem(Item &item, bool &trigger, float strength);
         void fadeItem(Item &item);
         void randomizeItem(Item &item, float strength);
 

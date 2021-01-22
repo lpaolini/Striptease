@@ -30,13 +30,11 @@ void Fireworks::loop() {
         }
     }
 
-    bool signal = audioChannel->signalDetected;
-    bool beat = audioChannel->beatDetected;
-    bool trigger = (signal && beat) || (!signal && random8(100) == 0);
+    bool trigger = audioChannel->trigger(5);
 
     if (trigger && items[nextItem].ball.isStable() && inhibitTimer.isElapsed()) {
         inhibitTimer.reset();
-        randomizeItem(items[nextItem], beat ? audioChannel->rms : .1f);
+        randomizeItem(items[nextItem], audioChannel->beatDetected ? audioChannel->rms : .1f);
         nextItem = (nextItem + 1) % ITEMS;
     }
 

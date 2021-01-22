@@ -26,24 +26,22 @@ void Drops::reset() {
 void Drops::loop() {
     strip->paint(BACKGROUND_COLOR);
 
-    bool signal = audioChannel->signalDetected;
-    bool beat = audioChannel->beatDetected;
-    bool reset = (signal && beat) || (!signal && random8(100) == 0);
+    bool trigger = audioChannel->trigger(3);
 
     for (uint8_t i = 0; i < ITEMS; i++) {
-        loopItem(items[i], reset, beat ? audioChannel->rms : .1f);
+        loopItem(items[i], trigger, audioChannel->beatDetected ? audioChannel->rms : .1f);
     }
 }
 
-void Drops::loopItem(Item &item, bool &reset, float strength) {
+void Drops::loopItem(Item &item, bool &trigger, float strength) {
     item.center.loop();
     item.center.color.fadeToBlackBy(item.decay * 5);
 
     item.sides.loop();
     item.sides.color.fadeToBlackBy(item.decay * 2);
 
-    if (!item.sides.color && reset) {
-        reset = false; 
+    if (!item.sides.color && trigger) {
+        trigger = false; 
         randomizeItem(item, strength);
     }
 }

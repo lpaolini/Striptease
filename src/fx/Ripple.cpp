@@ -35,18 +35,16 @@ void Ripple::reset() {
 void Ripple::loop() {
     strip->paint(BACKGROUND_COLOR, false);
 
-    bool signal = audioChannel->signalDetected;
-    bool beat = audioChannel->beatDetected;
-    bool reset = (signal && beat) || !signal;
-
     if (fadeTimer.isElapsed()) {
         for (uint8_t i = 0; i < ITEMS; i++) {
             fadeItem(items[i]);
         }
     }
 
+    bool trigger = audioChannel->trigger(10);
+
     for (uint8_t i = 0; i < ITEMS; i++) {
-        loopItem(items[i], reset, beat ? audioChannel->rms : .1f);
+        loopItem(items[i], trigger, audioChannel->beatDetected ? audioChannel->rms : .1f);
     }
 }
 
@@ -56,11 +54,11 @@ void Ripple::fadeItem(Item &item) {
     }
 }
 
-void Ripple::loopItem(Item &item, bool &reset, float strength) {
+void Ripple::loopItem(Item &item, bool &trigger, float strength) {
     item.ball.loop();
 
-    if (!item.ball.color && reset) {
-        reset = false;
+    if (!item.ball.color && trigger) {
+        trigger = false;
         randomizeItem(item, strength);
     }
 }

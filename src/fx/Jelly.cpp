@@ -32,9 +32,9 @@ void Jelly::loop() {
         strip->fade(FADE_RATE);
     }
 
-    if (moveTimer.isElapsed()) {
-        for (int i = 0; i < ITEMS; i++) {
-            if (random8(5) == 0) {
+    if (audioChannel->trigger(2)) {
+        if (moveTimer.isElapsed()) {
+            for (int i = 0; i < ITEMS; i++) {
                 items[i].setFixedPointPosition(strip->randomExclude(items[i].getPosition(), 5));
             }
         }

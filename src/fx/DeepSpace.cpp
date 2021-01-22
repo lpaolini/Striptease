@@ -26,9 +26,7 @@ void DeepSpace::loop() {
     float dT = time / 1e6;
     time = 0;
 
-    bool trigger = audioChannel->signalDetected
-        ? audioChannel->beatDetected
-        : random8() == 0;
+    bool trigger = audioChannel->trigger(1);
 
     float translationY = SPEED * dT;
     float rotation = 0;

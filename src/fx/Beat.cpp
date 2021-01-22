@@ -48,11 +48,11 @@ void Beat::reset() {
 
 void Beat::loop() {
     strip->off();
-    if (timer.isElapsed()) {
-        if (audioChannel->beatDetected) {
+    if (audioChannel->trigger(3)) {
+        if (timer.isElapsed()) {
             uint16_t pos = (1 + audioChannel->rms) * strip->center(); 
             peak.setPosition(max(peak.getPosition(), pos));
-            peak.setVelocity(-50);
+            peak.setVelocity(-30);
             peakHold.setPosition(max(peakHold.getPosition(), pos));
             peakHold.setVelocity(0);
             peakHoldSlow.setPosition(min(peakHoldSlow.getPosition(), pos));

@@ -17,9 +17,7 @@ void Strobe::loop() {
         strip->blur(100);
     }
 
-    bool trigger = audioChannel->signalDetected
-        ? audioChannel->beatDetected
-        : !random(100);
+    bool trigger = audioChannel->trigger(5);
 
     if (trigger) {
         strip->off();

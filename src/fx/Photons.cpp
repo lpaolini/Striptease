@@ -25,9 +25,8 @@ void Photons::reset() {
 
 void Photons::loop() {
     strip->fade(30);
-    bool signal = audioChannel->signalDetected;
-    bool beat = audioChannel->beatDetected;
-    bool trigger = (signal && beat) || (!signal && random8(100) == 0);
+    bool trigger = audioChannel->trigger(2);
+
     uint8_t photons = MAX_CONCURRENT;
 
     for (uint8_t i = 0; i < NUM_PHOTONS; i++) {

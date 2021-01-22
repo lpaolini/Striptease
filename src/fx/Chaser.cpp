@@ -32,8 +32,8 @@ void Chaser::loop() {
         strip->fade(FADE_RATE);
     }
 
-    if (moveTimer.isElapsed()) {
-        if (random8(5) == 0) {
+    if (audioChannel->trigger(5)) {
+        if (moveTimer.isElapsed()) {
             items[0].setFixedPointPosition(strip->randomExclude(items[0].getPosition(), 5));
         }
     }
