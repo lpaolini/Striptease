@@ -16,8 +16,8 @@ class Fire : public Fx {
         Strip *strip;
         AudioChannel *audioChannel;
         uint8_t *heat;
+        bool trigger;
         CRGBPalette16 palette;
-        bool reversed = false;
         Timer timer = Timer(10);
 
     public:
