@@ -23,22 +23,22 @@ void Matrix::reset() {
 
 void Matrix::loop() {
     if (downInterval.isElapsed()) {
-        down[strip->last()] = random8(DOWN_INVERSE_PROBABILITY) == 0;
+        down[strip->last()] = random8() < DOWN_PROBABILITY;
         for (int i = 0; i < strip->last(); i++) {
             down[i] = down[i + 1];
         }
         show();
     }
-    
+
+    trigger = trigger || audioChannel->trigger(UP_PROBABILITY);
+
     if (upInterval.isElapsed()) {
-        bool trigger = audioChannel->signalDetected
-            ? audioChannel->beatDetected
-            : random8(UP_INVERSE_PROBABILITY) == 0;
         up[0] = trigger;
         for (int i = strip->last(); i > 0; i--) {
             up[i] = up[i - 1];
         }
         show();
+        trigger = false;
     }
 }
 

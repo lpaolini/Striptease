@@ -12,12 +12,13 @@ class Matrix : public Fx {
         const CRGB DOWN_COLOR = CRGB::Green;
         const CRGB UP_COLOR = CRGB::Blue;
         static const unsigned int INTERVAL = 12;
-        static const unsigned int DOWN_INTERVAL = INTERVAL * 1;
-        static const unsigned int DOWN_INVERSE_PROBABILITY = 25;
-        static const unsigned int UP_INTERVAL = INTERVAL * 2;
-        static const unsigned int UP_INVERSE_PROBABILITY = 100;
+        static const unsigned int DOWN_INTERVAL = INTERVAL * 2;
+        static const unsigned int DOWN_PROBABILITY = 10;
+        static const unsigned int UP_INTERVAL = INTERVAL * 1;
+        static const unsigned int UP_PROBABILITY = 2;
         Strip *strip;
         AudioChannel *audioChannel;
+        bool trigger;
         bool *down;
         bool *up;
         void show();
