@@ -32,7 +32,7 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Fire(left, audioSensor->left), new Fire(right, audioSensor->right), new Fire(xmasTree, audioSensor->mono), topBlackout);
     addFx(new Beat(left, audioSensor->left), new Beat(right, audioSensor->right), new Beat(xmasTree, audioSensor->mono), topBlackout);
     addFx(new Blur(left), new Blur(right), new Blur(xmasTree), topBlackout);
-    addFx(new Juggle(left), new Juggle(right), new Juggle(xmasTree), topBlackout);
+    addFx(new Juggle(left, state), new Juggle(right, state), new Juggle(xmasTree, state), topBlackout);
     addFx(new Matrix(left, audioSensor->left), new Matrix(right, audioSensor->right), new Matrix(xmasTree, audioSensor->mono), topBlackout);
     addFx(new Drops(left, audioSensor->left, state), new Drops(right, audioSensor->right, state), new Drops(top, audioSensor->mono, state), new Drops(xmasTree, audioSensor->mono, state));
     addFx(new Scroller(left, audioSensor->left, state), new Scroller(right, audioSensor->right, state), new Scroller(xmasTree, audioSensor->mono, state), topBlackout);

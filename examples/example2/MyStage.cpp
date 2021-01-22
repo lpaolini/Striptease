@@ -25,7 +25,7 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Fire(left, audioSensor->left), new Fire(right, audioSensor->right));
     addFx(new Beat(left, audioSensor->left), new Beat(right, audioSensor->right));
     addFx(new Blur(left), new Blur(right));
-    addFx(new Juggle(left), new Juggle(right));
+    addFx(new Juggle(left, state), new Juggle(right, state));
     addFx(new Matrix(left, audioSensor->left), new Matrix(right, audioSensor->right));
     addFx(new Drops(left, audioSensor->left, state), new Drops(right, audioSensor->right, state));
     addFx(new Scroller(left, audioSensor->left, state), new Scroller(right, audioSensor->right, state));
