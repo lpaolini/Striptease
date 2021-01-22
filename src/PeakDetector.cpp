@@ -17,7 +17,7 @@ PeakDetector::~PeakDetector() {
 
 float PeakDetector::avg() {
     float sum = 0;
-    for (unsigned int i = 0; i < bufferSize; i++) {
+    for (uint16_t i = 0; i < bufferSize; i++) {
         sum += buffer[i];
     }
     return sum / bufferSize;
@@ -25,7 +25,7 @@ float PeakDetector::avg() {
 
 float PeakDetector::stdDev(float mean) {
     float sum = 0;
-    for (unsigned int i = 0; i < bufferSize; i++) {
+    for (uint16_t i = 0; i < bufferSize; i++) {
         sum += pow(buffer[i] - mean, 2);
     }
     return sqrtf(sum / bufferSize);

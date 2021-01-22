@@ -13,14 +13,14 @@ class Volcane: public Fx {
     private:
         static const int NUM_ITEMS = 10;
         struct Item {
-            HarmonicMotion *head = new HarmonicMotion();
-            HarmonicMotion *tail = new HarmonicMotion();
+            HarmonicMotion head;
+            HarmonicMotion tail;
         };
         const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Blue, CRGB::Green);
         Strip *strip;
         AudioChannel *audioChannel;
         State *state;
-        Item *items[NUM_ITEMS];
+        Item items[NUM_ITEMS];
         void restart(Item *item);
 
     public:

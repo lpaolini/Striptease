@@ -6,17 +6,15 @@
 class JoinedStrip : public Strip {
     private: 
         Strip *strip1, *strip2;
-        uint16_t distance;
+        uint16_t gap;
         CRGB *buffer;
         bool isInRange(int16_t index);
         uint16_t limitToRange(int16_t index);
-
-    public:
-        JoinedStrip(Strip *strip, Strip *strip2, uint16_t distance = 0);
-
         CRGB bufferShiftUp(CRGB in);
         CRGB bufferShiftDown(CRGB in);
-        
+
+    public:
+        JoinedStrip(Strip *strip, Strip *strip2, uint16_t gap = 0);
         uint16_t size();
         uint16_t first();
         uint16_t center();
@@ -25,7 +23,6 @@ class JoinedStrip : public Strip {
         uint16_t randomExclude(uint16_t excludeIndex, uint16_t excludeCount = 0);
         uint16_t randomInRange(float from, float to);
         uint16_t fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount = 0);
-
         void off();
         void rainbow(uint8_t initialHue);
         void rainbow(uint8_t initialHue, uint8_t deltaHue);

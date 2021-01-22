@@ -1,16 +1,16 @@
 #include "JoinedStrip.h"
 
-JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, uint16_t distance) {
+JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, uint16_t gap) {
     this->strip1 = strip1;
     this->strip2 = strip2;
-    this->distance = distance;
-    this->buffer = new CRGB[distance];
+    this->gap = gap;
+    this->buffer = new CRGB[gap];
 }
 
 CRGB JoinedStrip::bufferShiftUp(CRGB in) {
-    if (distance > 0) {
-        CRGB out = buffer[distance - 1];
-        for (int i = distance - 1; i > 0 ; i--) {
+    if (gap > 0) {
+        CRGB out = buffer[gap - 1];
+        for (uint16_t i = gap - 1; i > 0 ; i--) {
             buffer[i] = buffer[i - 1];
         }
         buffer[0] = in;
@@ -20,19 +20,19 @@ CRGB JoinedStrip::bufferShiftUp(CRGB in) {
 }
 
 CRGB JoinedStrip::bufferShiftDown(CRGB in) {
-    if (distance > 0) {
+    if (gap > 0) {
         CRGB out = buffer[0];
-        for (int i = 0; i < distance - 1; i++) {
+        for (uint16_t i = 0; i < gap - 1; i++) {
             buffer[i] = buffer[i + 1];
         }
-        buffer[distance - 1] = in;
+        buffer[gap - 1] = in;
         return out;
     }
     return in;
 }
 
 uint16_t JoinedStrip::size() {
-    return strip1->size() + distance + strip2->size();
+    return strip1->size() + gap + strip2->size();
 }
 
 uint16_t JoinedStrip::first() {
@@ -82,7 +82,7 @@ void JoinedStrip::rainbow(uint8_t initialHue) {
 
 void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
     strip1->rainbow(initialHue, deltaHue);
-    strip2->rainbow(initialHue + deltaHue * (strip1->size() + distance), deltaHue);
+    strip2->rainbow(initialHue + deltaHue * (strip1->size() + gap), deltaHue);
 }
 
 void JoinedStrip::fade(uint8_t amount) {
@@ -111,8 +111,8 @@ void JoinedStrip::paint(CRGB color, bool add) {
 bool JoinedStrip::paint(int16_t index, CRGB color, bool add) {
     if (strip1->isInRange(index)) {
         return strip1->paint(index, color, add);
-    } else if (strip2->isInRange(index - strip1->size() - distance)) {
-        return strip2->paint(index - strip1->size() - distance, color, add);
+    } else if (strip2->isInRange(index - strip1->size() - gap)) {
+        return strip2->paint(index - strip1->size() - gap, color, add);
     } else {
         return false;
     }
@@ -121,19 +121,23 @@ bool JoinedStrip::paint(int16_t index, CRGB color, bool add) {
 bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (strip1->isInRange(indexFrom)) {
         if (strip1->isInRange(indexTo)) {
-            // everything is in strip 1
+            // starts and ends in strip 1
             return strip1->paint(indexFrom, indexTo, color, add);
-        } else if (strip2->isInRange(indexTo - strip1->size() - distance)) {
+        } else if (strip2->isInRange(indexTo - strip1->size() - gap)) {
+            // starts in strip 1 and ends in strip 2
             bool s1 = strip1->paint(indexFrom, strip1->last(), color, add);
             bool s2 = strip1->paint(strip2->first(), indexTo - strip1->size(), color, add);
             return s1 || s2;
         } else {
+            // starts in strip 1 and ends in gap
             return strip1->paint(indexFrom, strip1->last(), color, add);
         }
-    } else if (strip2->isInRange(indexFrom - strip1->size() - distance)) {
-        return strip2->paint(indexFrom - strip1->size() - distance, indexTo - strip1->size() - distance, color, add);
+    } else if (strip2->isInRange(indexFrom - strip1->size() - gap)) {
+        // starts and ends in strip 2
+        return strip2->paint(indexFrom - strip1->size() - gap, indexTo - strip1->size() - gap, color, add);
     } else {
-        return strip2->paint(0, indexTo - strip1->size() - distance, color, add);
+        // starts in gap and ends in strip 2
+        return strip2->paint(0, indexTo - strip1->size() - gap, color, add);
     }
 }
 
