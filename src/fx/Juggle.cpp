@@ -1,23 +1,29 @@
 #include "Juggle.h"
 
-Juggle::Juggle(Strip *strip) {
+Juggle::Juggle(Strip *strip, State *state) {
     this->strip = strip;
-    for(uint8_t i = 0; i < dots; i++) {
+    this->state = state;
+    for(uint8_t i = 0; i < DOTS; i++) {
         pixel[i].setup(strip);
     }
 }
 
 void Juggle::reset() {
     clear(strip);
-    for(uint8_t i = 0; i < dots; i++) {
+    for(uint8_t i = 0; i < DOTS; i++) {
         pixel[i].reset();
     }
+    fadeTimer = 0;
 }
 
 void Juggle::loop() {
-    strip->fade(faderate);
+    if (fadeTimer >= 10) {
+        fadeTimer -= 10;
+        strip->fade(MIN_FADE_RATE + state->linearFxSpeed * (MAX_FADE_RATE - MIN_FADE_RATE));
+    }
     
-    for(uint8_t i = 0; i < dots; i++) {
-        pixel[i].set(beatsin16(basebeat + i, 0, strip->last()), CHSV(hue + i * hueIncrement, saturation, brightness));
+    for(uint8_t i = 0; i < DOTS; i++) {
+        uint8_t beat = MIN_BEAT + state->linearFxSpeed * (MAX_BEAT - MIN_BEAT) + i;
+        pixel[i].set(beatsin16(beat, 0, strip->last()), CHSV(i * HUE_INCREMENT, 255, 255));
     }
 }

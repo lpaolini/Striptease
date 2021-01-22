@@ -5,25 +5,23 @@
 #include <FastLED.h>
 #include "Fx.h"
 #include "Pixel.h"
+#include "State.h"
 
 class Juggle : public Fx {
     private:
         static const uint8_t DOTS = 5;
+        static const uint8_t HUE_INCREMENT = 40;
+        static const uint8_t MIN_BEAT = 1;
+        static const uint8_t MAX_BEAT = 15;
+        static const uint8_t MIN_FADE_RATE = 1; 
+        static const uint8_t MAX_FADE_RATE = 10; 
         Strip *strip;
+        State *state;
         Pixel pixel[DOTS];
-        
-        uint8_t dots = DOTS ;
-        uint8_t hueIncrement = 40;
-
-        uint8_t hue = 0;
-        uint8_t saturation = 255;
-        uint8_t brightness = 255; 
-
-        uint8_t basebeat = 10;
-        uint8_t faderate = 2; 
+        elapsedMillis fadeTimer;
 
     public:
-        Juggle(Strip *strip);
+        Juggle(Strip *strip, State *state);
         void loop();
         void reset();
 };
