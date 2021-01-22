@@ -5,6 +5,12 @@
 ### Controller
 - allow direct effect selection to enter play mode (e.g. when pressing a number on the remote)
 
+### DeepSpace effect
+- implemented direction changes
+
+### Juggle
+- implemented speed adjustment
+
 # version 1.1.1
 
 ## Bugfixes
