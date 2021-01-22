@@ -17,7 +17,7 @@ AudioSensor::AudioSensor() {
 }
 
 void AudioSensor::setup() {
-    AudioMemory(20);
+    AudioMemory(MAX_MEMORY_BLOCKS);
     audioShield->enable();
     audioShield->volume(0);
     setLineInput();
