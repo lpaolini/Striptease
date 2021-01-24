@@ -1,3 +1,20 @@
+# version 1.1.3
+
+## HARDWARE FIX
+Circuit for Teensy 4.1 has been fixed.
+
+Previous version contained a serious flaw. Three pads, which looked grounded in the schematics, actually were not.
+In particular, one of these caused the OE input ("output enable") of the level shifter (74HCT245) to be floating and thus in undefined state.
+
+This caused the LED strip to freeze at random times.
+
+In case you have already ordered your PCB and it's too late to cancel, the simplest fix is to scratch a bit the solder mask around those three pads and solder to the pin.
+Given all unused copper is grounded, this would effectively connect those pins to ground, as shown in red in the picture (bottom view).
+
+I apologize for this.
+
+![PCB-fix](hardware/img/pcb-fix.jpg)
+
 # version 1.1.2
 
 ## Additions and improvements
