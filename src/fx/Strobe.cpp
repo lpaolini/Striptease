@@ -22,7 +22,7 @@ void Strobe::loop() {
     if (trigger) {
         strip->off();
         int count = random8(2, 5);
-        CRGB color = ColorFromPalette(Strobe_PALETTE, state->fastRotatingHue);
+        CRGB color = ColorFromPalette(PALETTE, state->fastRotatingHue);
         for (int i = 0; i < count; i++) {
             strip->paintRandomPos(SEGMENT_SIZE, color);
         }

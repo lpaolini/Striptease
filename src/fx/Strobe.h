@@ -11,7 +11,7 @@
 class Strobe : public Fx {
     private:
         const uint8_t SEGMENT_SIZE = 10;
-        const CRGBPalette16 Strobe_PALETTE = CRGBPalette16(CRGB::Red, CRGB::Blue, CRGB::HotPink, CRGB::Aqua);
+        const CRGBPalette16 PALETTE = CRGBPalette16(PartyColors_p);
         Strip *strip;
         AudioChannel *audioChannel;
         State *state;
