@@ -58,6 +58,8 @@ class Controller {
         void setMode(Mode mode = PLAY, unsigned long duration = 0);
 
         void setInput(Input input, bool feedback);
+        void setLineInput(uint8_t level);
+        void setMicInput(uint8_t level);
         void toggleInput();
         void increaseInputSensitivity();
         void decreaseInputSensitivity();

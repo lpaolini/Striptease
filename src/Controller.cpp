@@ -110,6 +110,16 @@ void Controller::setInput(Input input, bool feedback = true) {
     }
 }
 
+void Controller::setLineInput(uint8_t level) {
+    setInput(line, false);
+    audioSensor->setLineInLevel(level);
+}
+
+void Controller::setMicInput(uint8_t gain) {
+    setInput(mic, false);
+    audioSensor->setMicGain(gain);
+}
+
 void Controller::toggleInput() {
     switch (input) {
         case mic:
