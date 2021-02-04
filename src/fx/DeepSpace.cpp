@@ -101,7 +101,7 @@ void DeepSpace::randomizeItem(Item &item) {
     long distance = random(MIN_DISTANCE, MAX_DISTANCE);
     float angle = random(0, 18000) / (100 * PI);
     item.point = Point::fromPolar(distance, angle);
-    item.type = random(100) < 100 * state->parabolicFxSpeed 
+    item.type = random(100) < (5 + 95 * state->parabolicFxSpeed)
         ? BLUE
         : HIDDEN;
     item.pixel.reset();
