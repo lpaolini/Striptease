@@ -9,16 +9,15 @@
 
 class Fire : public Fx {
     private:
-        const int SPARKING = 50;
+        const int SPARKING = 5;
         const int COOLING = 55;
-        const CRGBPalette16 HOT = CRGBPalette16(CRGB::Black, CRGB::Red, CRGB::Yellow, CRGB::White);
+        const CRGBPalette16 HOT = CRGBPalette16(HeatColors_p);
         const CRGBPalette16 COLD = CRGBPalette16(CRGB::Black, CRGB::Blue, CRGB::Aqua, CRGB::White);
         Strip *strip;
         AudioChannel *audioChannel;
         uint8_t *heat;
-        bool trigger;
         CRGBPalette16 palette;
-        Timer timer = Timer(10);
+        Timer timer = Timer(5);
 
     public:
         Fire(Strip *strip, AudioChannel *audioChannel);
