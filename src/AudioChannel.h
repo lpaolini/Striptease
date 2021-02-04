@@ -24,6 +24,7 @@ class AudioChannel {
         void detectSignal(float value);
         void detectBeat(float value);
         Timer peakFadeTimer = Timer(10);
+        bool beatWasDetected = false;
 
     public:
         float rms = 0;
@@ -38,6 +39,7 @@ class AudioChannel {
         AudioChannel();
         void loop(AudioAnalyzePeak *peak = nullptr, AudioAnalyzeRMS *rms = nullptr, AudioAnalyzeFFT256 *fft = nullptr);
         bool trigger(uint8_t noSignalRandomness = 0, uint8_t signalRandomness = 0);
+        void resetTrigger();
 };
 
 #endif
