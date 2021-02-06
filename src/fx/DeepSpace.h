@@ -14,15 +14,12 @@
 
 class DeepSpace : public Fx {
     private:
-        enum Type {HIDDEN, BLUE, PULSE, RED};
+        enum Type {HIDDEN, NORMAL, HIGHLIGHT};
         struct Item {
             Point point;
             Pixel pixel;
             Type type;
         };
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         static const uint16_t ITEMS = 250;
         static const uint16_t SPEED = 500;
         static constexpr float MIN_DISTANCE = 500;
@@ -33,7 +30,9 @@ class DeepSpace : public Fx {
         static constexpr float MAX_STEERING = 150;
         static constexpr float MIN_TRANSITION_SPEED = 100;
         static constexpr float MAX_TRANSITION_SPEED = 500;
-        
+        Strip *strip;
+        AudioChannel *audioChannel;
+        State *state;        
         Item items[ITEMS];
         elapsedMicros time;
         float steeringAngle = 0;

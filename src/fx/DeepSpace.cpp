@@ -4,14 +4,14 @@ DeepSpace::DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state) {
     this->strip = strip;
     this->audioChannel = audioChannel;
     this->state = state;
-    for (uint8_t i = 0; i < ITEMS; i++) {
+    for (uint16_t i = 0; i < ITEMS; i++) {
         items[i].pixel.setup(strip);
     }
 }
 
 void DeepSpace::reset() {
     clear(strip);
-    for (uint8_t i = 0; i < ITEMS; i++) {
+    for (uint16_t i = 0; i < ITEMS; i++) {
         randomizeItem(items[i]);
     }
     time = 0;
@@ -57,7 +57,7 @@ void DeepSpace::loop() {
         rotation = steeringAngle * Easing::deltaEaseInOutCubic(transition, previousTransition) / 180 * TWO_PI;
     }
 
-    for (uint8_t i = 0; i < ITEMS; i++) {
+    for (uint16_t i = 0; i < ITEMS; i++) {
         loopItem(items[i], translationY, rotation, trigger);
     }
 }
@@ -76,17 +76,17 @@ void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &t
     float pos = min(max(0, 1 - (angle / PI)), 1);
     uint8_t brightness = min(255, 5 * MAX_SQUARED_DISTANCE / distanceSquared);
 
-    if (trigger && item.type == BLUE && distance < MAX_MUTATION_DISTANCE) {
+    if (trigger && item.type == NORMAL && distance < MAX_MUTATION_DISTANCE) {
         trigger = false;
-        item.type = RED;
+        item.type = HIGHLIGHT;
     }
 
     CRGB color;
     switch (item.type) {
-        case BLUE:
+        case NORMAL:
             color = CHSV(160, 255, brightness);
             break;
-        case RED:
+        case HIGHLIGHT:
             color = CHSV(0, 255, brightness);
             break;
         default:
@@ -98,11 +98,11 @@ void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &t
 }
 
 void DeepSpace::randomizeItem(Item &item) {
-    long distance = random(MIN_DISTANCE, MAX_DISTANCE);
+    float distance = random(MIN_DISTANCE, MAX_DISTANCE);
     float angle = random(0, 18000) / (100 * PI);
     item.point = Point::fromPolar(distance, angle);
     item.type = random(100) < (5 + 95 * state->parabolicFxSpeed)
-        ? BLUE
+        ? NORMAL
         : HIDDEN;
     item.pixel.reset();
 }
