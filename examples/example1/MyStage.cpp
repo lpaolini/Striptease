@@ -11,14 +11,16 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addStrip(top);
     addStrip(xmasTree);
 
+    JoinedStrip *front = new JoinedStrip(new ReversedStrip(left), right, 2);
+
     Fx *topBlackout = new Blackout(top);
     Fx *xmasBlackout = new Blackout(xmasTree);
 
-    addFx(new Rainbow(left, state), new Rainbow(right, state, 128), new Rainbow(top, state), new Rainbow(xmasTree, state));
+    addFx(new Rainbow(front, state), new Rainbow(top, state), new Rainbow(xmasTree, state));
     addFx(new Volcane(left, audioSensor->left, state), new Volcane(right, audioSensor->right, state), topBlackout, new Volcane(xmasTree, audioSensor->mono, state));
-    addFx(new Jelly(left, audioSensor->left, state), new Jelly(right, audioSensor->right, state), new Jelly(xmasTree, audioSensor->mono, state), topBlackout);
-    addFx(new Chaser(left, audioSensor->left, state), new Chaser(right, audioSensor->right, state), topBlackout, new Chaser(xmasTree, audioSensor->mono, state));
-    addFx(new Glitter(left, state), new Glitter(right, state), new Glitter(top, state), new Glitter(xmasTree, state));
+    addFx(new Jelly(left, audioSensor->left, state), new Jelly(right, audioSensor->right, state), new Jelly(xmasTree, audioSensor->mono, state), new Jelly(top, audioSensor->mono, state));
+    addFx(new Chaser(left, audioSensor->left, state), new Chaser(right, audioSensor->right, state), topBlackout, new Chaser(xmasTree, audioSensor->mono, state), new Chaser(top, audioSensor->mono, state));
+    addFx(new Glitter(front, state), new Glitter(top, state), new Glitter(xmasTree, state));
     addFx(new Orbit(left, state), new Orbit(right, state, 120), topBlackout, new Orbit(xmasTree, state));
     addFx(new VU1(left, audioSensor->left), new VU1(right, audioSensor->right), new VU1(xmasTree, audioSensor->mono), topBlackout);
     addFx(new Elastic(left, audioSensor->left, state), new Elastic(right, audioSensor->right, state), new Elastic(top, audioSensor->mono, state), new Elastic(xmasTree, audioSensor->mono, state));
@@ -32,13 +34,14 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Fire(left, audioSensor->left), new Fire(right, audioSensor->right), new Fire(xmasTree, audioSensor->mono), topBlackout);
     addFx(new Beat(left, audioSensor->left), new Beat(right, audioSensor->right), new Beat(xmasTree, audioSensor->mono), topBlackout);
     addFx(new Blur(left), new Blur(right), new Blur(xmasTree), topBlackout);
-    addFx(new Juggle(left, state), new Juggle(right, state), new Juggle(xmasTree, state), topBlackout);
-    addFx(new Matrix(left, audioSensor->left), new Matrix(right, audioSensor->right), new Matrix(xmasTree, audioSensor->mono), topBlackout);
+    addFx(new Juggle(left, state), new Juggle(right, state), new Juggle(xmasTree, state), new Juggle(top, state));
+    addFx(new Matrix(front, audioSensor->mono), new Matrix(xmasTree, audioSensor->mono), new Matrix(top, audioSensor->mono));
     addFx(new Drops(left, audioSensor->left, state), new Drops(right, audioSensor->right, state), new Drops(top, audioSensor->mono, state), new Drops(xmasTree, audioSensor->mono, state));
     addFx(new Scroller(left, audioSensor->left, state), new Scroller(right, audioSensor->right, state), new Scroller(xmasTree, audioSensor->mono, state), topBlackout);
     addFx(new Fireworks(left, audioSensor->left, state), new Fireworks(right, audioSensor->right, state), new Fireworks(top, audioSensor->mono, state), new Fireworks(xmasTree, audioSensor->mono, state));
     addFx(new Vertigo(left, audioSensor->left, state), new Vertigo(right, audioSensor->right, state), topBlackout, new Vertigo(xmasTree, audioSensor->mono, state));
-    addFx(new DeepSpace(left, audioSensor->left, state), new DeepSpace(right, audioSensor->right, state), topBlackout, xmasBlackout);
+    addFx(new DeepSpace(front, audioSensor->mono, state), topBlackout, xmasBlackout);
+    addFx(new ColorBar(front, state), new ColorBar(top, state), xmasBlackout);
     
     setCycleSpeedFx(new CycleSpeed(left, state), new CycleSpeed(right, state));
     setSpeedMeterFx(new SpeedMeter(left, state), new SpeedMeter(right, state));
@@ -50,4 +53,5 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     FastLED.addLeds<WS2812SERIAL, STRIP_TOP_PIN, BRG>(topArray, topArray.size());
     FastLED.addLeds<WS2812SERIAL, STRIP_XMASTREE_PIN, BRG>(xmasTreeArray, xmasTreeArray.size());
     FastLED.setMaxPowerInMilliWatts(1000 * MAX_WATTS);
+    FastLED.setCorrection(TypicalSMD5050);
 }

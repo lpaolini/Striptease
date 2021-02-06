@@ -13,6 +13,7 @@ Controller *controller = new Controller(stage, audioSensor, state);
 Remote *remote = new SonyRemote_RMD420(controller);
 SerialRemote *serialRemote = new SerialRemote(controller);
 
+
 void init() {
     Serial.begin(115200);
     randomSeed(analogRead(0));
@@ -23,6 +24,7 @@ void setup() {
     audioSensor->setup();
     state->setup();
     controller->setup();
+    controller->setMicInput(50);
     remote->setup();
     serialRemote->setup();
 }
