@@ -11,7 +11,7 @@ class AudioSensor {
         static const uint8_t DEFAULT_MIC_GAIN = 40;
         static const uint8_t DEFAULT_LINE_IN_LEVEL = 5;
         static const uint8_t MAX_MEMORY_BLOCKS = 8;
-        static const float LOWPASS_FREQUENCY = 250;
+        static constexpr float LOWPASS_FREQUENCY = 250;
 
         AudioInputI2S audioInput;
 
