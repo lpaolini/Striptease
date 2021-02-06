@@ -1,3 +1,40 @@
+# version 1.1.4
+
+## Bugfixes
+
+### DeepSpace effect
+- fixed bug causing freezing under certain circumstances
+- set a minimum for number of items
+
+## Additions and improvements
+
+### AudioChannel
+- allowed trigger to accumulate beat detection over multiple loops
+
+### Controller
+- added methods for presetting input (line or mic) and level
+
+### Brightness
+- reduced minimum brightness
+
+### IRMP library
+- updated to version 3.4.0
+
+### ColorBar effect
+- added extremely simple, static, single color effect
+
+### SpeedMeter effect
+- changed background color to pure blue to avoid color deviations
+
+### Fire effect
+- improved sound responsiveness
+
+### Matrix effect
+- improved sound responsiveness
+
+### Strobe effect
+- replaced color palette
+
 # version 1.1.3
 
 ## HARDWARE FIX
