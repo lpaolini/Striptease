@@ -22,6 +22,7 @@ class AudioChannel {
         PeakDetector beatDetector = PeakDetector(BUFFER_SIZE, PEAK_FACTOR, PEAK_INFLUENCE, PEAK_INHIBIT_MS, PEAK_THRESHOLD);
         void feedPeak(float value);
         void feedRMS(float value);
+        void feedRMSLow(float value);
         void detectSignal(float value);
         void detectBeat(float value);
         Timer peakFadeTimer = Timer(10);
@@ -29,6 +30,7 @@ class AudioChannel {
 
     public:
         float rms = 0;
+        float rmsLow = 0;
         float peak = 0;
         float peakSmooth = 0;
         float peakHold = 0;
@@ -38,7 +40,7 @@ class AudioChannel {
         float fftBin[FFT_BINS];
 
         AudioChannel();
-        void loop(AudioAnalyzePeak *peak = nullptr, AudioAnalyzeRMS *rms = nullptr, AudioAnalyzeFFT256 *fft = nullptr);
+        void loop(AudioAnalyzePeak *peak = nullptr, AudioAnalyzeRMS *rms = nullptr, AudioAnalyzeRMS *rmsLow = nullptr, AudioAnalyzeFFT256 *fft = nullptr);
         bool trigger(uint8_t noSignalRandomness = 0, uint8_t signalRandomness = 0);
         void resetTrigger();
 };

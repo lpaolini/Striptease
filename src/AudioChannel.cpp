@@ -14,6 +14,10 @@ void AudioChannel::feedPeak(float value) {
 void AudioChannel::feedRMS(float value) {
     rms = value;
     detectSignal(value);
+}
+
+void AudioChannel::feedRMSLow(float value) {
+    rmsLow = value;
     detectBeat(value);
 }
 
@@ -32,12 +36,15 @@ void AudioChannel::detectBeat(float value) {
     beatWasDetected = beatWasDetected || beatDetected;
 }
 
-void AudioChannel::loop(AudioAnalyzePeak *peak, AudioAnalyzeRMS *rms, AudioAnalyzeFFT256 *fft) {
+void AudioChannel::loop(AudioAnalyzePeak *peak, AudioAnalyzeRMS *rms, AudioAnalyzeRMS *rmsLow, AudioAnalyzeFFT256 *fft) {
     if (peak != nullptr && peak->available()) {
         feedPeak(peak->read());
     }
     if (rms != nullptr && rms->available()) {
         feedRMS(rms->read());
+    }
+    if (rmsLow != nullptr && rmsLow->available()) {
+        feedRMSLow(rmsLow->read());
     }
     if (fft != nullptr && fft->available()) {
         for (int i = 0; i < FFT_BINS; i++) {
