@@ -27,6 +27,7 @@
 #include "fx/Blackout.h"
 #include "fx/Blur.h"
 #include "fx/Chaser.h"
+#include "fx/ColorBar.h"
 #include "fx/DeepSpace.h"
 #include "fx/Drops.h"
 #include "fx/Strobe.h"
