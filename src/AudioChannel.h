@@ -10,6 +10,7 @@
 class AudioChannel {
     private:
         static const int BUFFER_SIZE = 256; // 2.9ms * 256 ~= 0.74s
+        static const int FFT_BINS = 128;
         static const int SIGNAL_HOLD_MS = 10000;
         static constexpr float SIGNAL_THRESHOLD = .01f;
         static constexpr float PEAK_FACTOR = 2.2f;
@@ -34,7 +35,7 @@ class AudioChannel {
         bool signalDetected = false;
         bool beatDetected = false;
         bool clipping = false;
-        float fftBin[40];
+        float fftBin[FFT_BINS];
 
         AudioChannel();
         void loop(AudioAnalyzePeak *peak = nullptr, AudioAnalyzeRMS *rms = nullptr, AudioAnalyzeFFT256 *fft = nullptr);

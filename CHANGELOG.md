@@ -1,3 +1,10 @@
+# version 1.1.5
+
+## Bugfixes
+
+### AudioChannel
+- fixed wrong number of FFT bins, now 128 (it was 40)
+
 # version 1.1.4
 
 ## Bugfixes

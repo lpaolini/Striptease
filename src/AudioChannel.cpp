@@ -40,7 +40,7 @@ void AudioChannel::loop(AudioAnalyzePeak *peak, AudioAnalyzeRMS *rms, AudioAnaly
         feedRMS(rms->read());
     }
     if (fft != nullptr && fft->available()) {
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < FFT_BINS; i++) {
             fftBin[i] = fft->read(i);
         }
     }
