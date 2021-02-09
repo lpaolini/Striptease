@@ -2,16 +2,17 @@
 #define JoinedStrip_h
 
 #include "Strip.h"
+#include "PhysicalStrip.h"
 
 class JoinedStrip : public Strip {
     private: 
         Strip *strip1, *strip2;
         uint16_t gap;
         CRGB *buffer;
+        CRGBSet *bufferSet;
+        PhysicalStrip *gapStrip;
         bool isInRange(int16_t index);
         uint16_t limitToRange(int16_t index);
-        CRGB bufferShiftUp(CRGB in);
-        CRGB bufferShiftDown(CRGB in);
 
     public:
         JoinedStrip(Strip *strip, Strip *strip2, uint16_t gap = 0);
@@ -26,10 +27,16 @@ class JoinedStrip : public Strip {
         void off();
         void rainbow(uint8_t initialHue);
         void rainbow(uint8_t initialHue, uint8_t deltaHue);
+        void rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo);
+        void rainbow(uint8_t initialHue, uint8_t deltaHue, uint16_t indexFrom, uint16_t indexTo);
         void fade(uint8_t amount);
+        void fade(uint8_t amount, uint16_t indexFrom, uint16_t indexTo);
         void blur(uint8_t amount);
+        void blur(uint8_t amount, uint16_t indexFrom, uint16_t indexTo);
         CRGB shiftUp(CRGB in = CRGB::Black);
+        CRGB shiftUp(uint16_t indexFrom, uint16_t indexTo, CRGB in = CRGB::Black);
         CRGB shiftDown(CRGB in = CRGB::Black);
+        CRGB shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in = CRGB::Black);
         void paint(CRGB color, bool add = false);
         bool paint(int16_t index, CRGB color, bool add = true);
         bool paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true);

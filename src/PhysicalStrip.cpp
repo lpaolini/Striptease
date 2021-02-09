@@ -5,6 +5,11 @@ PhysicalStrip::PhysicalStrip(CRGBSet &leds, uint16_t density) {
     this->density = density;
 }
 
+PhysicalStrip::PhysicalStrip(CRGBSet *leds, uint16_t density) {
+    this->leds = leds;
+    this->density = density;
+}
+
 uint16_t PhysicalStrip::size() {
     return leds->size();
 }
@@ -46,41 +51,78 @@ uint16_t PhysicalStrip::limitToRange(int16_t index) {
 }
 
 void PhysicalStrip::off() {
-    *leds = CRGB::Black;
+    paint(CRGB::Black);
 }
 
 void PhysicalStrip::rainbow(uint8_t initialHue) {
-    rainbow(initialHue, max(255 / size(), 1));
+    rainbow(initialHue, first(), last());
 }
 
 void PhysicalStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
-    leds->fill_rainbow(initialHue, deltaHue);
+    rainbow(initialHue, deltaHue, first(), last());
+}
+
+void PhysicalStrip::rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo) {
+    uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
+    rainbow(initialHue, deltaHue, indexFrom, indexTo);
+}
+
+void PhysicalStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, uint16_t indexFrom, uint16_t indexTo) {
+    (*leds)(limitToRange(indexFrom), limitToRange(indexTo)).fill_rainbow(initialHue, deltaHue);
 }
 
 void PhysicalStrip::fade(uint8_t amount) {
     leds->fadeToBlackBy(amount);
 }
 
+void PhysicalStrip::fade(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+    (*leds)(limitToRange(indexFrom), limitToRange(indexTo)).fadeToBlackBy(amount);
+}
+
 void PhysicalStrip::blur(uint8_t amount) {
     leds->blur1d(amount);
 }
 
+void PhysicalStrip::blur(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+    (*leds)(limitToRange(indexFrom), limitToRange(indexTo)).blur1d(amount);
+}
+
 CRGB PhysicalStrip::shiftUp(CRGB in) {
-    CRGB out = (*leds)[last()];
-    for (int i = last(); i > 0 ; i--) {
-        (*leds)[i] = (*leds)[i - 1];
+    return shiftUp(first(), last(), in);
+}
+
+CRGB PhysicalStrip::shiftUp(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+    uint16_t firstIndex = limitToRange(indexFrom);
+    uint16_t lastIndex = limitToRange(indexTo);
+    if (lastIndex > firstIndex) {
+        CRGB out = (*leds)[lastIndex];
+        for (uint16_t i = lastIndex; i > firstIndex ; i--) {
+            (*leds)[i] = (*leds)[i - 1];
+        }
+        (*leds)[firstIndex] = in;
+        return out;
+    } else {
+        return in;
     }
-    (*leds)[first()] = in;
-    return out;
 }
 
 CRGB PhysicalStrip::shiftDown(CRGB in) {
-    CRGB out = (*leds)[first()];
-    for (int i = 0; i < last(); i++) {
-        (*leds)[i] = (*leds)[i + 1];
+    return shiftDown(first(), last(), in);
+}
+
+CRGB PhysicalStrip::shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+    uint16_t firstIndex = limitToRange(indexFrom);
+    uint16_t lastIndex = limitToRange(indexTo);
+    if (lastIndex > firstIndex) {
+        CRGB out = (*leds)[firstIndex];
+        for (uint16_t i = firstIndex; i < lastIndex; i++) {
+            (*leds)[i] = (*leds)[i + 1];
+        }
+        (*leds)[lastIndex] = in;
+        return out;
+    } else {
+        return in;
     }
-    (*leds)[last()] = in;
-    return out;
 }
 
 void PhysicalStrip::paint(CRGB color, bool add) {

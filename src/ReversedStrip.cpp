@@ -49,28 +49,52 @@ void ReversedStrip::off() {
 }
 
 void ReversedStrip::rainbow(uint8_t initialHue) {
-    uint8_t deltaHue = max(255 / size(), 1);
-    rainbow(initialHue, deltaHue);
+    rainbow(initialHue, first(), last());
 }
 
 void ReversedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
-    strip->rainbow(initialHue + strip->last() * deltaHue, -deltaHue);
+    rainbow(initialHue, deltaHue, first(), last());
+}
+
+void ReversedStrip::rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo) {
+    uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
+    rainbow(initialHue, deltaHue, indexFrom, indexTo);
+}
+
+void ReversedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, uint16_t indexFrom, uint16_t indexTo) {
+    strip->rainbow(initialHue + (indexTo - indexFrom + 1) * deltaHue, -deltaHue, strip->last() - limitToRange(indexFrom), strip->last() - limitToRange(indexTo));
 }
 
 void ReversedStrip::fade(uint8_t amount) {
     strip->fade(amount);
 }
 
+void ReversedStrip::fade(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+    strip->fade(amount, strip->last() - indexFrom, strip->last() - indexTo);
+}
+
 void ReversedStrip::blur(uint8_t amount) {
     strip->blur(amount);
 }
 
+void ReversedStrip::blur(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+    strip->blur(amount, strip->last() - indexFrom, strip->last() - indexTo);
+}
+
 CRGB ReversedStrip::shiftUp(CRGB in) {
-    return strip->shiftDown(in);
+    return shiftUp(first(), last(), in);
+}
+
+CRGB ReversedStrip::shiftUp(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+    return strip->shiftDown(strip->last() - indexTo, strip->last() - indexFrom, in);
 }
 
 CRGB ReversedStrip::shiftDown(CRGB in) {
-    return strip->shiftUp(in);
+    return shiftDown(first(), last(), in);
+}
+
+CRGB ReversedStrip::shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+    return strip->shiftUp(strip->last() - indexTo, strip->last() - indexFrom, in);
 }
 
 void ReversedStrip::paint(CRGB color, bool add) {

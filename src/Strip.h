@@ -18,11 +18,17 @@ class Strip {
 
         virtual void off();
         virtual void rainbow(uint8_t initialHue);
+        virtual void rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo);
         virtual void rainbow(uint8_t initialHue, uint8_t deltaHue);
+        virtual void rainbow(uint8_t initialHue, uint8_t deltaHue, uint16_t indexFrom, uint16_t indexTo);
         virtual void fade(uint8_t amount);
+        virtual void fade(uint8_t amount, uint16_t indexFrom, uint16_t indexTo);
         virtual void blur(uint8_t amount);
+        virtual void blur(uint8_t amount, uint16_t indexFrom, uint16_t indexTo);
         virtual CRGB shiftUp(CRGB in = CRGB::Black);
+        virtual CRGB shiftUp(uint16_t indexFrom, uint16_t indexTo, CRGB in = CRGB::Black);
         virtual CRGB shiftDown(CRGB in = CRGB::Black);
+        virtual CRGB shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in = CRGB::Black);
         virtual void paint(CRGB color, bool add = false);
         virtual bool paint(int16_t index, CRGB color, bool add = true);
         virtual bool paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true);
