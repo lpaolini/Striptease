@@ -23,6 +23,7 @@ class Controller {
         static const unsigned long SENSITIVITY_TIMER_DURATION = 60000;
         static const unsigned long FX_SPEED_TIMER_DURATION = 500;
         static const unsigned long CYCLE_SPEED_TIMER_DURATION = 3000;
+        static const bool SHOW_STATS = false;
         Stage *stage;
         AudioSensor *audioSensor;
         State *state;
@@ -36,7 +37,7 @@ class Controller {
         Mode mode = PLAY;
         Timer cycleTimer = Timer(0, false);
         Timer modeTimer = Timer(0, false);
-        Timer fpsTimer = Timer(10000, false);
+        Timer statsTimer = Timer(10000, true);
         void saveParam();
         void loadParam();
         void resetCycleTimer();

@@ -15,7 +15,9 @@ void Controller::setup() {
     brightness->init();
     pause();
     selectFx(0);
-    // fpsTimer.reset();
+    if (SHOW_STATS) {
+        statsTimer.reset();
+    }
 }
 
 void Controller::loop() {
@@ -58,9 +60,10 @@ void Controller::loop() {
         }
     }
 
-    if (fpsTimer.isElapsed()) {
+    if (statsTimer.isElapsed()) {
         Serial.print("FPS: ");
         Serial.println(FastLED.getFPS());
+        audioSensor->printStats();
     }
 
     brightness->loop();
