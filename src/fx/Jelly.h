@@ -5,6 +5,7 @@
 #include <FastLED.h>
 #include "Fx.h"
 #include "AudioSensor.h"
+#include "AudioTrigger.h"
 #include "HarmonicMotion.h"
 #include "State.h"
 #include "Timer.h"
@@ -19,12 +20,14 @@ class Jelly : public Fx {
         Strip *strip;
         AudioChannel *audioChannel;
         State *state;
+        AudioTrigger *audioTrigger;
         HarmonicMotion items[ITEMS];
         Timer moveTimer = Timer(100, true);
         Timer fadeTimer = Timer(10, true);
 
     public:
         Jelly(Strip *strip, AudioChannel *audioChannel, State *state);
+        ~Jelly();
         void loop();
         void reset();
 };

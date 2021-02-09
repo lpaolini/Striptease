@@ -5,6 +5,7 @@
 #include <FastLED.h>
 #include "Fx.h"
 #include "AudioSensor.h"
+#include "AudioTrigger.h"
 #include "HarmonicMotion.h"
 #include "State.h"
 #include "Timer.h"
@@ -21,6 +22,7 @@ class Vertigo : public Fx {
         Strip *strip;
         AudioChannel *audioChannel;
         State *state;
+        AudioTrigger *audioTrigger;
         Item items[ITEMS];
         uint8_t nextItem = 0;
         Timer fadeTimer = Timer(10);
@@ -29,6 +31,7 @@ class Vertigo : public Fx {
 
     public:
         Vertigo(Strip *strip, AudioChannel *audioChannel, State *state);
+        ~Vertigo();
         void loop();
         void reset();
 };

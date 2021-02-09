@@ -4,9 +4,14 @@ Fireworks::Fireworks(Strip *strip, AudioChannel *audioChannel, State *state) {
     this->strip = strip;
     this->audioChannel = audioChannel;
     this->state = state;
+    audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].ball.setup(strip);
     }
+}
+
+Fireworks::~Fireworks() {
+    delete audioTrigger;
 }
 
 void Fireworks::reset() {
@@ -18,6 +23,7 @@ void Fireworks::reset() {
     }
     fadeTimer.reset();
     inhibitTimer.reset();
+    audioTrigger->reset();
 }
 
 void Fireworks::loop() {
@@ -30,7 +36,7 @@ void Fireworks::loop() {
         }
     }
 
-    bool trigger = audioChannel->trigger(5);
+    bool trigger = audioTrigger->triggered(2        );
 
     if (trigger && items[nextItem].ball.isStable() && inhibitTimer.isElapsed()) {
         inhibitTimer.reset();

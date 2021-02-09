@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <math.h>
 #include "AudioChannel.h"
+#include "AudioTrigger.h"
 #include "Easing.h"
 #include "Fx.h"
 #include "Pixel.h"
@@ -33,6 +34,7 @@ class DeepSpace : public Fx {
         Strip *strip;
         AudioChannel *audioChannel;
         State *state;        
+        AudioTrigger *audioTrigger;
         Item items[ITEMS];
         elapsedMicros time;
         float steeringAngle = 0;
@@ -44,6 +46,7 @@ class DeepSpace : public Fx {
 
     public:
         DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state);
+        ~DeepSpace();
         void loop();
         void reset();
 };

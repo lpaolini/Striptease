@@ -4,6 +4,7 @@ Ants::Ants(Strip *strip, AudioChannel *audioChannel, State *state) {
     this->strip = strip;
     this->audioChannel = audioChannel;
     this->state = state;
+    audioTrigger = new AudioTrigger(audioChannel);
     items = new Item[ITEMS];
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].item.setup(strip);
@@ -11,6 +12,7 @@ Ants::Ants(Strip *strip, AudioChannel *audioChannel, State *state) {
 }
 
 Ants::~Ants() {
+    delete audioTrigger;
     delete[] items;
 }
 
@@ -19,12 +21,13 @@ void Ants::reset() {
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].item.reset();
     }
+    audioTrigger->reset();
 }
 
 void Ants::loop() {
     strip->off();
 
-    bool trigger = audioChannel->trigger(3);
+    bool trigger = audioTrigger->triggered(.5);
 
     for (uint8_t i = 0; i < ITEMS; i++) {
         loopItem(items[i], trigger, audioChannel->beatDetected ? audioChannel->rms : .1f);

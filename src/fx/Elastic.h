@@ -4,7 +4,8 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "Fx.h"
-#include "AudioSensor.h"
+#include "AudioSensor.h"å
+#include "AudioTrigger.h"å
 #include "HarmonicMotion.h"
 #include "State.h"
 #include "Timer.h"
@@ -15,6 +16,7 @@ class Elastic : public Fx {
         Strip *strip;
         AudioChannel *audioChannel;
         State *state;
+        AudioTrigger *audioTrigger;
         static const uint8_t ITEMS = 2;
         static const uint8_t FADE_RATE = 30;
         HarmonicMotion items[ITEMS];
@@ -24,6 +26,7 @@ class Elastic : public Fx {
 
     public:
         Elastic(Strip *strip, AudioChannel *audioChannel, State *state);
+        ~Elastic();
         void loop();
         void reset();
 };

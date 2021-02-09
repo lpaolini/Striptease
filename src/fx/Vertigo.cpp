@@ -4,9 +4,14 @@ Vertigo::Vertigo(Strip *strip, AudioChannel *audioChannel, State *state) {
     this->strip = strip;
     this->audioChannel = audioChannel;
     this->state = state;
+    audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].ball.setup(strip);
     }
+}
+
+Vertigo::~Vertigo() {
+    delete audioTrigger;
 }
 
 void Vertigo::reset() {
@@ -24,7 +29,7 @@ void Vertigo::loop() {
         strip->fade(FADE_RATE);
     }
 
-    bool trigger = audioChannel->trigger(5);
+    bool trigger = audioTrigger->triggered(3);
 
     if (trigger && items[nextItem].ball.isStable() && inhibitTimer.isElapsed()) {
         inhibitTimer.reset();

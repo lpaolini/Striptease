@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "AudioSensor.h"
+#include "AudioTrigger.h"
 #include "Fx.h"
 #include "Timer.h"
 
@@ -15,10 +16,11 @@ class Matrix : public Fx {
         static const unsigned int DOWN_INTERVAL = INTERVAL * 2;
         static const unsigned int DOWN_PROBABILITY = 10;
         static const unsigned int UP_INTERVAL = INTERVAL * 1;
-        static const unsigned int UP_PROBABILITY = 2;
+        static const unsigned int UP_PROBABILITY = 20;
         Strip *strip;
         AudioChannel *audioChannel;
-        bool trigger;
+        AudioTrigger *audioTrigger;
+        // bool trigger;
         bool *down;
         bool *up;
         void show();

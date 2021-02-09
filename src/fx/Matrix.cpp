@@ -3,6 +3,7 @@
 Matrix::Matrix(Strip *strip, AudioChannel *audioChannel) {
     this->strip = strip;
     this->audioChannel = audioChannel;
+    audioTrigger = new AudioTrigger(audioChannel);
     up = new bool[strip->size()];
     down = new bool[strip->size()];
     for (int i = 0; i < strip->size() ; i++) {
@@ -11,6 +12,7 @@ Matrix::Matrix(Strip *strip, AudioChannel *audioChannel) {
 }
 
 Matrix::~Matrix() {
+    delete audioTrigger;
     delete[] up;
     delete[] down;
 }
@@ -19,6 +21,7 @@ void Matrix::reset() {
     clear(strip);
     downInterval.reset();
     upInterval.reset();
+    audioTrigger->reset();
 }
 
 void Matrix::loop() {
@@ -30,15 +33,15 @@ void Matrix::loop() {
         show();
     }
 
-    trigger = trigger || audioChannel->trigger(UP_PROBABILITY);
+    // trigger = trigger || audioTrigger->triggered(UP_PROBABILITY);
 
     if (upInterval.isElapsed()) {
-        up[0] = trigger;
+        up[0] = audioTrigger->triggered(.5);
         for (int i = strip->last(); i > 0; i--) {
             up[i] = up[i - 1];
         }
         show();
-        trigger = false;
+        // trigger = false;
     }
 }
 

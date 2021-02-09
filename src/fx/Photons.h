@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "AudioSensor.h"
+#include "AudioTrigger.h"
 #include "Fx.h"
 #include "HarmonicMotion.h"
 #include "State.h"
@@ -16,12 +17,14 @@ class Photons: public Fx {
         static const uint8_t NUM_PHOTONS = 10;
         static const uint8_t MAX_CONCURRENT = 3;
         Strip *strip;
-        State *state;
         AudioChannel *audioChannel;
+        State *state;
+        AudioTrigger *audioTrigger;
         HarmonicMotion items[NUM_PHOTONS];
         
     public:
         Photons(Strip *strip, AudioChannel *audioChannel, State *state);
+        ~Photons();
         void resetItem(HarmonicMotion &item);
         void reset();
         void loop();

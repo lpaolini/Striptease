@@ -4,9 +4,14 @@ Elastic::Elastic(Strip *strip, AudioChannel *audioChannel, State *state) {
     this->strip = strip;
     this->audioChannel = audioChannel;
     this->state = state;
+    audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].setup(strip);
     }
+}
+
+Elastic::~Elastic() {
+    delete audioTrigger;
 }
 
 void Elastic::reset() {
@@ -15,6 +20,7 @@ void Elastic::reset() {
         items[i].reset();
     }
     fadeTimer.reset();
+    audioTrigger->reset();
 }
 
 void Elastic::loop() {
@@ -22,7 +28,7 @@ void Elastic::loop() {
         strip->fade(FADE_RATE);
     }
 
-    bool trigger = audioChannel->trigger(3);
+    bool trigger = audioTrigger->triggered(1);
 
     if (trigger) {
         clear(strip);

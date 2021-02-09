@@ -4,9 +4,14 @@ DeepSpace::DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state) {
     this->strip = strip;
     this->audioChannel = audioChannel;
     this->state = state;
+    this->audioTrigger = new AudioTrigger(audioChannel);
     for (uint16_t i = 0; i < ITEMS; i++) {
         items[i].pixel.setup(strip);
     }
+}
+
+DeepSpace::~DeepSpace() {
+    delete audioTrigger;
 }
 
 void DeepSpace::reset() {
@@ -18,6 +23,7 @@ void DeepSpace::reset() {
     steeringAngle = 0;
     transition = 1;
     timer.reset();
+    audioTrigger->reset();
 }
 
 void DeepSpace::loop() {
@@ -26,22 +32,22 @@ void DeepSpace::loop() {
     float dT = time / 1e6;
     time = 0;
 
-    bool trigger = audioChannel->trigger(1);
+    bool trigger = audioTrigger->triggered(1);
 
     float translationY = SPEED * dT;
     float rotation = 0;
 
     if (transition == 1) {
         if (timer.isElapsed()) {
-            switch (random(5)) {
+            switch (random8(5)) {
                 case 1:
-                    steeringAngle = -random(MIN_STEERING, MAX_STEERING);
-                    transitionSpeed = .001 * random(MIN_TRANSITION_SPEED, MAX_TRANSITION_SPEED);
+                    steeringAngle = -random16(MIN_STEERING, MAX_STEERING);
+                    transitionSpeed = .001 * random16(MIN_TRANSITION_SPEED, MAX_TRANSITION_SPEED);
                     transition = 0;
                     break;
                 case 2:
-                    steeringAngle = random(MIN_STEERING, MAX_STEERING);
-                    transitionSpeed = .001 * random(MIN_TRANSITION_SPEED, MAX_TRANSITION_SPEED);
+                    steeringAngle = random16(MIN_STEERING, MAX_STEERING);
+                    transitionSpeed = .001 * random16(MIN_TRANSITION_SPEED, MAX_TRANSITION_SPEED);
                     transition = 0;
                     break;
                 default:
@@ -98,10 +104,10 @@ void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &t
 }
 
 void DeepSpace::randomizeItem(Item &item) {
-    float distance = random(MIN_DISTANCE, MAX_DISTANCE);
-    float angle = random(0, 18000) / (100 * PI);
+    float distance = random16(MIN_DISTANCE, MAX_DISTANCE);
+    float angle = random16(0, 18000) / (100 * PI);
     item.point = Point::fromPolar(distance, angle);
-    item.type = random(100) < (5 + 95 * state->parabolicFxSpeed)
+    item.type = random8(100) < (state->parabolicFxSpeed * 95 + 5)
         ? NORMAL
         : HIDDEN;
     item.pixel.reset();

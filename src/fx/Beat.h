@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "AudioSensor.h"
+#include "AudioTrigger.h"
 #include "Fx.h"
 #include "Timer.h"
 #include "HarmonicMotion.h"
@@ -12,6 +13,7 @@ class Beat : public Fx {
     private:
         Strip *strip;
         AudioChannel *audioChannel;
+        AudioTrigger *audioTrigger;
         HarmonicMotion peak;
         HarmonicMotion peakHold;
         HarmonicMotion peakHoldSlow;
@@ -19,6 +21,7 @@ class Beat : public Fx {
 
     public:
         Beat(Strip *strip, AudioChannel *audioChannel);
+        ~Beat();
         void loop();
         void reset();
 };

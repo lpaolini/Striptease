@@ -56,21 +56,3 @@ void AudioChannel::loop(AudioAnalyzePeak *peak, AudioAnalyzeRMS *rms, AudioAnaly
         peakHold *= .999;
     }
 }
-
-// bool AudioChannel::trigger(uint8_t noSignalRandomness, uint8_t signalRandomness) {
-//     return signalDetected
-//         ? beatDetected || random8() < signalRandomness
-//         : random8() < noSignalRandomness;
-// }
-
-void AudioChannel::resetTrigger() {
-    beatWasDetected = false;
-}
-
-bool AudioChannel::trigger(uint8_t noSignalRandomness, uint8_t signalRandomness) {
-    bool trigger = signalDetected
-        ? beatWasDetected || random8() < signalRandomness
-        : random8() < noSignalRandomness;
-    resetTrigger();
-    return trigger;
-}
