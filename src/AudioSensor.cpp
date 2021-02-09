@@ -5,20 +5,23 @@ AudioSensor::AudioSensor() {
     patchRMSLeft = new AudioConnection(audioInput, 0, rms_L, 0);
     patchFFTLeft = new AudioConnection(audioInput, 0, fft_L, 0);
     patchFilterLeft = new AudioConnection(audioInput, 0, filter_L, 0);
+    patchRMSLowLeft = new AudioConnection(filter_L, 0, rmsLow_L, 0);
+
     patchMixerUnfilteredLeft = new AudioConnection(audioInput, 0, mixerUnfiltered, 0);
     patchMixerFilteredLeft = new AudioConnection(filter_L, mixerFiltered);
-    patchRMSLowLeft = new AudioConnection(filter_L, 0, rmsLow_L, 0);
 
     patchPeakRight = new AudioConnection(audioInput, 1, peak_R, 0);
     patchRMSRight = new AudioConnection(audioInput, 1, rms_R, 0);
     patchFFTRight = new AudioConnection(audioInput, 1, fft_R, 0);
     patchFilterRight = new AudioConnection(audioInput, 1, filter_R, 0);
-    patchMixerUnfilteredRight = new AudioConnection(audioInput, 1, mixerUnfiltered, 1);
-    patchMixerFilteredRight = new AudioConnection(filter_R, mixerFiltered);
     patchRMSLowRight = new AudioConnection(filter_R, 0, rmsLow_R, 0);
     
+    patchMixerUnfilteredRight = new AudioConnection(audioInput, 1, mixerUnfiltered, 1);
+    patchMixerFilteredRight = new AudioConnection(filter_R, mixerFiltered);
+
     patchPeakMono = new AudioConnection(mixerUnfiltered, peak_M);
     patchRMSMono = new AudioConnection(mixerUnfiltered, rms_M);
+    patchFFTMono = new AudioConnection(mixerUnfiltered, fft_M);
     patchRMSLowMono = new AudioConnection(mixerFiltered, rmsLow_M);
 
     audioShield = new AudioControlSGTL5000();
@@ -53,7 +56,7 @@ void AudioSensor::setup() {
 void AudioSensor::loop() {
     left->loop(&peak_L, &rms_L, &rmsLow_L, &fft_L);
     right->loop(&peak_R, &rms_R, &rmsLow_R, &fft_R);
-    mono->loop(&peak_M, &rms_M, &rmsLow_M);
+    mono->loop(&peak_M, &rms_M, &rmsLow_M, &fft_M);
 }
 
 void AudioSensor::setMicInput() {

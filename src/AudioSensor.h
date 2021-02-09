@@ -29,16 +29,19 @@ class AudioSensor {
 
         AudioMixer4 mixerUnfiltered;
         AudioMixer4 mixerFiltered;
+
         AudioAnalyzePeak peak_M;
         AudioAnalyzeRMS rms_M;
         AudioFilterBiquad filter_M;
         AudioAnalyzeRMS rmsLow_M;
+        AudioAnalyzeFFT256 fft_M;
 
         AudioConnection *patchPeakLeft;
         AudioConnection *patchRMSLeft;
         AudioConnection *patchFilterLeft;
         AudioConnection *patchRMSLowLeft;
         AudioConnection *patchFFTLeft;
+
         AudioConnection *patchMixerUnfilteredLeft;
         AudioConnection *patchMixerFilteredLeft;
         
@@ -47,6 +50,7 @@ class AudioSensor {
         AudioConnection *patchFilterRight;
         AudioConnection *patchRMSLowRight;
         AudioConnection *patchFFTRight;
+
         AudioConnection *patchMixerUnfilteredRight;
         AudioConnection *patchMixerFilteredRight;
 
@@ -54,6 +58,7 @@ class AudioSensor {
         AudioConnection *patchRMSMono;
         AudioConnection *patchFilterMono;
         AudioConnection *patchRMSLowMono;
+        AudioConnection *patchFFTMono;
 
         AudioControlSGTL5000 *audioShield;
         uint8_t micGain = DEFAULT_MIC_GAIN;
