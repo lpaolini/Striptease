@@ -30,3 +30,4 @@
 #include "JoinedStrip.h"
 #include "PhysicalStrip.h"
 #include "ReversedStrip.h"
+#include "SubStrip.h"
