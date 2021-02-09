@@ -205,7 +205,7 @@ Example 3 - two strips with opposite orientations
 
 ### SubStrip
 
-*SubStrip* wraps and instance of *Strip* for addressing a subsection.
+*SubStrip* wraps an instance of *Strip* for addressing a subsection.
 
 Example 1
 

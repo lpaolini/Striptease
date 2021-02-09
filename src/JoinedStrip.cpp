@@ -196,14 +196,14 @@ CRGB JoinedStrip::shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
             return strip1->shiftDown(indexFrom, strip1->last(), gapStrip->shiftDown(strip2->shiftDown(strip2->first(), indexTo - strip1->size(), in)));
         } else {
             // starts in strip 1 and ends in gap
-            return strip1->shiftDown(indexFrom, strip1->last(), gapStrip->shiftDown(0, indexTo - strip1->size(), in)); // FIX gap
+            return strip1->shiftDown(indexFrom, strip1->last(), gapStrip->shiftDown(0, indexTo - strip1->size(), in));
         }
     } else if (strip2->isInRange(indexFrom - strip1->size() - gap)) {
         // starts and ends in strip 2
         return strip2->shiftDown(indexFrom - strip1->size() - gap, indexTo - strip1->size() - gap, in);
     } else {
         // starts in gap and ends in strip 2
-        return gapStrip->shiftDown(indexFrom - strip1->size(), gap - 1, strip2->shiftDown(0, indexTo - strip1->size() - gap, in)); // FIX gap
+        return gapStrip->shiftDown(indexFrom - strip1->size(), gap - 1, strip2->shiftDown(0, indexTo - strip1->size() - gap, in));
     }
 }
 
