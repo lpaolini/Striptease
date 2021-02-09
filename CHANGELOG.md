@@ -1,3 +1,43 @@
+# version 1.2.0
+
+## BREAKING CHANGES
+
+### AudioChannel
+- trigger method has been removed and its functionality is now provided by AudioTrigger
+
+### Trigger
+- replaced by AudioTrigger
+
+## Bugfixes
+
+### JoinedStrip
+- fixed paint method when indexFrom falls in strip 1 and indexTo falls in strip 2
+- gap has been replaced with a PhysicalStrip
+
+## Additions and improvements
+
+### SubStrip
+- implemented a new Strip implementation for addressing a portion of another Strip
+
+### AudioTrigger
+- implemented for allowing beat detection over more than one loop, independently for multiplexed effects
+- the triggered method returns true if a beat was detected since the last call (or since the last call to the reset method)
+- optionally, random triggers can be added (separately for signal detected or not), specifying the number of desired events per second
+
+# version 1.1.6
+
+## Bugfixes
+
+### AudioChannel
+- trigger method didn't behave correctly for multiplexed effects using the same AudioChannel: replaced with Trigger (see below)
+- trigger method is now instantaneous (beat detection refers to current loop only)
+
+## Additions and improvements
+
+### Trigger
+- implemented for detecting beats over multiple loops, even when the same audio channel is shared across multiplexed effects
+- this is needed when trigger detection doesn't happen at every loop (e.g. when using timers)
+
 # version 1.1.5
 
 ## Bugfixes
