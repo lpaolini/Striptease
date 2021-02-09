@@ -83,6 +83,7 @@ class AudioSensor {
         void decreaseLineInLevel();
         float getNormalizedMicGain();
         float getNormalizedLineInLevel();
+        void printStats();
 };
 
 #endif

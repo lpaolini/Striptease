@@ -116,3 +116,15 @@ float AudioSensor::getNormalizedMicGain() {
 float AudioSensor::getNormalizedLineInLevel() {
     return float(lineInLevel) / 15;
 }
+
+void AudioSensor::printStats() {
+    Serial.print("AudioMemoryUsage: ");
+    Serial.print(AudioMemoryUsage());
+    Serial.print(", AudioMemoryUsageMax: ");
+    Serial.print(AudioMemoryUsageMax());
+    Serial.print(", AudioProcessorUsage: ");
+    Serial.print(AudioProcessorUsage());
+    Serial.print(", AudioProcessorUsageMax: ");
+    Serial.print(AudioProcessorUsageMax());
+    Serial.println();
+}
