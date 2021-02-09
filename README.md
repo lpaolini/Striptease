@@ -203,6 +203,22 @@ Example 3 - two strips with opposite orientations
     Strip C = ReversedStrip(B)   => [B1, B2, B4, B4, B5]
     Strip D = JoinedStrip(A, C)  => [A1, A2, A3, A4, A5, B1, B2, B3, B4, B5]
 
+### SubStrip
+
+*SubStrip* wraps and instance of *Strip* for addressing a subsection.
+
+Example 1
+
+    Strip A = PhysicalStrip(...) => [A1, A2, A3, A4, A5, A6]
+    Strip B = SubStrip(A, 2, 5) => [A3, A4, A5, A6]
+
+Example 2
+
+    Strip A = PhysicalStrip(...) => [A1, A2, A3, A4]
+    Strip B = PhysicalStrip(...) => [B1, B2, B4, B4, B5, B6]
+    Strip C = JoinedStrip(A, B)  => [A1, A2, A3, A4, B1, B2, B3, B4, B5, B6]
+    Strip D = SubStrip(C, 2, 6) => [A3, A4, B1, B2, B3]
+
 ## Fx
 
 *Fx* is the abstract class you'll need to extend for defining your effects (see *Implementing your effects*).
@@ -341,7 +357,7 @@ Effects running in parallel on distinct strips are independent instances with no
 
 ### Beat detection
 
-Beat detection is implemented by feeding an instance of *PeakDetector* with rms values, which represent the energy content of the signal.
+Beat detection is implemented by feeding an instance of *PeakDetector* with the RMS values, which represent the energy content of the signal, calculated from a low-pass filtered copy of the original signal.
 Input values are stored in a circular buffer, on which moving average and standard deviation are calculated and used for discriminating peaks with sufficient energy from normal signal fluctuations.
 
 ## Remote
