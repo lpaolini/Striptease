@@ -31,6 +31,9 @@ bool Timer::isElapsed(unsigned long duration) {
         if (current - last > duration) {
             if (autoReset) {
                 last += duration;
+                if (current - last > duration) {
+                    last = millis();
+                }
             } else {
                 running = false;
             }
