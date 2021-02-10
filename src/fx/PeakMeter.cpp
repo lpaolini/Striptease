@@ -19,6 +19,10 @@ void PeakMeter::loop() {
     if (audioChannel->beatDetected) {
         beat = 0;
     }
-    strip->paintNormalized(0, peakSmooth, beat < 100 ? CRGB::Aqua : CRGB::Blue, false);
+    // strip->paintNormalized(0, peakSmooth, beat < 100 ? CRGB::Aqua : CRGB::Blue, false);
+    strip->paintNormalized(0, peakSmooth, CRGB::Blue, false);
+    if (beat < 100) {
+        strip->paintNormalizedSize(0, 5, CRGB::Aqua, false);
+    }
     strip->paintNormalized(peakHold, 1, CRGB::DarkRed, false);
 }
