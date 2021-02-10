@@ -118,7 +118,7 @@ bool ReversedStrip::paintNormalized(float positionFrom, float positionTo, CRGB c
 }
 
 bool ReversedStrip::paintNormalizedSize(float positionFrom, uint16_t size, CRGB color, bool add) {
-    return strip->paintNormalized(1 - positionFrom, size, color, add);
+    return strip->paintNormalizedSize(1 - positionFrom, size, color, add);
 }
 
 bool ReversedStrip::paintRandomPos(uint16_t length, CRGB color, bool add) {

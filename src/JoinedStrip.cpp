@@ -260,7 +260,7 @@ bool JoinedStrip::paintNormalized(float positionFrom, float positionTo, CRGB col
 
 bool JoinedStrip::paintNormalizedSize(float positionFrom, uint16_t size, CRGB color, bool add) {
     uint16_t start = fromNormalizedPosition(positionFrom, size);
-    return paint(start, start + size, color, add);
+    return paint(start, start + size - 1, color, add);
 }
 
 bool JoinedStrip::paintRandomPos(uint16_t length, CRGB color, bool add) {
