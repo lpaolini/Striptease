@@ -10,6 +10,12 @@ PhysicalStrip::PhysicalStrip(CRGBSet *leds, uint16_t density) {
     this->density = density;
 }
 
+PhysicalStrip::PhysicalStrip() {}
+
+void PhysicalStrip::setLeds(CRGBSet *leds) {
+    this->leds = leds;
+}
+
 uint16_t PhysicalStrip::size() {
     return leds->size();
 }
@@ -169,7 +175,7 @@ bool PhysicalStrip::paintNormalized(float positionFrom, float positionTo, CRGB c
 
 bool PhysicalStrip::paintNormalizedSize(float positionFrom, uint16_t size, CRGB color, bool add) {
     uint16_t start = fromNormalizedPosition(positionFrom, size);
-    return paint(start, start + size, color, add);
+    return paint(start, start + size - 1, color, add);
 }
 
 bool PhysicalStrip::paintRandomPos(uint16_t length, CRGB color, bool add) {

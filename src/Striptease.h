@@ -22,6 +22,7 @@
  */
 
 #include "AudioSensor.h"
+#include "BufferedStrip.h"
 #include "Controller.h"
 #include "Remote.h"
 #include "SerialRemote.h"

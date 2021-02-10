@@ -12,9 +12,11 @@ class PhysicalStrip : public Strip {
         uint16_t limitToRange(int16_t index);
 
     public:
-
         PhysicalStrip(CRGBSet &leds, uint16_t density = 0);
         PhysicalStrip(CRGBSet *leds, uint16_t density = 0);
+        PhysicalStrip();
+
+        void setLeds(CRGBSet *leds);
 
         uint16_t size();
         uint16_t first();
