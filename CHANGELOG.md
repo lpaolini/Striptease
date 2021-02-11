@@ -14,10 +14,16 @@
 - fixed paint method when indexFrom falls in strip 1 and indexTo falls in strip 2
 - gap has been replaced with a PhysicalStrip
 
+### Strip
+- fixed paintNormalizedSize method
+
 ## Additions and improvements
 
 ### SubStrip
 - implemented a new Strip implementation for addressing a portion of another Strip
+
+### BufferedStrip
+- implemented a new Strip implementation for decoupling another Strip, useful for those effects which alter the underlying Strip using blur, fade, shift, etc.
 
 ### AudioTrigger
 - implemented for allowing beat detection over more than one loop, independently for multiplexed effects
@@ -26,6 +32,12 @@
 
 ### AudioSensor
 - implemented a separate low-pass-filtered RMS sensor for feeding the beat detector, which now responds to bass only
+
+### Matrix fx
+- reimplemented without timers, for maximum smoothness
+
+### PeakMeter fx
+- reduced flashing on beat detected
 
 # version 1.1.5
 
