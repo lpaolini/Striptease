@@ -17,9 +17,6 @@
 - fixed paint method when indexFrom falls in strip 1 and indexTo falls in strip 2
 - gap has been replaced with a StatefulStrip, so that its behavior is consistent with the visible portion 
 
-### Fx
-- implemented *strip*, *audioChannel* and *state* as Fx protected members, so that they don't need to be redefined in each effect implementation
-
 ## Additions and improvements
 
 ### Strip
@@ -35,6 +32,9 @@
 
 ### AudioSensor
 - implemented a separate low-pass-filtered RMS sensor for feeding the beat detector, which now responds to low frequencies only
+
+### Fx
+- implemented *strip*, *audioChannel* and *state* as Fx protected members, so that they don't need to be redefined for each effect implementation
 
 ### Matrix fx
 - reimplemented without timers, for maximum smoothness
