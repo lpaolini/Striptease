@@ -10,28 +10,31 @@
 
 ## Bugfixes
 
-### JoinedStrip
-- fixed paint method when indexFrom falls in strip 1 and indexTo falls in strip 2
-- gap has been replaced with a PhysicalStrip
-
 ### Strip
 - fixed paintNormalizedSize method
 
+### JoinedStrip
+- fixed paint method when indexFrom falls in strip 1 and indexTo falls in strip 2
+- gap has been replaced with a StatefulStrip, so that its behavior is consistent with the visible portion 
+
+### Fx
+- implemented *strip*, *audioChannel* and *state* as Fx protected members, so that they don't need to be redefined in each effect implementation
+
 ## Additions and improvements
+
+### Strip
+- implemented *buffered()* method for creating a buffered version of a Strip, useful for those effects which alter the underlying Strip using blur, fade, shift, etc.
 
 ### SubStrip
 - implemented a new Strip implementation for addressing a portion of another Strip
 
-### BufferedStrip
-- implemented a new Strip implementation for decoupling another Strip, useful for those effects which alter the underlying Strip using blur, fade, shift, etc.
-
 ### AudioTrigger
-- implemented for allowing beat detection over more than one loop, independently for multiplexed effects
+- implemented for allowing beat detection over more than one loop, independently for concurrent effects
 - the triggered method returns true if a beat was detected since the last call (or since the last call to the reset method)
 - optionally, random triggers can be added (separately for signal detected or not), specifying the number of desired events per second
 
 ### AudioSensor
-- implemented a separate low-pass-filtered RMS sensor for feeding the beat detector, which now responds to bass only
+- implemented a separate low-pass-filtered RMS sensor for feeding the beat detector, which now responds to low frequencies only
 
 ### Matrix fx
 - reimplemented without timers, for maximum smoothness
@@ -39,10 +42,13 @@
 ### PeakMeter fx
 - reduced flashing on beat detected
 
+### VU2 fx
+- implemented new effect
+
 # version 1.1.5
 
 ## Bugfixes
-
+x
 ### AudioChannel
 - fixed wrong number of FFT bins, now 128 (it was 40)
 
