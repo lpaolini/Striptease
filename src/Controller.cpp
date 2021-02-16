@@ -35,20 +35,20 @@ void Controller::loop() {
                     }
                 }
             }
-            stage->getFx(fx)->loop();
+            stage->getFx(fx)->loopFlush();
         } else {
             if (modeTimer.isElapsed()) {
                 reset();
             } else {
                 switch (mode) {
                     case SET_FX_SPEED:
-                        stage->getSpeedMeterFx()->loop();
+                        stage->getSpeedMeterFx()->loopFlush();
                         break;
                     case SET_CYCLE_SPEED:
-                        stage->getCycleSpeedFx()->loop();
+                        stage->getCycleSpeedFx()->loopFlush();
                         break;
                     case SET_MIC_GAIN:
-                        stage->getMicGainMeterFx()->loop();
+                        stage->getMicGainMeterFx()->loopFlush();
                         break;
                     case SET_INPUT_LEVEL:
                         stage->getInputLevelMeterFx()->loop();

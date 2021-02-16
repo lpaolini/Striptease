@@ -2,16 +2,16 @@
 #define BufferedStrip_h
 
 #include "Strip.h"
-#include "PhysicalStrip.h"
+#include "StatefulStrip.h"
 
-class BufferedStrip : public PhysicalStrip {
+class BufferedStrip : public StatefulStrip {
     private:
         CRGBSet *leds;
         Strip *strip;
 
     public:
         BufferedStrip(Strip *strip);
-        void flush();
+        void flush() override;
 };
 
 #endif

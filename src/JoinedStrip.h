@@ -2,7 +2,8 @@
 #define JoinedStrip_h
 
 #include "Strip.h"
-#include "PhysicalStrip.h"
+#include "BufferedStrip.h"
+#include "StatefulStrip.h"
 
 class JoinedStrip : public Strip {
     private: 
@@ -10,12 +11,13 @@ class JoinedStrip : public Strip {
         uint16_t gap;
         CRGB *buffer;
         CRGBSet *bufferSet;
-        PhysicalStrip *gapStrip;
+        StatefulStrip *gapStrip;
         bool isInRange(int16_t index);
         uint16_t limitToRange(int16_t index);
 
     public:
         JoinedStrip(Strip *strip, Strip *strip2, uint16_t gap = 0);
+        Strip *buffered();
         uint16_t size();
         uint16_t first();
         uint16_t center();

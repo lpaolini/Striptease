@@ -2,6 +2,7 @@
 #define ReversedStrip_h
 
 #include "Strip.h"
+#include "BufferedStrip.h"
 
 class ReversedStrip : public Strip {
     private: 
@@ -11,7 +12,7 @@ class ReversedStrip : public Strip {
 
     public:
         ReversedStrip(Strip *strip);
-
+        Strip *buffered();
         uint16_t size();
         uint16_t first();
         uint16_t center();
@@ -20,7 +21,6 @@ class ReversedStrip : public Strip {
         uint16_t randomExclude(uint16_t excludeIndex, uint16_t excludeCount = 0);
         uint16_t randomInRange(float from, float to);
         uint16_t fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount = 0);
-
         void off();
         void rainbow(uint8_t initialHue);
         void rainbow(uint8_t initialHue, uint8_t deltaHue);

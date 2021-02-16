@@ -10,6 +10,10 @@ JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, uint16_t gap) {
     gapStrip = new PhysicalStrip(bufferSet);
 }
 
+Strip *JoinedStrip::buffered() {
+    return new BufferedStrip(this);
+}
+
 uint16_t JoinedStrip::size() {
     return strip1->size() + gap + strip2->size();
 }

@@ -25,6 +25,7 @@ class Multiplex : public Fx {
         );
         void loop();
         void reset();
+        void flush();
 };
 
 #endif

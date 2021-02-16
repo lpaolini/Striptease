@@ -5,6 +5,11 @@
 
 class Strip {
     public:
+        virtual 
+        Strip *buffered() {
+            return this;
+        }
+        virtual void flush() {};
         virtual bool isInRange(int16_t index);
         virtual uint16_t limitToRange(int16_t index);
         virtual uint16_t size();
@@ -15,7 +20,6 @@ class Strip {
         virtual uint16_t randomExclude(uint16_t excludeIndex, uint16_t excludeCount = 0);
         virtual uint16_t randomInRange(float from, float to);
         virtual uint16_t fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount = 0);
-
         virtual void off();
         virtual void rainbow(uint8_t initialHue);
         virtual void rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo);

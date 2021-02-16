@@ -9,6 +9,15 @@ Multiplex::Multiplex(Fx *fx1, Fx *fx2, Fx *fx3, Fx *fx4, Fx *fx5, Fx *fx6) {
     this->fx6 = fx6;
 }
 
+void Multiplex::flush() {
+    if (fx1 != nullptr) fx1->flush();
+    if (fx2 != nullptr) fx2->flush();
+    if (fx3 != nullptr) fx3->flush();
+    if (fx4 != nullptr) fx4->flush();
+    if (fx5 != nullptr) fx5->flush();
+    if (fx6 != nullptr) fx6->flush();
+}
+
 void Multiplex::loop() {
     if (fx1 != nullptr) fx1->loop();
     if (fx2 != nullptr) fx2->loop();

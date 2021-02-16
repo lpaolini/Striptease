@@ -6,6 +6,10 @@ SubStrip::SubStrip(Strip *strip, uint16_t start, uint16_t end) {
     this->end = min(strip->last(), end);
 }
 
+Strip *SubStrip::buffered() {
+    return new BufferedStrip(this);
+}
+
 uint16_t SubStrip::size() {
     return end - start + 1;
 }
