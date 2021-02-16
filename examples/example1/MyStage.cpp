@@ -11,7 +11,9 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addStrip(top);
     addStrip(xmasTree);
 
-    JoinedStrip *front = new JoinedStrip(new ReversedStrip(left), right, 2);
+    Strip *front = new JoinedStrip(new ReversedStrip(left), right, 2);
+    Strip *subLeft = new SubStrip(left, 15, 79);
+    Strip *subRight = new SubStrip(right, 15, 79);
 
     Fx *topBlackout = new Blackout(top);
     Fx *xmasBlackout = new Blackout(xmasTree);
@@ -26,7 +28,7 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Elastic(left, audioSensor->left, state), new Elastic(right, audioSensor->right, state), new Elastic(top, audioSensor->mono, state), new Elastic(xmasTree, audioSensor->mono, state));
     addFx(new Sinelon(left, state), new Sinelon(right, state), new Sinelon(xmasTree, state), new Sinelon(top, state));
     addFx(new SineMeter(left, audioSensor->left, state), new SineMeter(right, audioSensor->right, state), new SineMeter(xmasTree, audioSensor->mono, state), topBlackout);
-    addFx(new PeakMeter(left, audioSensor->left), new PeakMeter(right, audioSensor->right), topBlackout, new PeakMeter(xmasTree, audioSensor->mono));
+    addFx(new Matrix(front, audioSensor->mono, state), new PeakMeter(subLeft, audioSensor->left), new PeakMeter(subRight, audioSensor->right), topBlackout, new PeakMeter(xmasTree, audioSensor->mono));
     addFx(new Ripple(left, audioSensor->left, state), new Ripple(right, audioSensor->right, state), new Ripple(top, audioSensor->mono, state), new Ripple(xmasTree, audioSensor->mono, state));
     addFx(new Strobe(left, audioSensor->left, state), new Strobe(right, audioSensor->right, state), new Strobe(top, audioSensor->mono, state), new Strobe(xmasTree, audioSensor->mono, state));
     addFx(new Ants(left, audioSensor->left, state), new Ants(right, audioSensor->right, state), new Ants(xmasTree, audioSensor->mono, state), topBlackout);
@@ -35,13 +37,14 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Beat(left, audioSensor->left), new Beat(right, audioSensor->right), new Beat(xmasTree, audioSensor->mono), topBlackout);
     addFx(new Blur(left), new Blur(right), new Blur(xmasTree), topBlackout);
     addFx(new Juggle(left, state), new Juggle(right, state), new Juggle(xmasTree, state), new Juggle(top, state));
-    addFx(new Matrix(front, audioSensor->mono), new Matrix(xmasTree, audioSensor->mono), new Matrix(top, audioSensor->mono));
+    addFx(new Matrix(front, audioSensor->mono, state), new Matrix(xmasTree, audioSensor->mono, state), new Matrix(top, audioSensor->mono, state));
     addFx(new Drops(left, audioSensor->left, state), new Drops(right, audioSensor->right, state), new Drops(top, audioSensor->mono, state), new Drops(xmasTree, audioSensor->mono, state));
     addFx(new Scroller(left, audioSensor->left, state), new Scroller(right, audioSensor->right, state), new Scroller(xmasTree, audioSensor->mono, state), topBlackout);
     addFx(new Fireworks(left, audioSensor->left, state), new Fireworks(right, audioSensor->right, state), new Fireworks(top, audioSensor->mono, state), new Fireworks(xmasTree, audioSensor->mono, state));
     addFx(new Vertigo(left, audioSensor->left, state), new Vertigo(right, audioSensor->right, state), topBlackout, new Vertigo(xmasTree, audioSensor->mono, state));
     addFx(new DeepSpace(front, audioSensor->mono, state), topBlackout, xmasBlackout);
     addFx(new ColorBar(front, state), new ColorBar(top, state), xmasBlackout);
+    addFx(new Matrix(front, audioSensor->mono, state), new VU2(left->buffered(), audioSensor->left, 1, 500), new VU2(right->buffered(), audioSensor->right, 1, 500), topBlackout, xmasBlackout);
     
     setCycleSpeedFx(new CycleSpeed(left, state), new CycleSpeed(right, state));
     setSpeedMeterFx(new SpeedMeter(left, state), new SpeedMeter(right, state));

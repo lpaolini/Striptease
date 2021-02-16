@@ -1,13 +1,13 @@
 #ifndef MyStage_h
 #define MyStage_h
 
-#include "Stage.h"
 #include "AudioSensor.h"
-#include "State.h"
-#include "Strip.h"
 #include "JoinedStrip.h"
 #include "PhysicalStrip.h"
 #include "ReversedStrip.h"
+#include "Stage.h"
+#include "State.h"
+#include "SubStrip.h"
 
 class MyStage : public Stage {
     private:

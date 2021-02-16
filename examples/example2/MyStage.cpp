@@ -7,7 +7,9 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addStrip(left);
     addStrip(right);
 
-    JoinedStrip *front = new JoinedStrip(new ReversedStrip(left), right, 2);
+    Strip *front = new JoinedStrip(new ReversedStrip(left), right, 2);
+    Strip *subLeft = new SubStrip(left, 15, 79);
+    Strip *subRight = new SubStrip(right, 15, 79);
 
     addFx(new Rainbow(front, state));
     addFx(new ColorBar(front, state));
@@ -20,7 +22,8 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Elastic(left, audioSensor->left, state), new Elastic(right, audioSensor->right, state));
     addFx(new Sinelon(left, state), new Sinelon(right, state));
     addFx(new SineMeter(left, audioSensor->left, state), new SineMeter(right, audioSensor->right, state));
-    addFx(new PeakMeter(left, audioSensor->left), new PeakMeter(right, audioSensor->right));
+    addFx(new Matrix(front, audioSensor->mono, state), new VU2(left->buffered(), audioSensor->left, 1, 500), new VU2(right->buffered(), audioSensor->right, 1, 500));
+    addFx(new Matrix(front, audioSensor->mono, state), new PeakMeter(subLeft, audioSensor->left), new PeakMeter(subRight, audioSensor->right));
     addFx(new Ripple(left, audioSensor->left, state), new Ripple(right, audioSensor->right, state));
     addFx(new Strobe(left, audioSensor->left, state), new Strobe(right, audioSensor->right, state));
     addFx(new Ants(left, audioSensor->left, state), new Ants(right, audioSensor->right, state));
@@ -29,7 +32,7 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Beat(left, audioSensor->left), new Beat(right, audioSensor->right));
     addFx(new Blur(left), new Blur(right));
     addFx(new Juggle(left, state), new Juggle(right, state));
-    addFx(new Matrix(front, audioSensor->mono));
+    addFx(new Matrix(front, audioSensor->mono, state));
     addFx(new Drops(left, audioSensor->left, state), new Drops(right, audioSensor->right, state));
     addFx(new Scroller(left, audioSensor->left, state), new Scroller(right, audioSensor->right, state));
     addFx(new Fireworks(left, audioSensor->left, state), new Fireworks(right, audioSensor->right, state));
