@@ -16,9 +16,6 @@ class Chaser : public Fx {
         const CRGB BACKGROUND_COLOR = CHSV(180, 255, 30);
         static const uint8_t ITEMS = 5;
         static const uint8_t FADE_RATE = 100;
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         AudioTrigger *audioTrigger;
         HarmonicMotion items[ITEMS];
         Timer moveTimer = Timer(100, true);

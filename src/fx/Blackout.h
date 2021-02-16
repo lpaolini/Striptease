@@ -7,9 +7,6 @@
 #include "Strip.h"
 
 class Blackout: public Fx {
-    private:
-        Strip *strip;
-
     public:
         Blackout(Strip *strip);
         void loop();

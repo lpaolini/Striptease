@@ -1,15 +1,13 @@
 #include "Juggle.h"
 
-Juggle::Juggle(Strip *strip, State *state) {
-    this->strip = strip;
-    this->state = state;
+Juggle::Juggle(Strip *strip, State *state) : Fx(strip, state) {
     for(uint8_t i = 0; i < DOTS; i++) {
         pixel[i].setup(strip);
     }
 }
 
 void Juggle::reset() {
-    clear(strip);
+    clear();
     for(uint8_t i = 0; i < DOTS; i++) {
         pixel[i].reset();
     }

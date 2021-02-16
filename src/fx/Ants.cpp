@@ -1,9 +1,6 @@
 #include "Ants.h"
 
-Ants::Ants(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Ants::Ants(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     items = new Item[ITEMS];
     for (uint8_t i = 0; i < ITEMS; i++) {
@@ -17,7 +14,7 @@ Ants::~Ants() {
 }
 
 void Ants::reset() {
-    clear(strip);
+    clear();
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].item.reset();
     }

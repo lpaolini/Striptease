@@ -17,9 +17,6 @@ class Ants : public Fx {
             HarmonicMotion item;
             uint8_t decay;
         };
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         AudioTrigger *audioTrigger;
         Item *items;
         void loopItem(Item &item, bool &trigger, float strength);

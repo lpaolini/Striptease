@@ -31,9 +31,6 @@ class DeepSpace : public Fx {
         static constexpr float MAX_STEERING = 150;
         static constexpr float MIN_TRANSITION_SPEED = 100;
         static constexpr float MAX_TRANSITION_SPEED = 500;
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;        
         AudioTrigger *audioTrigger;
         Item items[ITEMS];
         elapsedMicros time;

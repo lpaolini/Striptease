@@ -1,8 +1,6 @@
 #include "Fire.h"
 
-Fire::Fire(Strip *strip, AudioChannel *audioChannel) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
+Fire::Fire(Strip *strip, AudioChannel *audioChannel) : Fx(strip, audioChannel) {
     audioTrigger = new AudioTrigger(audioChannel);
     // Array of temperature readings at each simulation cell
     heat = new uint8_t[strip->size()];
@@ -15,7 +13,7 @@ Fire::~Fire() {
 }
 
 void Fire::reset() {
-    clear(strip);
+    clear();
     if (random8(2) == 0) {
         palette = HOT;
     } else {

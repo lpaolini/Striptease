@@ -1,9 +1,6 @@
 #include "DeepSpace.h"
 
-DeepSpace::DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+DeepSpace::DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     this->audioTrigger = new AudioTrigger(audioChannel);
     for (uint16_t i = 0; i < ITEMS; i++) {
         items[i].pixel.setup(strip);
@@ -15,7 +12,7 @@ DeepSpace::~DeepSpace() {
 }
 
 void DeepSpace::reset() {
-    clear(strip);
+    clear();
     for (uint16_t i = 0; i < ITEMS; i++) {
         randomizeItem(items[i]);
     }

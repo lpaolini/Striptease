@@ -1,15 +1,12 @@
 #include "SineMeter.h"
 
-SineMeter::SineMeter(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+SineMeter::SineMeter(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     pixel.setup(strip);
     reset();
 }
 
 void SineMeter::reset() {
-    clear(strip);
+    clear();
     pixel.reset();
 }
 

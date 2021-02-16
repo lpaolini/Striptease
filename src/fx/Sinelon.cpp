@@ -1,8 +1,6 @@
 #include "Sinelon.h"
 
-Sinelon::Sinelon(Strip *strip, State *state) {
-    this->strip = strip;
-    this->state = state;
+Sinelon::Sinelon(Strip *strip, State *state) : Fx(strip, state) {
     pixel1.setup(strip);
     pixel2.setup(strip);
     pixel3.setup(strip);
@@ -11,7 +9,7 @@ Sinelon::Sinelon(Strip *strip, State *state) {
 }
 
 void Sinelon::reset() {
-    clear(strip);
+    clear();
     pixel1.reset();
     pixel2.reset();
     pixel3.reset();

@@ -20,9 +20,6 @@ class Ripple : public Fx {
         const CRGB BACKGROUND_COLOR = CHSV(160, 255, 30);
         static const uint8_t ITEMS = 10;
         static const unsigned int DECAY_DELAY = 500;
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         AudioTrigger *audioTrigger;
         Item *items;
         Timer fadeTimer = Timer(10);

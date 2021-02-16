@@ -15,9 +15,6 @@ class Matrix : public Fx {
         const CRGB UP_COLOR = CRGB::Blue;
         static const unsigned int UP_PERIOD = 2;
         static const unsigned int DOWN_PERIOD = 4;
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         AudioTrigger *audioTrigger;
         bool *down;
         bool *up;

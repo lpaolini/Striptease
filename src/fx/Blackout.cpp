@@ -1,11 +1,9 @@
 #include "Blackout.h"
 
-Blackout::Blackout(Strip *strip) {
-    this->strip = strip;
-}
+Blackout::Blackout(Strip *strip) : Fx(strip) {}
 
 void Blackout::reset() {
-    clear(strip);
+    clear();
 }
 
 void Blackout::loop() {}

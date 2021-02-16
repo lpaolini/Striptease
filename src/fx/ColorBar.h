@@ -7,10 +7,6 @@
 #include "State.h"
 
 class ColorBar : public Fx {
-    private:
-        Strip *strip;
-        State *state;
-
     public:
         ColorBar(Strip *strip, State *state);
         void loop();

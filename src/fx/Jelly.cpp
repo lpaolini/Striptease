@@ -1,9 +1,6 @@
 #include "Jelly.h"
 
-Jelly::Jelly(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Jelly::Jelly(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     for (int i = 0; i < ITEMS; i++) {
         items[i].setup(strip);
@@ -15,7 +12,7 @@ Jelly::~Jelly() {
 }
 
 void Jelly::reset() {
-    clear(strip);
+    clear();
     for (int i = 0; i < ITEMS; i++) {
         uint8_t size = random8(2, 5);
         items[i].reset()

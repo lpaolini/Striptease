@@ -1,9 +1,6 @@
 #include "Volcane.h"
 
-Volcane::Volcane(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Volcane::Volcane(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     for (int i = 0; i < NUM_ITEMS; i++) {
         Item *item = &items[i];
@@ -17,7 +14,7 @@ Volcane::~Volcane() {
 }
 
 void Volcane::reset() {
-    clear(strip);
+    clear();
     for (int i = 0; i < NUM_ITEMS; i++) {
         Item *item = &items[i];
         item->head.reset();

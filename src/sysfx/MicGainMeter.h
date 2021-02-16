@@ -11,8 +11,6 @@ class MicGainMeter : public Fx {
     private:
         const static uint16_t CLIP_HOLD = 500;
         const static uint16_t BEAT_HOLD = 100;
-        Strip *strip;
-        AudioChannel *audioChannel;
         AudioSensor *audioSensor;
         elapsedMillis clipTimer;
         elapsedMillis beatTimer;

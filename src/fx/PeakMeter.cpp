@@ -1,14 +1,12 @@
 #include "PeakMeter.h"
 
-PeakMeter::PeakMeter(Strip *strip, AudioChannel *audioChannel) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
+PeakMeter::PeakMeter(Strip *strip, AudioChannel *audioChannel) : Fx(strip, audioChannel) {
     pixel.setup(strip);
     reset();
 }
 
 void PeakMeter::reset() {
-    clear(strip);
+    clear();
     pixel.reset();
 }
 

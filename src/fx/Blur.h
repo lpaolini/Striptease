@@ -6,9 +6,6 @@
 #include "Fx.h"
 
 class Blur : public Fx {
-    private:
-        Strip *strip;
-
     public:
         Blur(Strip *strip);
         void loop();

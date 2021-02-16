@@ -1,9 +1,6 @@
 #include "Fireworks.h"
 
-Fireworks::Fireworks(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Fireworks::Fireworks(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].ball.setup(strip);
@@ -15,7 +12,7 @@ Fireworks::~Fireworks() {
 }
 
 void Fireworks::reset() {
-    clear(strip);
+    clear();
     for (int i = 0; i < ITEMS; i++) {
         items[i].ball.reset();
         items[i].timer = 0;

@@ -1,13 +1,11 @@
 #include "MicGainMeter.h"
 
-MicGainMeter::MicGainMeter(Strip *strip, AudioChannel *audioChannel, AudioSensor *audioSensor) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
+MicGainMeter::MicGainMeter(Strip *strip, AudioChannel *audioChannel, AudioSensor *audioSensor) : Fx(strip, audioChannel) {
     this->audioSensor = audioSensor;
 }
 
 void MicGainMeter::reset() {
-    clear(strip);
+    clear();
 }
 
 void MicGainMeter::loop() {

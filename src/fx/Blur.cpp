@@ -1,11 +1,9 @@
 #include "Blur.h"
 
-Blur::Blur(Strip *strip) {
-    this->strip = strip;
-}
+Blur::Blur(Strip *strip) : Fx(strip) {}
 
 void Blur::reset() {
-    clear(strip);
+    clear();
 }
 
 void Blur::loop() {

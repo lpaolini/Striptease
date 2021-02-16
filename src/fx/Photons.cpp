@@ -1,9 +1,6 @@
 #include "Photons.h"
 
-Photons::Photons(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Photons::Photons(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < NUM_PHOTONS; i++) {
         items[i].setup(strip);
@@ -22,7 +19,7 @@ void Photons::resetItem(HarmonicMotion &item) {
 }
 
 void Photons::reset() {
-    clear(strip);
+    clear();
     for (uint8_t i = 0; i < NUM_PHOTONS; i++) {
         resetItem(items[i]);
     }

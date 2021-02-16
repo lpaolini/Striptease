@@ -1,12 +1,9 @@
 #include "ColorBar.h"
 
-ColorBar::ColorBar(Strip *strip, State *state) {
-    this->strip = strip;
-    this->state = state;
-}
+ColorBar::ColorBar(Strip *strip, State *state) : Fx(strip, state) {}
 
 void ColorBar::reset() {
-    clear(strip);
+    clear();
 }
 
 void ColorBar::loop() {

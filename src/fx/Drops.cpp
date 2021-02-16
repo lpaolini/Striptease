@@ -1,9 +1,6 @@
 #include "Drops.h"
 
-Drops::Drops(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Drops::Drops(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     items = new Item[ITEMS];
     for (uint8_t i = 0; i < ITEMS; i++) {
@@ -18,7 +15,7 @@ Drops::~Drops() {
 }
 
 void Drops::reset() {
-    clear(strip);
+    clear();
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].center.reset();
         items[i].sides.reset();

@@ -11,8 +11,6 @@
 
 class Beat : public Fx {
     private:
-        Strip *strip;
-        AudioChannel *audioChannel;
         AudioTrigger *audioTrigger;
         HarmonicMotion peak;
         HarmonicMotion peakHold;

@@ -1,12 +1,9 @@
 #include "Glitter.h"
 
-Glitter::Glitter(Strip *strip, State *state) {
-    this->strip = strip;
-    this->state = state;
-}
+Glitter::Glitter(Strip *strip, State *state) : Fx(strip, state) {}
 
 void Glitter::reset() {
-    clear(strip);
+    clear();
     fadeTimer.reset();
     timer.reset();
 }

@@ -1,14 +1,11 @@
 #include "Scroller.h"
 
-Scroller::Scroller(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Scroller::Scroller(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     reset();
 }
 
 void Scroller::reset() {
-    clear(strip);
+    clear();
     shiftTimer = 0;
 }
 

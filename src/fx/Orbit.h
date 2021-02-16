@@ -24,8 +24,6 @@ class Orbit : public Fx {
         static constexpr float SPEED_STEP = 0;
         static constexpr float ECCENTRICITY = .2;
         static constexpr float ECCENTRICITY_ANGLE = 270;
-        Strip *strip;
-        State *state;
         float phase;
         OrbitItem item[ITEMS];
         Timer timer = Timer(5);

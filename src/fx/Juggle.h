@@ -15,8 +15,6 @@ class Juggle : public Fx {
         static const uint8_t MAX_BEAT = 15;
         static const uint8_t MIN_FADE_RATE = 1; 
         static const uint8_t MAX_FADE_RATE = 10; 
-        Strip *strip;
-        State *state;
         Pixel pixel[DOTS];
         elapsedMillis fadeTimer;
 

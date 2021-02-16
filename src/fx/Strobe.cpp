@@ -1,9 +1,6 @@
 #include "Strobe.h"
 
-Strobe::Strobe(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Strobe::Strobe(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
 }
 
@@ -12,7 +9,7 @@ Strobe::~Strobe() {
 }
 
 void Strobe::reset() {
-    clear(strip);
+    clear();
     timer.reset();
     audioTrigger->reset();
 }

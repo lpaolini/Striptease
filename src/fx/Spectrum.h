@@ -9,11 +9,6 @@
 #include "HarmonicMotion.h"
 
 class Spectrum : public Fx {
-    private:
-        Strip *strip;
-        AudioChannel *audioChannel;
-        Timer timer = Timer(1);
-
     public:
         Spectrum(Strip *strip, AudioChannel *audioChannel);
         void loop();

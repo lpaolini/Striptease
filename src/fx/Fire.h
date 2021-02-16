@@ -14,8 +14,6 @@ class Fire : public Fx {
         static const int COOLING = 55;
         const CRGBPalette16 HOT = CRGBPalette16(HeatColors_p);
         const CRGBPalette16 COLD = CRGBPalette16(CRGB::Black, CRGB::Blue, CRGB::Aqua, CRGB::White);
-        Strip *strip;
-        AudioChannel *audioChannel;
         AudioTrigger *audioTrigger;
         uint8_t *heat;
         CRGBPalette16 palette;

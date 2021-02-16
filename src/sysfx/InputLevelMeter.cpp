@@ -1,13 +1,11 @@
 #include "InputLevelMeter.h"
 
-InputLevelMeter::InputLevelMeter(Strip *strip, AudioChannel *audioChannel, AudioSensor *audioSensor) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
+InputLevelMeter::InputLevelMeter(Strip *strip, AudioChannel *audioChannel, AudioSensor *audioSensor) : Fx(strip, audioChannel) {
     this->audioSensor = audioSensor;
 }
 
 void InputLevelMeter::reset() {
-    clear(strip);
+    clear();
 }
 
 void InputLevelMeter::loop() {

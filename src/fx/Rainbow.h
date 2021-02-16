@@ -8,8 +8,6 @@
 
 class Rainbow : public Fx {
     private:
-        Strip *strip;
-        State *state;
         uint8_t phase;
 
     public:

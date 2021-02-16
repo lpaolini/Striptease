@@ -10,8 +10,6 @@
 
 class VU1 : public Fx {
     private:
-        Strip *strip;
-        AudioChannel *audioChannel;
         HarmonicMotion peak;
         HarmonicMotion peakHold;
         Timer fadeTimer = Timer(10);

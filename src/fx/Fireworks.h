@@ -24,9 +24,6 @@ class Fireworks : public Fx {
             elapsedMillis timer;
             uint8_t decay;
         };
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         AudioTrigger *audioTrigger;
         Item items[ITEMS];
         uint8_t nextItem = 0;

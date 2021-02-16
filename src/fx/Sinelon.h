@@ -11,8 +11,6 @@ class Sinelon : public Fx {
     private:
         // const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Black, CRGB::Red, CRGB::Yellow, CRGB::White);
         const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Blue, CRGB::Aqua, CRGB::White);
-        Strip *strip;
-        State *state;
         Pixel pixel1, pixel2, pixel3, pixel4;
         uint8_t freq1 = 11;
         uint8_t freq2 = 17;

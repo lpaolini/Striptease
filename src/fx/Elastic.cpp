@@ -1,9 +1,6 @@
 #include "Elastic.h"
 
-Elastic::Elastic(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Elastic::Elastic(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].setup(strip);
@@ -15,7 +12,7 @@ Elastic::~Elastic() {
 }
 
 void Elastic::reset() {
-    clear(strip);
+    clear();
     for (int i = 0; i < ITEMS; i++) {
         items[i].reset();
     }
@@ -31,7 +28,7 @@ void Elastic::loop() {
     bool trigger = audioTrigger->triggered(1);
 
     if (trigger) {
-        clear(strip);
+        clear();
         randomizeItem(items[nextItem], audioChannel->beatDetected ? audioChannel->rms : .1f);
         nextItem = (nextItem + 1) % ITEMS;
     }

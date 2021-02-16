@@ -1,12 +1,9 @@
 #include "CycleSpeed.h"
 
-CycleSpeed::CycleSpeed(Strip *strip, State *state) {
-    this->strip = strip;
-    this->state = state;
-}
+CycleSpeed::CycleSpeed(Strip *strip, State *state) : Fx(strip, state) {}
 
 void CycleSpeed::reset() {
-    clear(strip);
+    clear();
 }
 
 void CycleSpeed::loop() {

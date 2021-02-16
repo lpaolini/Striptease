@@ -1,8 +1,6 @@
 #include "Beat.h"
 
-Beat::Beat(Strip *strip, AudioChannel *audioChannel) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
+Beat::Beat(Strip *strip, AudioChannel *audioChannel) : Fx(strip, audioChannel) {
     audioTrigger = new AudioTrigger(audioChannel);
     peak.setup(strip);
     peakHold.setup(strip);
@@ -15,7 +13,7 @@ Beat::~Beat() {
 }
 
 void Beat::reset() {
-    clear(strip);
+    clear();
     uint16_t center = strip->center();
 
     peak.reset()

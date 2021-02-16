@@ -12,9 +12,6 @@ class Scroller : public Fx {
     private:
         // const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Black, CRGB::Red, CRGB::Yellow, CRGB::White);
         const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Blue, CRGB::Aqua, CRGB::White, CRGB::Red);
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         elapsedMillis shiftTimer;
 
     public:

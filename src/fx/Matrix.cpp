@@ -1,9 +1,6 @@
 #include "Matrix.h"
 
-Matrix::Matrix(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Matrix::Matrix(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     up = new bool[strip->size()];
     down = new bool[strip->size()];
@@ -19,7 +16,7 @@ Matrix::~Matrix() {
 }
 
 void Matrix::reset() {
-    clear(strip);
+    clear();
     countDown = DOWN_PERIOD;
     countUp = UP_PERIOD;
 

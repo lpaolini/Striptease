@@ -16,9 +16,6 @@ class Photons: public Fx {
         static constexpr float MAX_SPEED = 1000;
         static const uint8_t NUM_PHOTONS = 10;
         static const uint8_t MAX_CONCURRENT = 3;
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         AudioTrigger *audioTrigger;
         HarmonicMotion items[NUM_PHOTONS];
         

@@ -1,9 +1,6 @@
 #include "Chaser.h"
 
-Chaser::Chaser(Strip *strip, AudioChannel *audioChannel, State *state) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
-    this->state = state;
+Chaser::Chaser(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
     audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].setup(strip);
@@ -15,7 +12,7 @@ Chaser::~Chaser() {
 }
 
 void Chaser::reset() {
-    clear(strip);
+    clear();
     for (int i = 0; i < ITEMS; i++) {
         uint8_t size = random8(2, 5);
         items[i].reset()

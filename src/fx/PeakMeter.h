@@ -10,8 +10,6 @@
 
 class PeakMeter : public Fx {
     private:
-        Strip *strip;
-        AudioChannel *audioChannel;
         Pixel pixel;
         elapsedMillis beat;
 

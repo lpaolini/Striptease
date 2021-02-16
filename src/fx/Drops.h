@@ -20,9 +20,6 @@ class Drops : public Fx {
             HarmonicMotion sides;
             uint8_t decay;
         };
-        Strip *strip;
-        AudioChannel *audioChannel;
-        State *state;
         AudioTrigger *audioTrigger;
         Item *items;
         void loopItem(Item &item, bool &trigger, float strength);

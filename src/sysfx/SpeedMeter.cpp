@@ -1,12 +1,9 @@
 #include "SpeedMeter.h"
 
-SpeedMeter::SpeedMeter(Strip *strip, State *state) {
-    this->strip = strip;
-    this->state = state;
-}
+SpeedMeter::SpeedMeter(Strip *strip, State *state) : Fx(strip, state) {}
 
 void SpeedMeter::reset() {
-    clear(strip);
+    clear();
 }
 
 void SpeedMeter::loop() {

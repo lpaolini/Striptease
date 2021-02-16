@@ -1,15 +1,13 @@
 #include "VU1.h"
 
-VU1::VU1(Strip *strip, AudioChannel *audioChannel) {
-    this->strip = strip;
-    this->audioChannel = audioChannel;
+VU1::VU1(Strip *strip, AudioChannel *audioChannel) : Fx(strip, audioChannel) {
     peak.setup(strip);
     peakHold.setup(strip);
     reset();
 }
 
 void VU1::reset() {
-    clear(strip);
+    clear();
     resetPeak();
     resetPeakHold();
     fadeTimer.reset();
