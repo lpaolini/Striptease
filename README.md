@@ -219,16 +219,16 @@ Example 2
     Strip C = JoinedStrip(A, B)  => [A1, A2, A3, A4, B1, B2, B3, B4, B5, B6]
     Strip D = SubStrip(C, 2, 6) => [A3, A4, B1, B2, B3]
 
-### BufferedStrip
+### Strip buffering
 
-*BufferedStrip* wraps an instance of *Strip* for decoupling purposes.
+Any *Strip* exposes a *buffered()* method which returns an instance of BufferedStrip wrapping the underlying strip.
 
-It is useful for composing multiple effects rendered on the same leds, when one or more alter the underlying strip using methods like fade, blur, shiftUp or shiftDown.
-It behaves like the parent strip, but it writes to its own LED buffer, instead of delegating to the parent strip.
-A call to the flush() method merges its content with the parent strip.
+This is very useful for composing multiple effects rendered on the same LEDs, when one or more effects alter the underlying strip using methods like fade, blur, shiftUp or shiftDown.
 
-Typically, an instance is created in the constructor of the effect, passing the original strip as an argument, and used thorughout the effect implementation in lieu of the original strip. Then, the flush() method is called at the end of the loop.
+A buffered strip behaves like the parent strip, but it writes to its internal LED buffer, instead of delegating to the parent strip. At the end of the loop any buffered Strip is automatically flushed, merging (i.e. adding) its content into the underlying strip.
 
+This allows, for example to superimpose a fading effect (e.g. VU2) on top of another effect (e.g. Matrix) without fading it. See provided examples.
+ 
 ## Fx
 
 *Fx* is the abstract class you'll need to extend for defining your effects (see *Implementing your effects*).
