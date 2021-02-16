@@ -23,6 +23,7 @@
 #include "fx/Ants.h"
 #include "fx/Beat.h"
 #include "fx/VU1.h"
+#include "fx/VU2.h"
 #include "fx/Elastic.h"
 #include "fx/Blackout.h"
 #include "fx/Blur.h"
