@@ -58,7 +58,7 @@ However, when using the Audio Adapter Board, Serial2 and Serial5 are unavailable
 Teensy 4 internal voltage is 3.3v and all I/O ports operate exclusively at this voltage, thus a level shifter (74HCT245) is required to reliably drive WS2812B LEDs with 5v signals.
 
 ## Main board
-    
+
 I've designed a couple of custom PCBs, available in the *hardware* directory: one for Teensy 4.0, the other one for Teensy 4.1, housing connectors (power, IR receiver and LEDs), the DIL socket for the 74HCT245 IC, and a pair of stripline sockets for the Teensy, plus a few passive components. The Audio Adapter Board is sandwiched between the main board and the Teensy using long-terminal stripline connectors soldered to the Audio Adapter Board.
 
 ![PCB](hardware/img/pcb.jpg)
@@ -91,7 +91,7 @@ PCBs have been designed using [EAGLE PCB](https://www.autodesk.com/products/eagl
 
 ## WS2812B LED strips
 
-For my projects I prefer the high density WS2812B LED strips (144 LED/m) with semi-transparent diffuser, because they look amazing on the short distance.
+For my projects I prefer the high density WS2812B LED strips (144 LED/m) with semi-transparent diffuser, because they look amazing at short distance.
 I'm providing photos of the diffuser on top of a printed page, to give you an idea of the transparency.
 
 ![Diffuser - top](hardware/img/diffuser-top.jpg)
@@ -102,7 +102,7 @@ I'm providing photos of the diffuser on top of a printed page, to give you an id
 
 ### Update rate (FPS)
 
-Strips can be any lenght and they don't need to be matched.
+Strips can be any length and they don't need to be matched.
 However, being channels driven in parallel, the global update rate is the update rate of the longest strip.
 Update rate can be calculated multiplying the time required for transmitting RGB data for a single WS2812B LED (30us) by the number of the LEDs in the strip.
 With 6 channels available, up to 3324 LEDs can be driven at 60fps, or up to 1662 at 120fps.
@@ -112,7 +112,7 @@ In my home application (about 800 LEDs), the longest strip has 192 LEDs, which t
 
 Please be aware that the power rails on the strips have a non-negligible resistance, which would inevitably cause a voltage drop over distance.
 The higher the current, the higher the voltage drop (ohm's law).
-Total current is the sum of the current flowing through individual LEDs, which in turn depends on the RGB values. 
+Total current is the sum of the current flowing through individual LEDs, which in turn depends on the RGB values.
 So, depending on the instantaneous state of the LEDs in the strip, the voltage drop could be enough to cause malfunctioning.
 To overcome this problem, you might need to *inject* power also at the end of the strip and, if it's very long, every n LEDs (n to be determined).
 
@@ -120,7 +120,7 @@ Personally, I never had to do this, even when driving 240 LEDs at full brightnes
 
 ## Power supply
 
-I suggest using excellenty quality power supplies. A faulty one can easily destroy your hardware and can even become a threat for your life! 
+I suggest using excellent quality power supplies. A faulty one can easily destroy your hardware and can even become a threat for your life!
 
 One of my favorite brands is [Traco Power](https://www.tracopower.com/).
 
@@ -133,7 +133,7 @@ They are super reliable connectors designed for connecting audio amplifiers to s
 ## Infrared receiver
 
 Any common infrared receiver, TSOP4838 or similar, would be fine.
-In my projects I'm using an external one (search for "infrared extender cable"), as they usually come with a convenient red filter which increases the sensitivity by removing unwanted wavelenghts.
+In my projects I'm using an external one (search for "infrared extender cable"), as they usually come with a convenient red filter which increases the sensitivity by removing unwanted wavelengths.
 
 ![IR receiver](hardware/img/infrared_receiver.jpg)
 
@@ -227,8 +227,8 @@ This is very useful for composing multiple effects rendered on the same LEDs, wh
 
 A buffered strip behaves like the parent strip, but it writes to its internal LED buffer, instead of delegating to the parent strip. At the end of the loop any buffered Strip is automatically flushed, merging (i.e. adding) its content into the underlying strip.
 
-This allows, for example to superimpose a fading effect (e.g. VU2) on top of another effect (e.g. Matrix) without fading it. See provided examples.
- 
+This makes it possible, for example, to superimpose a fading effect (e.g. VU2) on top of another effect (e.g. Matrix) without fading it. See provided examples.
+
 ## Fx
 
 *Fx* is the abstract class you'll need to extend for defining your effects (see *Implementing your effects*).
@@ -392,7 +392,7 @@ See SonyRemote_RMD420.h in [example1](examples/example1) or [example2](examples/
 ## Brightness
 
 *Brightness* controls... global brightness.
-It also takes care of rendering quick flases for providing a visual feedback of buttons pressed on the remote control.
+It also takes care of rendering quick flashes for providing a visual feedback of buttons pressed on the remote control.
 
 ## HarmonicMotion
 
@@ -401,7 +401,7 @@ External acceleration (e.g. gravity) is also supported.
 
 Additionally, it provides methods for setting critical damping (no oscillations) or detecting when the system has reached a reasonably stable state (i.e. not moving anymore because all energy has been dissipated or because it's locked in a boundary position).
 
-For semplicity the harmonic motion equation is normalized in respect to the mass, which is always equal to 1.
+For simplicity the harmonic motion equation is normalized in respect to the mass, which is always equal to 1.
 
 With proper settings of parameters, a large spectrum of behaviors can be represented.
 Here is a short list of some common ones:
@@ -543,7 +543,7 @@ The following example would animate a 6-pixel red segment starting at position 0
 You can create new effects by extending the *Fx* class.
 
 I suggest you to look at the provided effects, as they are self contained, quite compact in size, and supposedly easy to understand.
-        
+
 # Implementing your stage
 
 You can implement your own stage by extending the *Stage* class.
