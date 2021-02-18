@@ -12,6 +12,12 @@ class JoinedStrip : public Strip {
         CRGB *buffer;
         CRGBSet *bufferSet;
         StatefulStrip *gapStrip;
+        bool isInStrip1(int16_t index);
+        bool isInGap(int16_t index);
+        bool isInStrip2(int16_t index);
+        int16_t toStrip1(int16_t index);
+        int16_t toGap(int16_t index);
+        int16_t toStrip2(int16_t index);
 
     public:
         JoinedStrip(Strip *strip, Strip *strip2, uint16_t gap = 0);
