@@ -26,6 +26,14 @@ uint16_t SubStrip::last() {
     return size() - 1;
 }
 
+bool SubStrip::isInRange(int16_t index) {
+    return index >= first() && index <= last();
+}
+
+uint16_t SubStrip::limitToRange(int16_t index) {
+    return max(min(index, last()), first());
+}
+
 uint16_t SubStrip::random() {
     return random16(size());
 }
@@ -40,14 +48,6 @@ uint16_t SubStrip::randomInRange(float from, float to) {
 
 uint16_t SubStrip::fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount) {
     return int(normalizedPosition * (last() - excludeCount));
-}
-
-bool SubStrip::isInRange(int16_t index) {
-    return index >= 0 && index < size();
-}
-
-uint16_t SubStrip::limitToRange(int16_t index) {
-    return max(min(index, last()), 0);
 }
 
 void SubStrip::off() {

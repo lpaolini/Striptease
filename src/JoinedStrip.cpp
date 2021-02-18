@@ -30,6 +30,14 @@ uint16_t JoinedStrip::last() {
     return size() - 1;
 }
 
+bool JoinedStrip::isInRange(int16_t index) {
+    return index >= first() && index <= last();
+}
+
+uint16_t JoinedStrip::limitToRange(int16_t index) {
+    return max(min(index, last()), first());
+}
+
 uint16_t JoinedStrip::random() {
     return random16(size());
 }

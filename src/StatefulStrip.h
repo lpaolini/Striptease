@@ -9,8 +9,6 @@ class StatefulStrip : public Strip {
     private: 
         CRGBSet *leds;
         uint16_t density;
-        bool isInRange(int16_t index);
-        uint16_t limitToRange(int16_t index);
 
     public:
         StatefulStrip(CRGBSet &leds, uint16_t density = 0);
@@ -21,6 +19,8 @@ class StatefulStrip : public Strip {
         uint16_t first();
         uint16_t center();
         uint16_t last();
+        bool isInRange(int16_t index);
+        uint16_t limitToRange(int16_t index);
         uint16_t random();
         uint16_t randomExclude(uint16_t excludeIndex, uint16_t excludeCount = 0);
         uint16_t randomInRange(float from, float to);

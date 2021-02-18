@@ -32,6 +32,14 @@ uint16_t StatefulStrip::last() {
     return size() - 1;    
 }
 
+bool StatefulStrip::isInRange(int16_t index) {
+    return index >= first() && index <= last();
+}
+
+uint16_t StatefulStrip::limitToRange(int16_t index) {
+    return max(min(index, last()), first());
+}
+
 uint16_t StatefulStrip::random() {
     return random16(size());
 }
@@ -46,14 +54,6 @@ uint16_t StatefulStrip::randomInRange(float from, float to) {
 
 uint16_t StatefulStrip::fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount) {
     return int(normalizedPosition * (last() - excludeCount));
-}
-
-bool StatefulStrip::isInRange(int16_t index) {
-    return index >= 0 && index < size();
-}
-
-uint16_t StatefulStrip::limitToRange(int16_t index) {
-    return max(min(index, last()), 0);
 }
 
 void StatefulStrip::off() {

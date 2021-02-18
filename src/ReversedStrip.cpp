@@ -24,6 +24,14 @@ uint16_t ReversedStrip::last() {
     return strip->last();    
 }
 
+bool ReversedStrip::isInRange(int16_t index) {
+    return strip->isInRange(index);
+}
+
+uint16_t ReversedStrip::limitToRange(int16_t index) {
+    return strip->limitToRange(index);
+}
+
 uint16_t ReversedStrip::random() {
     return strip->random();
 }
@@ -38,14 +46,6 @@ uint16_t ReversedStrip::randomInRange(float from, float to) {
 
 uint16_t ReversedStrip::fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount) {
     return strip->fromNormalizedPosition(normalizedPosition, excludeCount);
-}
-
-bool ReversedStrip::isInRange(int16_t index) {
-    return strip->isInRange(index);
-}
-
-uint16_t ReversedStrip::limitToRange(int16_t index) {
-    return strip->limitToRange(index);
 }
 
 void ReversedStrip::off() {

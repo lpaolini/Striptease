@@ -12,8 +12,6 @@ class JoinedStrip : public Strip {
         CRGB *buffer;
         CRGBSet *bufferSet;
         StatefulStrip *gapStrip;
-        bool isInRange(int16_t index);
-        uint16_t limitToRange(int16_t index);
 
     public:
         JoinedStrip(Strip *strip, Strip *strip2, uint16_t gap = 0);
@@ -22,6 +20,8 @@ class JoinedStrip : public Strip {
         uint16_t first();
         uint16_t center();
         uint16_t last();
+        bool isInRange(int16_t index);
+        uint16_t limitToRange(int16_t index);
         uint16_t random();
         uint16_t randomExclude(uint16_t excludeIndex, uint16_t excludeCount = 0);
         uint16_t randomInRange(float from, float to);
