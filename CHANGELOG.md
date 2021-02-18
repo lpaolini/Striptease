@@ -1,3 +1,8 @@
+# version 1.2.1
+
+## Bugfixes
+- fixed various JoinedStrip bugs
+
 # version 1.2.0
 
 ## BREAKING CHANGES
