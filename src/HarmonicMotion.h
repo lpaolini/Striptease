@@ -50,8 +50,10 @@ class HarmonicMotion {
         HarmonicMotion& setDamping(float b);
         HarmonicMotion& setCriticalDamping();
         HarmonicMotion& setPosition(float x);
+        HarmonicMotion& setRandomPosition();
         HarmonicMotion& setVelocity(float v);
         HarmonicMotion& setFixedPointPosition(float x0);
+        HarmonicMotion& setRandomFixedPointPosition();
         HarmonicMotion& setUpperBound(float x, float r = 0, int8_t boundTrigger = 0);
         HarmonicMotion& setLowerBound(float x, float r = 0, int8_t boundTrigger = 0);
         HarmonicMotion& setRange(int start, int end);

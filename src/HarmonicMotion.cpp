@@ -65,6 +65,10 @@ HarmonicMotion& HarmonicMotion::setPosition(float x) {
     return *this;
 }
 
+HarmonicMotion& HarmonicMotion::setRandomPosition() {
+    return setPosition(strip->random());
+}
+
 HarmonicMotion& HarmonicMotion::setVelocity(float v) {
     this->v = v;
     return *this;
@@ -73,6 +77,10 @@ HarmonicMotion& HarmonicMotion::setVelocity(float v) {
 HarmonicMotion& HarmonicMotion::setFixedPointPosition(float x0) {
     this->x0 = x0;
     return *this;
+}
+
+HarmonicMotion& HarmonicMotion::setRandomFixedPointPosition() {
+    return setFixedPointPosition(strip->random());
 }
 
 HarmonicMotion& HarmonicMotion::setLowerBound(float x, float r, int8_t boundTrigger) {
