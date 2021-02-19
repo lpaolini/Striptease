@@ -3,16 +3,12 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
+#include <vector>
 #include "Fx.h"
 
 class Multiplex : public Fx {
     private:
-        Fx *fx1;
-        Fx *fx2;
-        Fx *fx3;
-        Fx *fx4;
-        Fx *fx5;
-        Fx *fx6;
+        std::vector<Fx *> fxs;
 
     public:
         Multiplex(
@@ -21,7 +17,10 @@ class Multiplex : public Fx {
             Fx *fx3 = nullptr,
             Fx *fx4 = nullptr,
             Fx *fx5 = nullptr,
-            Fx *fx6 = nullptr
+            Fx *fx6 = nullptr,
+            Fx *fx7 = nullptr,
+            Fx *fx8 = nullptr,
+            Fx *fx9 = nullptr
         );
         void loop();
         void reset();
