@@ -44,7 +44,7 @@ uint16_t StatefulStrip::random() {
     return random16(size());
 }
 
-uint16_t StatefulStrip::randomExclude(uint16_t excludeIndex, uint16_t excludeCount) {
+uint16_t StatefulStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) {
     return (excludeIndex + excludeCount + random16(size() - 2 * excludeCount)) % size();
 }
 
@@ -52,7 +52,7 @@ uint16_t StatefulStrip::randomInRange(float from, float to) {
     return random16(from * size(), to * size());
 }
 
-uint16_t StatefulStrip::fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount) {
+uint16_t StatefulStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
     return int(normalizedPosition * (last() - excludeCount));
 }
 
@@ -68,12 +68,14 @@ void StatefulStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
     rainbow(initialHue, deltaHue, first(), last());
 }
 
-void StatefulStrip::rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo) {
+void StatefulStrip::rainbow(uint8_t initialHue, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
     rainbow(initialHue, deltaHue, indexFrom, indexTo);
 }
 
-void StatefulStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, uint16_t indexFrom, uint16_t indexTo) {
+void StatefulStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     (*leds)(limitToRange(indexFrom), limitToRange(indexTo)).fill_rainbow(initialHue, deltaHue);
 }
 
@@ -81,7 +83,8 @@ void StatefulStrip::fade(uint8_t amount) {
     leds->fadeToBlackBy(amount);
 }
 
-void StatefulStrip::fade(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+void StatefulStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     (*leds)(limitToRange(indexFrom), limitToRange(indexTo)).fadeToBlackBy(amount);
 }
 
@@ -89,7 +92,8 @@ void StatefulStrip::blur(uint8_t amount) {
     leds->blur1d(amount);
 }
 
-void StatefulStrip::blur(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+void StatefulStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     (*leds)(limitToRange(indexFrom), limitToRange(indexTo)).blur1d(amount);
 }
 
@@ -97,18 +101,17 @@ CRGB StatefulStrip::shiftUp(CRGB in) {
     return shiftUp(first(), last(), in);
 }
 
-CRGB StatefulStrip::shiftUp(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
-    uint16_t firstIndex = limitToRange(indexFrom);
-    uint16_t lastIndex = limitToRange(indexTo);
-    if (lastIndex > firstIndex) {
-        CRGB out = (*leds)[lastIndex];
-        for (uint16_t i = lastIndex; i > firstIndex ; i--) {
+CRGB StatefulStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
+    sanitize(indexFrom, indexTo);
+    if (indexFrom == indexTo) {
+        return in;
+    } else {
+        CRGB out = (*leds)[indexTo];
+        for (uint16_t i = indexTo; i > indexFrom ; i--) {
             (*leds)[i] = (*leds)[i - 1];
         }
-        (*leds)[firstIndex] = in;
+        (*leds)[indexFrom] = in;
         return out;
-    } else {
-        return in;
     }
 }
 
@@ -116,18 +119,17 @@ CRGB StatefulStrip::shiftDown(CRGB in) {
     return shiftDown(first(), last(), in);
 }
 
-CRGB StatefulStrip::shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
-    uint16_t firstIndex = limitToRange(indexFrom);
-    uint16_t lastIndex = limitToRange(indexTo);
-    if (lastIndex > firstIndex) {
-        CRGB out = (*leds)[firstIndex];
-        for (uint16_t i = firstIndex; i < lastIndex; i++) {
+CRGB StatefulStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
+    sanitize(indexFrom, indexTo);
+    if (indexFrom == indexTo) {
+        return in;
+    } else {
+        CRGB out = (*leds)[indexFrom];
+        for (uint16_t i = indexFrom; i < indexTo; i++) {
             (*leds)[i] = (*leds)[i + 1];
         }
-        (*leds)[lastIndex] = in;
+        (*leds)[indexTo] = in;
         return out;
-    } else {
-        return in;
     }
 }
 
@@ -152,13 +154,13 @@ bool StatefulStrip::paint(int16_t index, CRGB color, bool add) {
 }
 
 bool StatefulStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
-    int16_t posMin = min(indexFrom, indexTo);
-    int16_t posMax = max(indexFrom, indexTo);
-    if (isInRange(posMin) || isInRange(posMax)) {
+    if (isInRange(indexFrom) || isInRange(indexTo)) {
+        sanitize(indexFrom, indexTo);
+    // if (posMin <= last() && posMax >= first()) {
         if (add) {
-            (*leds)(limitToRange(posMin), limitToRange(posMax)) |= color;
+            (*leds)(indexFrom, indexTo) |= color;
         } else {
-            (*leds)(limitToRange(posMin), limitToRange(posMax)) = color;
+            (*leds)(indexFrom, indexTo) = color;
         }
         return true;
     }
@@ -173,12 +175,12 @@ bool StatefulStrip::paintNormalized(float positionFrom, float positionTo, CRGB c
     return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
 }
 
-bool StatefulStrip::paintNormalizedSize(float positionFrom, uint16_t size, CRGB color, bool add) {
+bool StatefulStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t start = fromNormalizedPosition(positionFrom, size);
     return paint(start, start + size - 1, color, add);
 }
 
-bool StatefulStrip::paintRandomPos(uint16_t length, CRGB color, bool add) {
+bool StatefulStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
     uint16_t pos = random16(size() - length);
     return paint(pos, pos + length, color, add);
 }

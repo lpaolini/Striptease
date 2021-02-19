@@ -36,7 +36,7 @@ uint16_t ReversedStrip::random() {
     return strip->random();
 }
 
-uint16_t ReversedStrip::randomExclude(uint16_t excludeIndex, uint16_t excludeCount) {
+uint16_t ReversedStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) {
     return strip->randomExclude(excludeIndex, excludeCount);
 }
 
@@ -44,7 +44,7 @@ uint16_t ReversedStrip::randomInRange(float from, float to) {
     return strip->randomInRange(from, to);
 }
 
-uint16_t ReversedStrip::fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount) {
+uint16_t ReversedStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
     return strip->fromNormalizedPosition(normalizedPosition, excludeCount);
 }
 
@@ -60,12 +60,14 @@ void ReversedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
     rainbow(initialHue, deltaHue, first(), last());
 }
 
-void ReversedStrip::rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo) {
+void ReversedStrip::rainbow(uint8_t initialHue, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
     rainbow(initialHue, deltaHue, indexFrom, indexTo);
 }
 
-void ReversedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, uint16_t indexFrom, uint16_t indexTo) {
+void ReversedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     strip->rainbow(initialHue + (indexTo - indexFrom + 1) * deltaHue, -deltaHue, strip->last() - limitToRange(indexFrom), strip->last() - limitToRange(indexTo));
 }
 
@@ -73,7 +75,8 @@ void ReversedStrip::fade(uint8_t amount) {
     strip->fade(amount);
 }
 
-void ReversedStrip::fade(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+void ReversedStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     strip->fade(amount, strip->last() - indexFrom, strip->last() - indexTo);
 }
 
@@ -81,7 +84,8 @@ void ReversedStrip::blur(uint8_t amount) {
     strip->blur(amount);
 }
 
-void ReversedStrip::blur(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+void ReversedStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     strip->blur(amount, strip->last() - indexFrom, strip->last() - indexTo);
 }
 
@@ -89,7 +93,8 @@ CRGB ReversedStrip::shiftUp(CRGB in) {
     return shiftUp(first(), last(), in);
 }
 
-CRGB ReversedStrip::shiftUp(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+CRGB ReversedStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
+    sanitize(indexFrom, indexTo);
     return strip->shiftDown(strip->last() - indexTo, strip->last() - indexFrom, in);
 }
 
@@ -97,7 +102,8 @@ CRGB ReversedStrip::shiftDown(CRGB in) {
     return shiftDown(first(), last(), in);
 }
 
-CRGB ReversedStrip::shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+CRGB ReversedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
+    sanitize(indexFrom, indexTo);
     return strip->shiftUp(strip->last() - indexTo, strip->last() - indexFrom, in);
 }
 
@@ -110,6 +116,7 @@ bool ReversedStrip::paint(int16_t index, CRGB color, bool add) {
 }
 
 bool ReversedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+    sanitize(indexFrom, indexTo);
     return strip->paint(strip->last() - indexFrom, strip->last() - indexTo, color, add);
 }
 
@@ -121,10 +128,10 @@ bool ReversedStrip::paintNormalized(float positionFrom, float positionTo, CRGB c
     return strip->paintNormalized(1 - positionFrom, 1 - positionTo, color, add);
 }
 
-bool ReversedStrip::paintNormalizedSize(float positionFrom, uint16_t size, CRGB color, bool add) {
+bool ReversedStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
     return strip->paintNormalizedSize(1 - positionFrom, size, color, add);
 }
 
-bool ReversedStrip::paintRandomPos(uint16_t length, CRGB color, bool add) {
+bool ReversedStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
     return strip->paintRandomPos(length, color, add);
 }

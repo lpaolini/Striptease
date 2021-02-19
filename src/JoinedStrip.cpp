@@ -1,12 +1,12 @@
 #include "JoinedStrip.h"
 #include "PhysicalStrip.h"
 
-JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, uint16_t gap) {
+JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, int16_t gap) {
     this->strip1 = strip1;
     this->strip2 = strip2;
-    this->gap = gap;
-    buffer = new CRGB[gap];
-    bufferSet = new CRGBSet(buffer, gap);
+    this->gap = max(0, gap);
+    buffer = new CRGB[this->gap];
+    bufferSet = new CRGBSet(buffer, this->gap);
     gapStrip = new StatefulStrip(bufferSet);
 }
 
@@ -42,7 +42,7 @@ uint16_t JoinedStrip::random() {
     return random16(size());
 }
 
-uint16_t JoinedStrip::randomExclude(uint16_t excludeIndex, uint16_t excludeCount) {
+uint16_t JoinedStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) {
     return (excludeIndex + excludeCount + random16(size() - 2 * excludeCount)) % size();
 }
 
@@ -50,7 +50,7 @@ uint16_t JoinedStrip::randomInRange(float from, float to) {
     return random16(from * size(), to * size());
 }
 
-uint16_t JoinedStrip::fromNormalizedPosition(float normalizedPosition, uint16_t excludeCount) {
+uint16_t JoinedStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
     return int(normalizedPosition * (last() - excludeCount));
 }
 
@@ -92,12 +92,13 @@ void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
     rainbow(initialHue, deltaHue, first(), last());
 }
 
-void JoinedStrip::rainbow(uint8_t initialHue, uint16_t indexFrom, uint16_t indexTo) {
+void JoinedStrip::rainbow(uint8_t initialHue, int16_t indexFrom, int16_t indexTo) {
     uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
     rainbow(initialHue, deltaHue, indexFrom, indexTo);
 }
 
-void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, uint16_t indexFrom, uint16_t indexTo) {
+void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     if (isInStrip1(indexFrom)) {
         if (isInStrip1(indexTo)) {
             // starts and ends in strip 1
@@ -128,7 +129,8 @@ void JoinedStrip::fade(uint8_t amount) {
     strip2->fade(amount);
 }
 
-void JoinedStrip::fade(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+void JoinedStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     if (isInStrip1(indexFrom)) {
         if (isInStrip1(indexTo)) {
             // starts and ends in strip 1
@@ -159,7 +161,8 @@ void JoinedStrip::blur(uint8_t amount) {
     strip2->blur(amount);
 }
 
-void JoinedStrip::blur(uint8_t amount, uint16_t indexFrom, uint16_t indexTo) {
+void JoinedStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+    sanitize(indexFrom, indexTo);
     if (isInStrip1(indexFrom)) {
         if (isInStrip1(indexTo)) {
             // starts and ends in strip 1
@@ -188,7 +191,8 @@ CRGB JoinedStrip::shiftUp(CRGB in) {
     return strip2->shiftUp(gapStrip->shiftUp(strip1->shiftUp(in)));
 }
 
-CRGB JoinedStrip::shiftUp(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+CRGB JoinedStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
+    sanitize(indexFrom, indexTo);
     if (isInStrip1(indexFrom)) {
         if (isInStrip1(indexTo)) {
             // starts and ends in strip 1
@@ -218,7 +222,8 @@ CRGB JoinedStrip::shiftDown(CRGB in) {
     return strip1->shiftDown(gapStrip->shiftDown(strip2->shiftDown(in)));
 }
 
-CRGB JoinedStrip::shiftDown(uint16_t indexFrom, uint16_t indexTo, CRGB in) {
+CRGB JoinedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
+    sanitize(indexFrom, indexTo);
     if (isInStrip1(indexFrom)) {
         if (isInStrip1(indexTo)) {
             // starts and ends in strip 1
@@ -262,6 +267,7 @@ bool JoinedStrip::paint(int16_t index, CRGB color, bool add) {
 }
 
 bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+    sanitize(indexFrom, indexTo);
     if (isInStrip1(indexFrom)) {
         if (isInStrip1(indexTo)) {
             // starts and ends in strip 1
@@ -299,12 +305,12 @@ bool JoinedStrip::paintNormalized(float positionFrom, float positionTo, CRGB col
     return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
 }
 
-bool JoinedStrip::paintNormalizedSize(float positionFrom, uint16_t size, CRGB color, bool add) {
+bool JoinedStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t start = fromNormalizedPosition(positionFrom, size);
     return paint(start, start + size - 1, color, add);
 }
 
-bool JoinedStrip::paintRandomPos(uint16_t length, CRGB color, bool add) {
+bool JoinedStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
     uint16_t pos = random16(size() - length);
     return paint(pos, pos + length, color, add);
 }
