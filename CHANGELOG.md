@@ -1,3 +1,22 @@
+# version 1.2.2
+
+## Bugfixes
+- fixed various bugs triggered by corner cases, especially when using JoinedStrip
+
+### HarmonicMotion
+- fixed a bug caused by a wrong assignment
+
+## Additions and improvements
+
+### Multiplex
+- refactored and increased the number of fx to 9.
+
+### HarmonicMotion
+- added methods for random positioning
+
+### Bounce
+- implemented a new simple fx
+
 # version 1.2.1
 
 ## Bugfixes
