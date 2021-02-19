@@ -19,8 +19,8 @@ class Ants : public Fx {
         };
         AudioTrigger *audioTrigger;
         Item *items;
-        void loopItem(Item &item, bool &trigger, float strength);
-        void randomizeItem(Item &item, float strength);
+        void loopItem(Item &item, bool &trigger);
+        void resetItem(Item &item);
 
     public:
         Ants(Strip *strip, AudioChannel *audioChannel, State *state);
