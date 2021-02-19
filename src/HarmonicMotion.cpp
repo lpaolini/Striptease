@@ -85,7 +85,7 @@ HarmonicMotion& HarmonicMotion::setLowerBound(float x, float r, int8_t boundTrig
 HarmonicMotion& HarmonicMotion::setUpperBound(float x, float r, int8_t boundTrigger) {
     upperLimit.x = x;
     upperLimit.r = r;
-    lowerLimit.boundTrigger = boundTrigger;
+    upperLimit.boundTrigger = boundTrigger;
     return *this;
 }
 
