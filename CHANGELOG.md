@@ -1,3 +1,8 @@
+# version 1.2.3
+
+## Hardware
+- replaced cryptic PCB connector labels (J1, J2, J3) with more sensible ones
+
 # version 1.2.2
 
 ## Bugfixes
