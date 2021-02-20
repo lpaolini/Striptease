@@ -9088,7 +9088,7 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U$3" library="teensy" deviceset="TEENSY41-E" device=""/>
 <part name="C3" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-EU" device="050-025X075" package3d_urn="urn:adsk.eagle:package:23637/1" value="100n"/>
-<part name="IR-SENS" library="con-amp" library_urn="urn:adsk.eagle:library:127" deviceset="MTA03-100" device="" package3d_urn="urn:adsk.eagle:package:8081621/1"/>
+<part name="IR-RECV" library="con-amp" library_urn="urn:adsk.eagle:library:127" deviceset="MTA03-100" device="" package3d_urn="urn:adsk.eagle:package:8081621/1"/>
 <part name="PROGR" library="con-amp" library_urn="urn:adsk.eagle:library:127" deviceset="MTA02-100" device="" package3d_urn="urn:adsk.eagle:package:8081649/1"/>
 </parts>
 <sheets>
@@ -9169,7 +9169,7 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <attribute name="NAME" x="110.744" y="86.741" size="1.778" layer="95"/>
 <attribute name="VALUE" x="110.744" y="81.661" size="1.778" layer="96"/>
 </instance>
-<instance part="IR-SENS" gate="G$1" x="187.96" y="101.6" smashed="yes" rot="R270">
+<instance part="IR-RECV" gate="G$1" x="187.96" y="101.6" smashed="yes" rot="R270">
 <attribute name="NAME" x="187.96" y="96.52" size="1.778" layer="95" rot="R270"/>
 <attribute name="VALUE" x="184.15" y="96.52" size="1.778" layer="96" rot="R270"/>
 </instance>
@@ -9322,7 +9322,7 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <wire x1="22.86" y1="119.38" x2="22.86" y2="81.28" width="0.1524" layer="91"/>
 <pinref part="U$3" gate="G$1" pin="22-A8/CTX1"/>
 <wire x1="25.4" y1="81.28" x2="22.86" y2="81.28" width="0.1524" layer="91"/>
-<pinref part="IR-SENS" gate="G$1" pin="2"/>
+<pinref part="IR-RECV" gate="G$1" pin="2"/>
 <wire x1="114.3" y1="101.6" x2="185.42" y2="101.6" width="0.1524" layer="91"/>
 </segment>
 </net>
@@ -9333,7 +9333,7 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <pinref part="U$3" gate="G$1" pin="3V3-3"/>
 <wire x1="66.04" y1="114.3" x2="66.04" y2="111.76" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="114.3" x2="93.98" y2="104.14" width="0.1524" layer="91"/>
-<pinref part="IR-SENS" gate="G$1" pin="1"/>
+<pinref part="IR-RECV" gate="G$1" pin="1"/>
 <wire x1="93.98" y1="104.14" x2="93.98" y2="88.9" width="0.1524" layer="91"/>
 <wire x1="185.42" y1="104.14" x2="93.98" y2="104.14" width="0.1524" layer="91"/>
 <junction x="93.98" y="104.14"/>
@@ -9354,7 +9354,7 @@ Source: http://ecommas.tycoelectronics.com .. ENG_CD_640456_W.pdf</description>
 <junction x="139.7" y="91.44"/>
 <wire x1="162.56" y1="91.44" x2="139.7" y2="91.44" width="0.1524" layer="91"/>
 <pinref part="POWER" gate="G$1" pin="2"/>
-<pinref part="IR-SENS" gate="G$1" pin="3"/>
+<pinref part="IR-RECV" gate="G$1" pin="3"/>
 <wire x1="185.42" y1="99.06" x2="180.34" y2="99.06" width="0.1524" layer="91"/>
 <pinref part="PROGR" gate="G$1" pin="2"/>
 <wire x1="185.42" y1="109.22" x2="180.34" y2="109.22" width="0.1524" layer="91"/>

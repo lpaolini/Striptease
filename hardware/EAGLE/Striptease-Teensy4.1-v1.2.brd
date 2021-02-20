@@ -155,6 +155,8 @@
 v. 1.2 - by Luca Paolini, 2020</text>
 <text x="34.29" y="3.81" size="0.7" layer="25" font="vector"> GND +5V</text>
 <text x="24.13" y="3.81" size="0.7" layer="25" font="vector"> GND  SEN +3.3V</text>
+<text x="16.51" y="11.43" size="0.9" layer="25" font="vector">  1    2    3    4</text>
+<text x="29.21" y="11.43" size="0.9" layer="25" font="vector">  5    6    6    6</text>
 </plain>
 <libraries>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
@@ -1819,7 +1821,7 @@ design rules under a new name.</description>
 <attribute name="SPICEPREFIX" value="C" x="45.72" y="34.29" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="42.926" y="37.719" size="1.27" layer="27" ratio="10" rot="R270"/>
 </element>
-<element name="IR-SENS" library="con-amp" library_urn="urn:adsk.eagle:library:127" package="10X03MTA" package3d_urn="urn:adsk.eagle:package:8081621/1" value="" x="27.94" y="1.27" smashed="yes">
+<element name="IR-RECV" library="con-amp" library_urn="urn:adsk.eagle:library:127" package="10X03MTA" package3d_urn="urn:adsk.eagle:package:8081621/1" value="" x="27.94" y="1.27" smashed="yes">
 <attribute name="NAME" x="24.0538" y="-1.9812" size="1.27" layer="25" font="vector"/>
 <attribute name="POPULARITY" value="2" x="27.94" y="1.27" size="1.778" layer="27" display="off"/>
 <attribute name="VALUE" x="24.1638" y="3.4209" size="1.27" layer="27"/>
@@ -1947,7 +1949,7 @@ design rules under a new name.</description>
 <wire x1="25.4" y1="6.35" x2="27.94" y2="3.81" width="0.254" layer="16"/>
 <wire x1="25.4" y1="6.35" x2="15.24" y2="6.35" width="0.254" layer="16"/>
 <wire x1="15.24" y1="6.35" x2="10.16" y2="11.43" width="0.254" layer="16"/>
-<contactref element="IR-SENS" pad="2"/>
+<contactref element="IR-RECV" pad="2"/>
 <wire x1="27.94" y1="3.81" x2="27.94" y2="1.27" width="0.254" layer="16"/>
 </signal>
 <signal name="N$1">
@@ -1962,7 +1964,7 @@ design rules under a new name.</description>
 <wire x1="15.24" y1="21.59" x2="12.7" y2="24.13" width="0.254" layer="1"/>
 <wire x1="27.94" y1="12.7" x2="26.67" y2="13.97" width="0.254" layer="1"/>
 <wire x1="26.67" y1="13.97" x2="16.51" y2="13.97" width="0.254" layer="1"/>
-<contactref element="IR-SENS" pad="1"/>
+<contactref element="IR-RECV" pad="1"/>
 <wire x1="30.48" y1="1.27" x2="30.48" y2="3.81" width="0.254" layer="1"/>
 <wire x1="30.48" y1="3.81" x2="27.94" y2="6.35" width="0.254" layer="1"/>
 <wire x1="27.94" y1="6.35" x2="27.94" y2="12.7" width="0.254" layer="1"/>
@@ -1975,7 +1977,7 @@ design rules under a new name.</description>
 <signal name="GND">
 <contactref element="IC1" pad="10"/>
 <contactref element="POWER" pad="2"/>
-<contactref element="IR-SENS" pad="3"/>
+<contactref element="IR-RECV" pad="3"/>
 <contactref element="PROGR" pad="2"/>
 <contactref element="C2" pad="2"/>
 <contactref element="IC1" pad="19"/>
