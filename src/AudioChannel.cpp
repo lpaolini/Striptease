@@ -33,7 +33,6 @@ void AudioChannel::detectSignal(float value) {
 
 void AudioChannel::detectBeat(float value) {
     beatDetected = beatDetector.isPeak(value);
-    beatWasDetected = beatWasDetected || beatDetected;
 }
 
 void AudioChannel::loop(AudioAnalyzePeak *peak, AudioAnalyzeRMS *rms, AudioAnalyzeRMS *rmsLow, AudioAnalyzeFFT256 *fft) {

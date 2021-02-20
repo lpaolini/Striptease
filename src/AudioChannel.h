@@ -26,7 +26,6 @@ class AudioChannel {
         void detectSignal(float value);
         void detectBeat(float value);
         Timer peakFadeTimer = Timer(10);
-        bool beatWasDetected = false;
 
     public:
         float rms = 0;

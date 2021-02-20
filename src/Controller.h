@@ -60,7 +60,7 @@ class Controller {
 
         void setInput(Input input, bool feedback);
         void setLineInput(uint8_t level);
-        void setMicInput(uint8_t level);
+        void setMicInput(uint8_t gain);
         void toggleInput();
         void increaseInputSensitivity();
         void decreaseInputSensitivity();

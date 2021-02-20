@@ -41,11 +41,7 @@ class Fx {
             }
         }
 
-        virtual void loop();
-
-        virtual void reset();
-
-        virtual void flush() {
+        void flush() {
             if (strip != nullptr) {
                 strip->flush();
             }
@@ -55,6 +51,9 @@ class Fx {
             loop();
             flush();
         }
+
+        virtual void reset();
+        virtual void loop();
 };
 
 #endif
