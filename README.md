@@ -28,6 +28,8 @@ The main goals of this library are:
 This work has been inspired by some very cool projects published on the [Cine-Lights](https://www.youtube.com/channel/UCOG6Bi2kvpDa1c8gHWZI5CQ) YouTube channel.
 Some of the effects still keep the same name as originally given by the author, even though they have been reimplemented from scratch and might look very different.
 
+Note: at some point, the author decided to go closed-source, distributing compiled (.hex) files only.
+
 # Hardware
 
 ![Overview](hardware/img/overview.jpg)
@@ -77,17 +79,21 @@ PCBs have been designed using [EAGLE PCB](https://www.autodesk.com/products/eagl
 
 ### Main board connectors - Teensy 4.0 version (3 channels)
 
-- J1: LEDs (Ch1, Ch2, Ch3, Ch3)
-- J2: Power (GND, +5v)
-- J3: IR receiver (GND, Data, +3.3v)
+- POWER: Power (GND, +5v)
+- IR-RECV: IR receiver (GND, Data, +3.3v)
+- LED1-4: LEDs (CH1, CH2, CH3, CH3)
+
+Note: CH3 is repeated because there are only three independent outputs
 
 ### Main board connectors - Teensy 4.1 version (6 channels)
 
-- J1: Power (GND, +5v)
-- J2: IR receiver (GND, Data, +3.3v)
-- J3: Reset button
-- J4: LEDs (Ch1, Ch2, Ch3, Ch4)
-- J5: LEDs (Ch5, Ch6, Ch6, Ch6)
+- POWER: Power (GND, +5v)
+- IR-RECV: IR receiver (GND, Data, +3.3v)
+- PROGR: Program button
+- LED1-4: LEDs (CH1, CH2, CH3, CH4)
+- LED5-7: LEDs (CH5, CH6, CH6, CH6)
+
+Note: CH6 is repeated because there are only six independent outputs
 
 ## WS2812B LED strips
 
@@ -126,13 +132,13 @@ One of my favorite brands is [Traco Power](https://www.tracopower.com/).
 
 ## Connectors
 
-For connecting strips to the controller I use [Neutrik](https://www.neutrik.com) speakON connectors: [NL4FX](https://www.neutrik.com/en/product/nl4fx) on the cable and [NL4MP](https://www.neutrik.com/en/product/nl4mp) on the controller.
+For connecting strips to the controller I use professional [Neutrik](https://www.neutrik.com) speakON connectors: [NL4FX](https://www.neutrik.com/en/product/nl4fx) on the cable and [NL4MP](https://www.neutrik.com/en/product/nl4mp) on the controller.
 
-They are super reliable connectors designed for connecting audio amplifiers to speakers, but they work amazingly well for this purpose too. Current rating is 40A (continuous) and they have four contacts, so one connector can bring power and signals to two strips using a 4-wire cable.
+They are rugged, super reliable connectors designed for connecting audio amplifiers to speakers, but they work amazingly well for this purpose too. Current rating is 40A (continuous) and they have four contacts, so one connector can bring power and signals to two strips using a 4-wire cable.
 
 ## Infrared receiver
 
-Any common infrared receiver, TSOP4838 or similar, would be fine.
+Any common infrared receiver, like TSOP4838 or similar, would be fine.
 In my projects I'm using an external one (search for "infrared extender cable"), as they usually come with a convenient red filter which increases the sensitivity by removing unwanted wavelengths.
 
 ![IR receiver](hardware/img/infrared_receiver.jpg)
@@ -141,7 +147,7 @@ In my projects I'm using an external one (search for "infrared extender cable"),
 
 Code is built around four *awesome* libraries:
 
-- [FastLED](https://github.com/FastLED/FastLED), for LED animation
+- [FastLED](https://github.com/FastLED/FastLED), for driving LED strips
 - [WS2812Serial](https://github.com/PaulStoffregen/WS2812Serial), for non-blocking driving of WS28128B LEDs
 - [Audio](https://github.com/PaulStoffregen/Audio), for sophisticated real time processing of audio signal
 - [IRMP](https://github.com/ukw100/IRMP), for decoding IR remote controller codes (basically any spare remote can be adapted)
@@ -164,13 +170,13 @@ Teensy 4 is a very powerful device. It supports floating point math in hardware 
 
 ## Strip
 
-*Strip* is the abstract class for strip implementations, providing convenience methods for absolute (integer, 0 to pixel count - 1) or normalized (float, 0 to 1) LED addressing. It makes it easier to manipulate strips in a length-agnostic way.
+*Strip* is the abstract class for strip implementations (below), providing convenience methods for absolute (integer, 0 to pixel count - 1) or normalized (float, 0 to 1) LED addressing. It makes it easier to manipulate strips in a length-agnostic way.
 
-### PhysicalStrip
+### PhysicalStrip (CRGBSet &leds, uint16_t density = 0)
 
 *PhysicalStrip* wraps a FastLED CRGBSet (or CRGBArray), i.e. a physical strip connected to a pin.
 
-### ReversedStrip
+### ReversedStrip (Strip *strip)
 
 *ReversedStrip* wraps an instance of *Strip* for reversing its behavior.
 
@@ -179,9 +185,11 @@ Example
     Strip A = PhysicalStrip(...) => [3, 2, 1]
     Strip B = ReversedStrip(A)   => [1, 2, 3]
 
-### JoinedStrip
+### JoinedStrip (Strip *strip, Strip *strip2, int16_t gap = 0)
 
-*JoinedStrip* wraps two instances of *Strip* into a single virtual strip, with an optional distance between them (i.e. the number of missing LEDs).
+
+
+*JoinedStrip* wraps two instances of *Strip* into a single virtual strip, with an optional gap, i.e. the number of missing LEDs between the two strips.
 
 Example 1 - two strips with the same orientation
 
@@ -203,7 +211,7 @@ Example 3 - two strips with opposite orientations
     Strip C = ReversedStrip(B)   => [B1, B2, B4, B4, B5]
     Strip D = JoinedStrip(A, C)  => [A1, A2, A3, A4, A5, B1, B2, B3, B4, B5]
 
-### SubStrip
+### SubStrip (Strip *strip, int16_t start, int16_t end)
 
 *SubStrip* wraps an instance of *Strip* for addressing a subsection.
 
@@ -221,7 +229,7 @@ Example 2
 
 ### Strip buffering
 
-Any *Strip* exposes a *buffered()* method which returns an instance of BufferedStrip wrapping the underlying strip.
+All *Strip* implementations exposes a *buffered()* method which returns an instance of BufferedStrip wrapping the underlying strip.
 
 This is very useful for composing multiple effects rendered on the same LEDs, when one or more effects alter the underlying strip using methods like fade, blur, shiftUp or shiftDown.
 
@@ -233,29 +241,45 @@ This makes it possible, for example, to superimpose a fading effect (e.g. VU2) o
 
 *Fx* is the abstract class you'll need to extend for defining your effects (see *Implementing your effects*).
 
-It defines the abstract methods to be implemented by any effect:
-- reset(), called once when the effect is selected or reset;
-- loop(), called by the main loop when the effect is selected.
+It defines two abstract methods to be implemented by any effect:
+
+- **void reset()**, called when the effect is selected or reset;
+- **void loop()**, called by the main loop when the effect is selected.
+
+See [provided effects](src/fx) for examples.
+
 
 ## Stage
 
 *Stage* is the abstract class you'll need to extend for defining your setup (see *Implementing your stage*).
 It provides methods for adding strips and effects to your stage and to data to the *Controller*.
 It is also the right place for calling native FastLED methods for setting color correction and maximum allowed power, to comply with your power supply limits.
-Please do not call FastLED.setBrightness(..) as global brightness is handled by *Brightness*.
 
-Two sample implementations are provided in the *examples* directory:
-- *example1* (4 channels on Teensy 4.1) is my current living room setup: the *left* and *right* strips (192 leds, 144 led/m) are placed side by side in a single 2.7m long aluminium bar between a piece of furniture (where the tv set is placed) and the floor, pointing outwards, while the *top* strip (169 leds, 60 led/m) is placed on the wall (behind the tv set) at about half a meter from ceiling, pointing upwards. Well, there's a fourth strip called *xmasTree*, guess what it is :-)
-- *example2* (2 channels on Teensy 4.0) is my kids' room setup :-)
+Do not call *FastLED.setBrightness()* as global brightness is handled by the *Brightness* class.
+
+Two sample implementations are provided in the [examples](examples) directory:
+
+- *example1* (4 channels on Teensy 4.1) is my current living room setup: the *left* and *right* strips (192 leds, 144 led/m) are placed side by side (in opposite directions) in a single 2.7m long aluminium bar between a piece of furniture (where the tv set is placed) and the floor, pointing outwards, while the *top* strip (169 leds, 60 led/m) is placed on the wall (behind the tv set) at about half a meter from ceiling, pointing upwards. Well, there's a fourth strip called *xmasTree*, guess what it is :-)
+- *example2* (2 channels on Teensy 4.0) is... my kids' room setup.
 
 ## Multiplex
 
-*Multiplex* is a virtual effect (it implements the *Fx* interface) which combines up to six effects to be played in parallel, usually on distinct channels, as if they were one.
+*Multiplex* is a virtual effect (it implements the *Fx* interface) which combines up to nine effects to be played in parallel, usually on distinct channels, as if they were one.
 
 ## Controller
 
 *Controller* exposes high-level actions for the remotes to invoke (e.g. *play*, *pause*, *stop*, *increaseBrightness*, etc.).
 It takes care of displaying the selected effect, cycling effects in manual or timed mode, loading and storing effect speed from non-volatile memory and for temporarily displaying systems effects (e.g. for setting input level, cycle speed, effect speed, etc.)
+
+### void setLineInput(uint8_t level)
+
+Select the stereo line input and setting the input level (0 to 15).
+This is the method to be called in your main.cpp for selecting the line input at start.
+
+### void setMicInput(uint8_t gain)
+
+Select the mono mic input and setting the gain (0 to 63).
+This is the method to be called in your main.cpp for selecting the mic input at start.
 
 ### void toggleInput()
 Enter input sensitivity setting mode.
@@ -363,12 +387,31 @@ Effects running in parallel on distinct strips are independent instances with no
 
 ## AudioChannel
 
-*AudioChannel* consumes peak, rms and fft readings provided by the Audio library for the three channels (left, right and mono), and exposes them along with derived indicators: peakSmooth, peakHold, signalDetected, beatDetected, clipping.
+*AudioChannel* consumes instantaneous peak, rms and fft readings provided by the Audio library for the three channels (left, right and mono), and exposes them along with derived indicators: peakSmooth, peakHold, signalDetected, beatDetected, clipping.
+
+| Property | Description |
+| :------- | :---------- |
+| *peak* | the most recent peak value reported by Audio Library (0 to 1) |
+| *rms* | the most recent rms value reported by Audio Library (0 to 1) |
+| *fft* | the most recent fft bins reported by Audio Library (0 to 1) |
+| *peakSmooth* | follows *peak* when larger, otherwise loses 1% every 10ms (approx) |
+| *peakHold* | follows *peak* when larger, otherwise loses 0.1% every 10ms (approx) |
+| *signalDetected* | true if a signal of minimum amplitude 0.01 (0 to 1) was detected in the last 10 seconds |
+| *beatDetected* | true if a beat is detected |
+| *clipping* | true if the signal exceeds 0.99% of maximum value |
 
 ### Beat detection
 
 Beat detection is implemented by feeding an instance of *PeakDetector* with the RMS values, which represent the energy content of the signal, calculated from a low-pass filtered copy of the original signal.
 Input values are stored in a circular buffer, on which moving average and standard deviation are calculated and used for discriminating peaks with sufficient energy from normal signal fluctuations.
+
+## AudioTrigger
+
+*AudioChannel* provides a beatDetected property, but it is instantaneous (i.e. recalculated at every loop). This means that if your effect doesn't read that property at every loop (i.e. only under certain conditions, or when a timer has expired) it might miss it.
+
+*AudioTrigger* provides a convenient way for triggering effects based on audio, storing the beatDetected status over multiple loops. After reading the trigger value, it's automatically reset.
+Additionally, it can trigger effects randomly, when no signal is detected.
+The number of random events per second can be specified independently for when a signal is detected or not.
 
 ## Remote
 
@@ -419,7 +462,7 @@ Acceleration can be set up to the third order, using 1, 2 or 3 coefficients:
 
 The object can be rendered in different ways, which can be combined. It can:
 - be *mirrored*:, for rendering twin objects symmetrical in respect to the fixed point;
-- be *filled* , for filling the segment between the object (or the two objects, if mirrored) and the fixed point with color;
+- be *filled*, for filling with color the segment between the object and the fixed point (or between the two objects, if mirrored);
 - have a *range*, for rendering the object (or the two objects, if mirrored) as a segment with given starting and ending offset (e.g. a range -2 to 5 renders a segment starting 2 pixels before the nominal position and ending 5 pixels after).
 
 Lower and upper bounds can be set with the respective rebound coefficients (r), for instantaneously changing the speed by multiplying it by the rebound factor:
@@ -427,9 +470,9 @@ Lower and upper bounds can be set with the respective rebound coefficients (r), 
 - r = -1: instantaneous perfect rebound
 - -1 > r > 0: instantaneous rebound with speed decrease
 - r = 0: instantaneous stop (default)
-- 0 > r > 1: instantaneous speed decrease
-- r = 1: invisible bound (no speed change)
-- r > 1: instantaneous speed increase
+- 0 > r > 1: instantaneous speed decrease (useless)
+- r = 1: no bound (no speed change)
+- r > 1: instantaneous speed increase (useless)
 
 When setting bounds, a third parameter (b) can be specified for specifying the boundary of the object to be used as a trigger:
 - b = 0: the nominal position (default)
@@ -463,14 +506,20 @@ Set damping.
 ### HarmonicMotion& setCriticalDamping();
 Set damping to critical damping value (2 * sqrt(k)).
 
+### HarmonicMotion& setFixedPointPosition(float x0);
+Set fixed point position.
+
+### HarmonicMotion& setFixedPointRandomPosition();
+Set fixed point position randomly.
+
 ### HarmonicMotion& setPosition(float x);
 Set position of the object.
 
+### HarmonicMotion& setRandomPosition();
+Set position of the object randomly.
+
 ### HarmonicMotion& setVelocity(float v);
 Set velocity of the object.
-
-### HarmonicMotion& setFixedPointPosition(float x0);
-Set fixed point position.
 
 ### HarmonicMotion& setUpperBound(float x, float r = 0, int8_t boundTrigger = 0);
 Set upper bound, with optional rebound and bound trigger.
@@ -478,8 +527,8 @@ Set upper bound, with optional rebound and bound trigger.
 Bound trigger only makes sense when a range is used (i.e. a segment is rendered vs a single pixel).
 Its value determines when the bound is triggered:
 - 0: bound is triggered when the nominal position reaches the bound (default)
-- 1: bound is triggered when the starting position of the range reaches the bound (i.e. the segment is entirely **past** the bound)
-- -1: bound is triggered when the ending position of the range reaches the bound (i.e. the segment is entirely **within** the bound)
+- 1: bound is triggered when the starting position of the range reaches the bound (i.e. the segment is **past** the bound)
+- -1: bound is triggered when the ending position of the range reaches the bound (i.e. the segment is **within** the bound)
 
 ### HarmonicMotion& setLowerBound(float x, float r = 0, int8_t boundTrigger = 0);
 Set lower bound, with optional rebound and bound trigger.
@@ -487,8 +536,8 @@ Set lower bound, with optional rebound and bound trigger.
 Bound trigger only makes sense when a range is used (i.e. a segment is rendered vs a single pixel).
 Its value determines when the bound is triggered:
 - 0: bound is triggered when the nominal position reaches the bound (default)
-- 1: bound is triggered when the ending position of the range reaches the bound (i.e. the segment is entirely **past** the bound)
-- -1: bound is triggered when the starting position of the range reaches the bound (i.e. the segment is entirely **within** the bound)
+- 1: bound is triggered when the ending position of the range reaches the bound (i.e. the segment is **past** the bound)
+- -1: bound is triggered when the starting position of the range reaches the bound (i.e. the segment is **within** the bound)
 
 ### HarmonicMotion& setRange(int start, int end);
 Set the starting and ending offset of the segment to be rendered (instead of a single point), in respect to the nominal position.
@@ -505,21 +554,21 @@ Show or hide the object when its position is stable.
 ### HarmonicMotion& setOverwrite(bool overwrite);
 Add or overwrite existing color data.
 
+### float getFixedPointPosition();
+Get current fixed point position.
+
 ### float getPosition();
 Get current object position.
 
 ### float getVelocity();
 Get current object velocity.
 
-### float getFixedPointPosition();
-Get current fixed point position.
-
 ### bool isStable();
 Detect if position is stable (not moving anymore).
 Position is considered to be stable when one of the following conditions become true:
-- both the overall force and velocity are negligible
-- the overall force is negative, the object is locked at lower bound and velocity is negligible
-- the overall force is positive, the object is locked at upper bound and velocity is negligible
+- both the overall acceleration and velocity are negligible
+- the overall acceleration is negative, the object is locked at lower bound and velocity is negligible
+- the overall acceleration is positive, the object is locked at upper bound and velocity is negligible
 
 ### void loop();
 Main loop.
