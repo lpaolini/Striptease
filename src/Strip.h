@@ -15,8 +15,7 @@ class Strip {
         }
 
     public:
-        virtual 
-        Strip *buffered() {
+        virtual Strip *buffered() {
             return this;
         }
         bool crop(int16_t &indexFrom, int16_t &indexTo) {

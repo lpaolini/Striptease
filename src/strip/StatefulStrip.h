@@ -3,8 +3,6 @@
 
 #include "Strip.h"
 
-// class BufferedStrip;
-
 class StatefulStrip : public Strip {
     private: 
         CRGBSet *leds;
