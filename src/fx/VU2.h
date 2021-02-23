@@ -7,7 +7,6 @@
 #include "Timer.h"
 #include "AudioChannel.h"
 #include "HarmonicMotion.h"
-#include "PhysicalStrip.h"
 
 class VU2 : public Fx {
     private:
