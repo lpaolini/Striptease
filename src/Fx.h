@@ -41,7 +41,7 @@ class Fx {
             }
         }
 
-        void flush() {
+        virtual void flush() {
             if (strip != nullptr) {
                 strip->flush();
             }
