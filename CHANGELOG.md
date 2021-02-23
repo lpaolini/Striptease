@@ -8,7 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Nothing.
 
+## [1.2.5] (2021-02-23)
+
+### Fixed
+- Fixed Fx flush method.
+
+### Changed
+- Replaced Strip method `void sanitize(int16_t &indexFrom, int16_t &indexTo)` with `bool crop(int16_t &indexFrom, int16_t &indexTo)`, which restricts the given range into the visible range only when the given range overlaps with the visible range. In that case it returns true, otherwise false.
+
 ## [1.2.4] (2021-02-22)
+
 ### Added
 - Adopted [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
