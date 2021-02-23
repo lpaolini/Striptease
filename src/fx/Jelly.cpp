@@ -44,8 +44,9 @@ void Jelly::loop() {
     }
     
     for (int i = 0; i < ITEMS; i++) {
-        items[i].setElasticConstant(5 + 100 * state->parabolicFxSpeed);
-        items[i].setCriticalDamping();
-        items[i].loop();
+        items[i]
+            .setElasticConstant(5 + 100 * state->parabolicFxSpeed)
+            .setCriticalDamping()
+            .loop();
     }
 }

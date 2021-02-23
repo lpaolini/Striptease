@@ -53,7 +53,8 @@ void Volcane::loop() {
             trigger = false;
         }
         item->head.loop();
-        item->tail.setFixedPointPosition(item->head.getPosition());
-        item->tail.loop();
+        item->tail
+            .setFixedPointPosition(item->head.getPosition())
+            .loop();
     }
 }

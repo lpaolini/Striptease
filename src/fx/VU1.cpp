@@ -35,10 +35,12 @@ void VU1::loop() {
         strip->fade(100);
     }
 
-    peak.setFixedPointPosition(strip->fromNormalizedPosition(audioChannel->peak));
-    peak.loop();
+    peak
+        .setFixedPointPosition(strip->fromNormalizedPosition(audioChannel->peak))
+        .loop();
 
-    peakHold.setPosition(strip->fromNormalizedPosition(audioChannel->peakSmooth));
-    peakHold.setVelocity(-10);
-    peakHold.loop();
+    peakHold
+        .setPosition(strip->fromNormalizedPosition(audioChannel->peakSmooth))
+        .setVelocity(-10)
+        .loop();
 }

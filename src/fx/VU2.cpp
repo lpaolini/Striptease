@@ -24,6 +24,7 @@ void VU2::resetPeak() {
 
 void VU2::loop() {
     strip->fade(16);
-    peak.setFixedPointPosition(strip->fromNormalizedPosition(audioChannel->peakSmooth));
-    peak.loop();
+    peak
+        .setFixedPointPosition(strip->fromNormalizedPosition(audioChannel->peakSmooth))
+        .loop();
 }
