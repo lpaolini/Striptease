@@ -9,7 +9,7 @@
 
 #include "Fx.h"
 #include "Multiplex.h"
-#include "PhysicalStrip.h"
+#include "strip/PhysicalStrip.h"
 
 // System fxs
 

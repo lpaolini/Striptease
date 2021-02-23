@@ -1,5 +1,5 @@
 #include "JoinedStrip.h"
-#include "PhysicalStrip.h"
+// #include "PhysicalStrip.h"
 
 JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, int16_t gap) {
     this->strip1 = strip1;

@@ -2,7 +2,7 @@
 #define BufferedStrip_h
 
 #include "Strip.h"
-#include "StatefulStrip.h"
+#include "strip/StatefulStrip.h"
 
 class BufferedStrip : public StatefulStrip {
     private:

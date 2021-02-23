@@ -1,16 +1,26 @@
-#ifndef SubStrip_h
-#define SubStrip_h
+#ifndef JoinedStrip_h
+#define JoinedStrip_h
 
-#include "BufferedStrip.h"
+#include "Strip.h"
+#include "strip/BufferedStrip.h"
+#include "strip/StatefulStrip.h"
 
-class SubStrip : public Strip {
+class JoinedStrip : public Strip {
     private: 
-        Strip *strip;
-        uint16_t start;
-        uint16_t end;
+        Strip *strip1, *strip2;
+        uint16_t gap;
+        CRGB *buffer;
+        CRGBSet *bufferSet;
+        StatefulStrip *gapStrip;
+        bool isInStrip1(int16_t index);
+        bool isInGap(int16_t index);
+        bool isInStrip2(int16_t index);
+        int16_t toStrip1(int16_t index);
+        int16_t toGap(int16_t index);
+        int16_t toStrip2(int16_t index);
 
     public:
-        SubStrip(Strip *strip, int16_t start, int16_t end);
+        JoinedStrip(Strip *strip, Strip *strip2, int16_t gap = 0);
         Strip *buffered();
         uint16_t size();
         uint16_t first();

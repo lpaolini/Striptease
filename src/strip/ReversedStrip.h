@@ -2,7 +2,7 @@
 #define ReversedStrip_h
 
 #include "Strip.h"
-#include "BufferedStrip.h"
+#include "strip/BufferedStrip.h"
 
 class ReversedStrip : public Strip {
     private: 
