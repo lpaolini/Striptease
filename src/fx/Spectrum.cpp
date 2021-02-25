@@ -9,9 +9,7 @@ void Spectrum::reset() {
 }
 
 void Spectrum::loop() {
-    strip->fade(10);
-    for (uint8_t i = 0; i < 40; i++) {
-        uint8_t brightness = audioChannel->fftBin[i] > .01 ? 255 : 10;
-        strip->paint(i, CHSV(0, 255, brightness), false);
+    for (int i = 0; i < 16; i++) {
+        strip->paint(i * 10, i * 10 + 7, ColorFromPalette(PALETTE, 4 * max(0, audioChannel->fftBandsSmooth[i] + 63)), false);
     }
 }
