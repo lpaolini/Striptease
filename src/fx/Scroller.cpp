@@ -13,6 +13,8 @@ void Scroller::loop() {
     unsigned int delay = 10 + 20 * (1 - state->linearFxSpeed);
     if (shiftTimer > delay) {
         shiftTimer -= delay;
-        strip->shiftUp(ColorFromPalette(PALETTE, audioChannel->peak * 255, audioChannel->peak * 255));
+        strip->shiftUp(
+            ColorFromPalette(PALETTE, min(255, audioChannel->dominantBand * 16), audioChannel->peak * 255)
+        );
     }
 }
