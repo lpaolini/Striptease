@@ -48,6 +48,7 @@
 #include "fx/Sinelon.h"
 #include "fx/SineMeter.h"
 #include "fx/Spectrum.h"
+#include "fx/Spiral.h"
 #include "fx/Vertigo.h"
 #include "fx/Volcane.h"
 
