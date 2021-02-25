@@ -44,6 +44,7 @@ AudioSensor::AudioSensor() {
     filter_R.setLowpass(1, LOWPASS_FREQUENCY, 1.3);
     filter_R.setLowpass(2, LOWPASS_FREQUENCY, 0.54);
     filter_R.setLowpass(3, LOWPASS_FREQUENCY, 1.3);
+
 }
 
 void AudioSensor::setup() {
@@ -51,6 +52,9 @@ void AudioSensor::setup() {
     audioShield->enable();
     audioShield->volume(0);
     setLineInput();
+    fft_L.windowFunction(AudioWindowHanning1024);
+    fft_R.windowFunction(AudioWindowHanning1024);
+    fft_M.windowFunction(AudioWindowHanning1024);
 }
 
 void AudioSensor::loop() {

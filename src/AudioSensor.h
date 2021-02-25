@@ -10,7 +10,7 @@ class AudioSensor {
     private:
         static const uint8_t DEFAULT_MIC_GAIN = 40;
         static const uint8_t DEFAULT_LINE_IN_LEVEL = 5;
-        static const uint8_t MAX_MEMORY_BLOCKS = 12;
+        static const uint8_t MAX_MEMORY_BLOCKS = 30;
         static constexpr float LOWPASS_FREQUENCY = 250;
 
         AudioInputI2S audioInput;
@@ -19,13 +19,13 @@ class AudioSensor {
         AudioAnalyzeRMS rms_L;
         AudioFilterBiquad filter_L;
         AudioAnalyzeRMS rmsLow_L;
-        AudioAnalyzeFFT256 fft_L;
+        AudioAnalyzeFFT1024 fft_L;
 
         AudioAnalyzePeak peak_R;
         AudioAnalyzeRMS rms_R;
         AudioFilterBiquad filter_R;
         AudioAnalyzeRMS rmsLow_R;
-        AudioAnalyzeFFT256 fft_R;
+        AudioAnalyzeFFT1024 fft_R;
 
         AudioMixer4 mixerUnfiltered;
         AudioMixer4 mixerFiltered;
@@ -34,7 +34,7 @@ class AudioSensor {
         AudioAnalyzeRMS rms_M;
         AudioFilterBiquad filter_M;
         AudioAnalyzeRMS rmsLow_M;
-        AudioAnalyzeFFT256 fft_M;
+        AudioAnalyzeFFT1024 fft_M;
 
         AudioConnection *patchPeakLeft;
         AudioConnection *patchRMSLeft;
