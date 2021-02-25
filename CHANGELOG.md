@@ -4,9 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.2.6] (2021-02-26)
 
-Nothing.
+### Changed
+- Moved Strip implementations code to [src/strip](src/strip) directory. This change requires updating the #include directives in your stage implementation for any subclass of Strip (e.g. `#include "PhysicalStrip.h"` becomes `#include "strip/PhysicalStrip.h"`, etc.)
+- Changed from FFT256 to FFT1024.
+- Reimplemented Scroller using dominant frequency information.
+- Reimplemented Spectrum using FFT bands instead of FFT bins.
+
+### Added
+- Implemented FFT bands and dominant band.
+- Implemented EllipticMotion class for implementing 2D effects based on rotating objects.
+- Implemented Spiral effect.
+
 
 ## [1.2.5] (2021-02-23)
 
