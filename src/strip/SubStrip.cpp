@@ -50,6 +50,10 @@ uint16_t SubStrip::fromNormalizedPosition(float normalizedPosition, int16_t excl
     return int(normalizedPosition * (last() - excludeCount));
 }
 
+int16_t SubStrip::toStrip(int16_t index) {
+    return start + index;
+}
+
 void SubStrip::off() {
     paint(CRGB::Black);
 }
@@ -63,12 +67,16 @@ void SubStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
 }
 
 void SubStrip::rainbow(uint8_t initialHue, int16_t indexFrom, int16_t indexTo) {
-    uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
-    rainbow(initialHue, deltaHue, indexFrom, indexTo);
+    if (crop(indexFrom, indexTo)) {
+        uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
+        rainbow(initialHue, deltaHue, indexFrom, indexTo);
+    }
 }
 
 void SubStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
-    strip->rainbow(initialHue, deltaHue, start + limitToRange(indexFrom), start + limitToRange(indexTo));
+    if (crop(indexFrom, indexTo)) {
+        strip->rainbow(initialHue, deltaHue, toStrip(indexFrom), toStrip(indexTo));
+    }
 }
 
 void SubStrip::fade(uint8_t amount) {
@@ -76,7 +84,9 @@ void SubStrip::fade(uint8_t amount) {
 }
 
 void SubStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
-    strip->fade(amount, start + limitToRange(indexFrom), start + limitToRange(indexTo));
+    if (crop(indexFrom, indexTo)) {
+        strip->fade(amount, toStrip(indexFrom), toStrip(indexTo));
+    }
 }
 
 void SubStrip::blur(uint8_t amount) {
@@ -84,7 +94,9 @@ void SubStrip::blur(uint8_t amount) {
 }
 
 void SubStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
-    strip->blur(amount, start + limitToRange(indexFrom), start + limitToRange(indexTo));
+    if (crop(indexFrom, indexTo)) {
+        strip->blur(amount, toStrip(indexFrom), toStrip(indexTo));
+    }
 }
 
 CRGB SubStrip::shiftUp(CRGB in) {
@@ -92,7 +104,9 @@ CRGB SubStrip::shiftUp(CRGB in) {
 }
 
 CRGB SubStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
-    return strip->shiftUp(start + limitToRange(indexFrom), start + limitToRange(indexTo), in);
+    if (crop(indexFrom, indexTo)) {
+        return strip->shiftUp(toStrip(indexFrom), toStrip(indexTo), in);
+    }
 }
 
 CRGB SubStrip::shiftDown(CRGB in) {
@@ -100,7 +114,9 @@ CRGB SubStrip::shiftDown(CRGB in) {
 }
 
 CRGB SubStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
-    return strip->shiftDown(start + limitToRange(indexFrom), start + limitToRange(indexTo), in);
+    if (crop(indexFrom, indexTo)) {
+        return strip->shiftDown(toStrip(indexFrom), toStrip(indexTo), in);
+    }
 }
 
 void SubStrip::paint(CRGB color, bool add) {
@@ -108,11 +124,15 @@ void SubStrip::paint(CRGB color, bool add) {
 }
 
 bool SubStrip::paint(int16_t index, CRGB color, bool add) {
-    return strip->paint(start + limitToRange(index), color, add);
+    if (isInRange(index)) {
+        return strip->paint(toStrip(index), color, add);
+    }
 }
 
 bool SubStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
-    return strip->paint(start + limitToRange(indexFrom), start + limitToRange(indexTo), color, add);
+    if (crop(indexFrom, indexTo)) {
+        return strip->paint(toStrip(indexFrom), toStrip(indexTo), color, add);
+    }
 }
 
 bool SubStrip::paintNormalized(float position, CRGB color, bool add) {
@@ -124,8 +144,9 @@ bool SubStrip::paintNormalized(float positionFrom, float positionTo, CRGB color,
 }
 
 bool SubStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
-    uint16_t start = fromNormalizedPosition(positionFrom, size);
-    return paint(start, start + size - 1, color, add);
+    uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
+    uint16_t indexTo = indexFrom + size - 1;
+    return paint(indexFrom, indexTo, color, add);
 }
 
 bool SubStrip::paintRandomPos(int16_t length, CRGB color, bool add) {

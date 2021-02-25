@@ -182,8 +182,9 @@ bool StatefulStrip::paintNormalized(float positionFrom, float positionTo, CRGB c
 }
 
 bool StatefulStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
-    uint16_t start = fromNormalizedPosition(positionFrom, size);
-    return paint(start, start + size - 1, color, add);
+    uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
+    uint16_t indexTo = indexFrom + size - 1;
+    return paint(indexFrom, indexTo, color, add);
 }
 
 bool StatefulStrip::paintRandomPos(int16_t length, CRGB color, bool add) {

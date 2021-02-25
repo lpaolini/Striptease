@@ -8,6 +8,7 @@ class SubStrip : public Strip {
         Strip *strip;
         uint16_t start;
         uint16_t end;
+        int16_t toStrip(int16_t index);
 
     public:
         SubStrip(Strip *strip, int16_t start, int16_t end);

@@ -18,6 +18,11 @@ class Strip {
         virtual Strip *buffered() {
             return this;
         }
+
+        virtual void flush() {
+            // no-op
+        };
+        
         bool crop(int16_t &indexFrom, int16_t &indexTo) {
             enforceOrder(indexFrom, indexTo);
             if (indexTo < first() || indexFrom > last()) {
@@ -27,7 +32,7 @@ class Strip {
             indexTo = limitToRange(indexTo);
             return true;
         }
-        virtual void flush() {};
+
         virtual bool isInRange(int16_t index);
         virtual uint16_t limitToRange(int16_t index);
         virtual uint16_t size();
