@@ -1,8 +1,9 @@
 #include "VU2.h"
 
-VU2::VU2(Strip *strip, AudioChannel *audioChannel, uint16_t size, float elasticConstant) : Fx(strip, audioChannel) {
+VU2::VU2(Strip *strip, AudioChannel *audioChannel, uint16_t size, float elasticConstant, CRGB color) : Fx(strip, audioChannel) {
     this->size = size;
     this->elasticConstant = elasticConstant;
+    this->color = color;
     peak.setup(strip);
     reset();
 }
@@ -14,7 +15,7 @@ void VU2::reset() {
 
 void VU2::resetPeak() {
     peak.reset()
-        .setColor(CRGB::Red)
+        .setColor(color)
         .setElasticConstant(elasticConstant)
         .setCriticalDamping()
         .setLowerBound(0)
