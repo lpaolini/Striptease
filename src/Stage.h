@@ -68,11 +68,6 @@ class Stage {
         const static uint8_t CH1_PIN = 14;
         const static uint8_t CH2_PIN = 17;
         const static uint8_t CH3_PIN = 1;
-        void addFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr, Fx *fx3 = nullptr) {
-            Fx *fx = new Multiplex(fx1, fx2, fx3);
-            randomFxIndexes.push_back(fxs.size());
-            fxs.push_back(fx);
-        }
         #endif
         #if defined(ARDUINO_TEENSY41)
         const static uint8_t CH1_PIN = 17;
@@ -81,13 +76,23 @@ class Stage {
         const static uint8_t CH4_PIN = 1;
         const static uint8_t CH5_PIN = 24;
         const static uint8_t CH6_PIN = 29;
-        void addFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr, Fx *fx3 = nullptr, Fx *fx4 = nullptr, Fx *fx5 = nullptr, Fx *fx6 = nullptr) {
-            Fx *fx = new Multiplex(fx1, fx2, fx3, fx4, fx5, fx6);
+        #endif
+
+        void addFx(
+            Fx *fx1 = nullptr, 
+            Fx *fx2 = nullptr, 
+            Fx *fx3 = nullptr, 
+            Fx *fx4 = nullptr, 
+            Fx *fx5 = nullptr, 
+            Fx *fx6 = nullptr, 
+            Fx *fx7 = nullptr, 
+            Fx *fx8 = nullptr, 
+            Fx *fx9 = nullptr
+        ) {
+            Fx *fx = new Multiplex(fx1, fx2, fx3, fx4, fx5, fx6, fx7, fx8, fx9);
             randomFxIndexes.push_back(fxs.size());
             fxs.push_back(fx);
         }
-        #endif
-
         void addStrip(PhysicalStrip *strip) {
             strips.push_back(strip);
         }
