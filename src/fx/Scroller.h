@@ -1,3 +1,7 @@
+/**
+ * Thanks to Ben Rolling for inspiring this effect, and for the awesome palette!
+ **/
+
 #ifndef Scroller_h
 #define Scroller_h
 
