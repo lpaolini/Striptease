@@ -1,6 +1,5 @@
 #define IRMP_INPUT_PIN                  22
 #define IRMP_SUPPORT_SIRCS_PROTOCOL     1 // Enable SIRCS (Sony) protocol
-// #define IRMP_SUPPORT_NEC_PROTOCOL       1 // Enable NEC protocol
 
 #include <StripTease.h>
 

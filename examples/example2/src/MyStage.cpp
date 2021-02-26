@@ -38,6 +38,21 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Fireworks(left, audioSensor->left, state), new Fireworks(right, audioSensor->right, state));
     addFx(new Vertigo(left, audioSensor->left, state), new Vertigo(right, audioSensor->right, state));
     addFx(new DeepSpace(front, audioSensor->mono, state));
+    addFx(
+        new Multiplex(
+            new Matrix(front, audioSensor->mono, state), 
+            new Fireworks(front->buffered(), audioSensor->mono, state), 
+            new Drops(left->buffered(), audioSensor->left, state), 
+            new Drops(right->buffered(), audioSensor->right, state), 
+            new VU2(left->buffered(), audioSensor->left, 1, 500), 
+            new VU2(right->buffered(), audioSensor->right, 1, 500)
+        )
+    );
+    addFx(
+        new Ripple(front, audioSensor->mono, state),
+        new Ants(left->buffered(), audioSensor->left, state), new Ants(right->buffered(), audioSensor->right, state)
+    );
+    addFx(new Spectrum(left, audioSensor->left), new Spectrum(right, audioSensor->right));
 
     setCycleSpeedFx(new CycleSpeed(left, state), new CycleSpeed(right, state));
     setSpeedMeterFx(new SpeedMeter(left, state), new SpeedMeter(right, state));

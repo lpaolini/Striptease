@@ -18,7 +18,7 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     Fx *topBlackout = new Blackout(top);
     Fx *xmasBlackout = new Blackout(xmasTree);
 
-    addFx(new Rainbow(front, state), new Rainbow(top, state), new Rainbow(xmasTree, state));
+    addFx(new Rainbow(front, state), new Rainbow(top, state), new Rainbow(xmasTree, state)); 
     addFx(new Volcane(left, audioSensor->left, state), new Volcane(right, audioSensor->right, state), topBlackout, new Volcane(xmasTree, audioSensor->mono, state));
     addFx(new Jelly(left, audioSensor->left, state), new Jelly(right, audioSensor->right, state), new Jelly(xmasTree, audioSensor->mono, state), new Jelly(top, audioSensor->mono, state));
     addFx(new Chaser(left, audioSensor->left, state), new Chaser(right, audioSensor->right, state), topBlackout, new Chaser(xmasTree, audioSensor->mono, state), new Chaser(top, audioSensor->mono, state));
@@ -44,8 +44,42 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Vertigo(left, audioSensor->left, state), new Vertigo(right, audioSensor->right, state), topBlackout, new Vertigo(xmasTree, audioSensor->mono, state));
     addFx(new DeepSpace(front, audioSensor->mono, state), topBlackout, xmasBlackout);
     addFx(new ColorBar(front, state), new ColorBar(top, state), xmasBlackout);
-    addFx(new Matrix(front, audioSensor->mono, state), new VU2(left->buffered(), audioSensor->left, 1, 500), new VU2(right->buffered(), audioSensor->right, 1, 500), topBlackout, xmasBlackout);
-    
+
+    addFx(
+        new Matrix(front, audioSensor->mono, state), 
+        new Fireworks(front->buffered(), audioSensor->mono, state), 
+        new Drops(left->buffered(), audioSensor->left, state), 
+        new Drops(right->buffered(), audioSensor->right, state), 
+        new VU2(left->buffered(), audioSensor->left, 1, 500), 
+        new VU2(right->buffered(), audioSensor->right, 1, 500),
+        topBlackout,
+        xmasBlackout
+    );
+
+    addFx(
+        new Ripple(front, audioSensor->mono, state),
+        new Ants(left->buffered(), audioSensor->left, state), new Ants(right->buffered(), audioSensor->right, state),
+        topBlackout
+    );
+
+    addFx(
+        new DeepSpace(front, audioSensor->mono, state), 
+        new PeakMeter(subLeft->buffered(), audioSensor->left), 
+        new PeakMeter(subRight->buffered(), audioSensor->right), 
+        topBlackout, 
+        xmasBlackout
+    );
+
+    addFx(
+        new DeepSpace(front, audioSensor->mono, state), 
+        new Photons(subLeft->buffered(), audioSensor->left, state), 
+        new Photons(subRight->buffered(), audioSensor->right, state),
+        topBlackout, 
+        xmasBlackout
+    );
+
+    addFx(new Spiral(front, state, 50, 2, .3));
+
     setCycleSpeedFx(new CycleSpeed(left, state), new CycleSpeed(right, state));
     setSpeedMeterFx(new SpeedMeter(left, state), new SpeedMeter(right, state));
     setMicGainMeterFx(new MicGainMeter(left, audioSensor->left, audioSensor), new MicGainMeter(right, audioSensor->right, audioSensor));
