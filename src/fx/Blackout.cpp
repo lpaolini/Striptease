@@ -6,4 +6,6 @@ void Blackout::reset() {
     clear();
 }
 
-void Blackout::loop() {}
+void Blackout::loop() {
+    clear();
+}
