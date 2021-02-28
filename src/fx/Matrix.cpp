@@ -20,7 +20,7 @@ void Matrix::reset() {
     countDown = DOWN_PERIOD;
     countUp = UP_PERIOD;
 
-    for (uint16_t i = 0; i < strip->last(); i++) {
+    for (uint16_t i = 0; i < strip->size(); i++) {
         up[i] = down[i] = false;
     }
 
