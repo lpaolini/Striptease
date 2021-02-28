@@ -20,11 +20,11 @@ void VU2::resetPeak() {
         .setCriticalDamping()
         .setLowerBound(0)
         .setRange(0, max(0, size - 1))
-        .setShowWhenStable(true);
+        .setShowWhenStable(false);
 }
 
 void VU2::loop() {
-    strip->fade(16);
+    strip->fade(20);
     peak
         .setFixedPointPosition(strip->fromNormalizedPosition(audioChannel->peakSmooth))
         .loop();
