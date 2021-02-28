@@ -7,6 +7,7 @@
 class ReversedStrip : public Strip {
     private: 
         Strip *strip;
+        int16_t toStrip(int16_t index);
 
     public:
         ReversedStrip(Strip *strip);

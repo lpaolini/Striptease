@@ -48,6 +48,10 @@ uint16_t ReversedStrip::fromNormalizedPosition(float normalizedPosition, int16_t
     return strip->fromNormalizedPosition(normalizedPosition, excludeCount);
 }
 
+int16_t ReversedStrip::toStrip(int16_t index) {
+    return strip->last() - index;
+}
+
 void ReversedStrip::off() {
     strip->off();
 }
@@ -69,7 +73,7 @@ void ReversedStrip::rainbow(uint8_t initialHue, int16_t indexFrom, int16_t index
 
 void ReversedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
-        strip->rainbow(initialHue + (indexTo - indexFrom + 1) * deltaHue, -deltaHue, strip->last() - indexFrom, strip->last() - indexTo);
+        strip->rainbow(initialHue + (indexTo - indexFrom + 1) * deltaHue, -deltaHue, toStrip(indexFrom), toStrip(indexTo));
     }
 }
 
@@ -79,7 +83,7 @@ void ReversedStrip::fade(uint8_t amount) {
 
 void ReversedStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
-        strip->fade(amount, strip->last() - indexFrom, strip->last() - indexTo);
+        strip->fade(amount, toStrip(indexFrom), toStrip(indexTo));
     }
 }
 
@@ -89,7 +93,7 @@ void ReversedStrip::blur(uint8_t amount) {
 
 void ReversedStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
-        strip->blur(amount, strip->last() - indexFrom, strip->last() - indexTo);
+        strip->blur(amount, toStrip(indexFrom), toStrip(indexTo));
     }
 }
 
@@ -99,7 +103,7 @@ CRGB ReversedStrip::shiftUp(CRGB in) {
 
 CRGB ReversedStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
-        return strip->shiftDown(strip->last() - indexTo, strip->last() - indexFrom, in);
+        return strip->shiftDown(toStrip(indexTo), toStrip(indexFrom), in);
     }
     return CRGB::Black;
 }
@@ -110,7 +114,7 @@ CRGB ReversedStrip::shiftDown(CRGB in) {
 
 CRGB ReversedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
-        return strip->shiftUp(strip->last() - indexTo, strip->last() - indexFrom, in);
+        return strip->shiftUp(toStrip(indexTo), toStrip(indexFrom), in);
     }
     return CRGB::Black;
 }
@@ -120,12 +124,12 @@ void ReversedStrip::paint(CRGB color, bool add) {
 }
 
 bool ReversedStrip::paint(int16_t index, CRGB color, bool add) {
-    return strip->paint(strip->last() - index, color, add);
+    return strip->paint(toStrip(index), color, add);
 }
 
 bool ReversedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
-        return strip->paint(strip->last() - indexFrom, strip->last() - indexTo, color, add);
+        return strip->paint(toStrip(indexFrom), toStrip(indexTo), color, add);
     }
     return false;
 }
