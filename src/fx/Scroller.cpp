@@ -1,7 +1,7 @@
 #include "Scroller.h"
 
 Scroller::Scroller(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
-    reset();
+    audioTrigger = new AudioTrigger(audioChannel);
 }
 
 void Scroller::reset() {
@@ -10,11 +10,22 @@ void Scroller::reset() {
 }
 
 void Scroller::loop() {
-    unsigned int delay = 10 + 20 * (1 - state->linearFxSpeed);
+    if (slowDown) {
+        if (audioTrigger->triggered(0, .5)) {
+            slowDown = false;
+        }
+    } else {
+        if (audioTrigger->triggered()) {
+            slowDown = true;
+        }
+    }
+
+    uint16_t delay = slowDown ? 50 * state->linearFxSpeed : 0;
+
     if (shiftTimer > delay) {
         shiftTimer -= delay;
         strip->shiftUp(
-            ColorFromPalette(PALETTE, min(255, audioChannel->dominantBand * 16), audioChannel->peak * 255)
+            ColorFromPalette(PALETTE, audioChannel->dominantBand * 16, audioChannel->peak * 255)
         );
     }
 }
