@@ -33,7 +33,7 @@ void Fireworks::loop() {
         }
     }
 
-    bool trigger = audioTrigger->triggered(2        );
+    bool trigger = audioTrigger->triggered(2);
 
     if (trigger && items[nextItem].ball.isStable() && inhibitTimer.isElapsed()) {
         inhibitTimer.reset();
