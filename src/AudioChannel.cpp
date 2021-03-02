@@ -3,7 +3,7 @@
 AudioChannel::AudioChannel() {
     beatDetector = new PeakDetector(BUFFER_SIZE, PEAK_FACTOR, PEAK_INFLUENCE, PEAK_INHIBIT_MS, PEAK_THRESHOLD);
     for (uint16_t i = 0; i < FFT_BANDS; i++) {
-        peakDetectors[i] = new PeakDetector(BUFFER_SIZE, 2.5f, PEAK_INFLUENCE, PEAK_INHIBIT_MS, 0.25f);
+        peakDetectors[i] = new PeakDetector(BUFFER_SIZE, PEAK_FACTOR, PEAK_INFLUENCE, PEAK_INHIBIT_MS, PEAK_THRESHOLD);
     }
     peakFadeTimer.reset();
 }
@@ -40,7 +40,8 @@ void AudioChannel::detectBeat(float value) {
 }
 
 void AudioChannel::setBand(AudioAnalyzeFFT1024 *fft, uint8_t band, uint16_t fromBin, uint16_t toBin) {
-    bands[band].peak = 20 * log10(max(1e-5, fft->read(fromBin, toBin)));
+    // bands[band].peak = 20 * log10(max(1e-5, fft->read(fromBin, toBin)));
+    bands[band].peak = fft->read(fromBin, toBin);
 }
 
 void AudioChannel::feedBins(AudioAnalyzeFFT1024 *fft) {
