@@ -3,7 +3,7 @@
 AudioChannel::AudioChannel() {
     beatDetector = new PeakDetector(BUFFER_SIZE, PEAK_FACTOR, PEAK_INFLUENCE, PEAK_INHIBIT_MS, PEAK_THRESHOLD);
     for (uint16_t i = 0; i < FFT_BANDS; i++) {
-        beatDetectors[i] = new PeakDetector(BUFFER_SIZE, 2.5f, PEAK_INFLUENCE, PEAK_INHIBIT_MS, 0.25f);
+        peakDetectors[i] = new PeakDetector(BUFFER_SIZE, 2.5f, PEAK_INFLUENCE, PEAK_INHIBIT_MS, 0.25f);
     }
     peakFadeTimer.reset();
 }
@@ -91,7 +91,7 @@ void AudioChannel::loop(AudioAnalyzePeak *peak, AudioAnalyzeRMS *rms, AudioAnaly
                 peakBandValue = bands[i].peak;
                 dominantBand = i;
             }
-            bands[i].beatDetected = beatDetectors[i]->isPeak(bands[i].peak);
+            bands[i].peakDetected = peakDetectors[i]->isPeak(bands[i].peak);
         }
 
     }

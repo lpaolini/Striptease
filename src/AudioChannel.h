@@ -21,7 +21,7 @@ class AudioChannel {
         static constexpr float CLIPPING_THRESHOLD = .99f;
         unsigned long lastSignal = 0;
         PeakDetector *beatDetector;
-        PeakDetector *beatDetectors[FFT_BANDS];
+        PeakDetector *peakDetectors[FFT_BANDS];
         void feedPeak(float value);
         void feedRMS(float value);
         void feedRMSLow(float value);
@@ -38,7 +38,7 @@ class AudioChannel {
             float peakSmooth = 0;
             float peakHold = 0;
             // bool signalDetected = false;
-            bool beatDetected = false;
+            bool peakDetected = false;
             // bool clipping = false;
         };
         float rms = 0;

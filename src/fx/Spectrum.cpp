@@ -11,6 +11,6 @@ void Spectrum::reset() {
 void Spectrum::loop() {
     strip->fade(20);
     for (int i = 0; i < 16; i++) {
-        strip->paint(i * 10, i * 10 + 7, audioChannel->bands[i].beatDetected ? CRGB::Red : CRGB::Black, true);
+        strip->paint(i * 10, i * 10 + 7, audioChannel->bands[i].peakDetected ? CRGB::Red : CRGB::Black, true);
     }
 }
