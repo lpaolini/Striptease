@@ -1,7 +1,7 @@
 #include "Spectrum.h"
 
 Spectrum::Spectrum(Strip *strip, AudioChannel *audioChannel) : Fx(strip, audioChannel) {
-    reset();
+    segmentSize = floor(strip->size() / 16);
 }
 
 void Spectrum::reset() {
@@ -11,6 +11,7 @@ void Spectrum::reset() {
 void Spectrum::loop() {
     strip->fade(20);
     for (int i = 0; i < 16; i++) {
-        strip->paint(i * 10, i * 10 + 7, audioChannel->bands[i].peakDetected ? CRGB::Red : CRGB::Black, true);
+        CRGB color = audioChannel->bands[i].peakDetected ? CRGB::Red : CRGB::Black;
+        strip->paint(i * segmentSize + 1, (i + 1) * segmentSize - 2, color);
     }
 }
