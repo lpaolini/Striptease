@@ -9,7 +9,8 @@ void Spectrum::reset() {
 }
 
 void Spectrum::loop() {
+    strip->fade(20);
     for (int i = 0; i < 16; i++) {
-        strip->paint(i * 10, i * 10 + 7, ColorFromPalette(PALETTE, 4 * max(0, audioChannel->fftBandsSmooth[i] + 63)), false);
+        strip->paint(i * 10, i * 10 + 7, audioChannel->bands[i].beatDetected ? CRGB::Red : CRGB::Black, true);
     }
 }
