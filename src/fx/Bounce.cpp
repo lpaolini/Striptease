@@ -38,7 +38,7 @@ void Bounce::loopItem(HarmonicMotion &item) {
 
 void Bounce::resetItem(HarmonicMotion &item) {
     item.reset()
-        .setColor(ColorFromPalette(PALETTE, state->slowRotatingHue))
+        .setColor(ColorFromPalette(PALETTE, state->rotatingHue))
         .setRandomPosition()
         .setVelocity(random(100) + 200 * state->parabolicFxSpeed)
         .setDamping(state->linearFxSpeed)

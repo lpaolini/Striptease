@@ -8,8 +8,7 @@ class State {
         static const uint8_t DEFAULT_FX_SPEED = 20;
         static const uint8_t DEFAULT_CYCLE_SPEED = 50;
         elapsedMicros microseconds;
-        float slowRotatingHueInternal;
-        float fastRotatingHueInternal;
+        float rotatingHueInternal;
         uint8_t fxSpeed;
         uint8_t cycleSpeed;
 
@@ -17,8 +16,7 @@ class State {
         float linearFxSpeed;
         float parabolicFxSpeed;
         float linearCycleSpeed;
-        uint8_t slowRotatingHue;
-        uint8_t fastRotatingHue;
+        uint8_t rotatingHue;
         State();
         void setup();
         void setFxSpeed(uint8_t speed);

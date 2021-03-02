@@ -21,8 +21,8 @@ void Sinelon::loop() {
     uint16_t pos1 = beatsin16(freq1, 0, strip->last());
     uint16_t pos2 = beatsin16(freq2, 0, strip->last());
     uint16_t pos3 = beatsin16(freq3, 0, strip->last());
-    pixel1.set((pos1 + pos2) / 2, ColorFromPalette(PALETTE, state->slowRotatingHue));
-    pixel2.set((pos2 + pos3) / 2, ColorFromPalette(PALETTE, state->slowRotatingHue + 64));
-    pixel3.set((pos1 + pos2 + pos3) / 3, ColorFromPalette(PALETTE, state->slowRotatingHue + 128));
-    pixel4.set((pos1 + pos3) / 2, ColorFromPalette(PALETTE, state->slowRotatingHue + 192));
+    pixel1.set((pos1 + pos2) / 2, ColorFromPalette(PALETTE, state->rotatingHue));
+    pixel2.set((pos2 + pos3) / 2, ColorFromPalette(PALETTE, state->rotatingHue + 64));
+    pixel3.set((pos1 + pos2 + pos3) / 3, ColorFromPalette(PALETTE, state->rotatingHue + 128));
+    pixel4.set((pos1 + pos3) / 2, ColorFromPalette(PALETTE, state->rotatingHue + 192));
 }

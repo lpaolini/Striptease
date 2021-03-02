@@ -45,7 +45,8 @@ void Ants::loopItem(Item &item, bool &trigger) {
 
 void Ants::resetItem(Item &item) {
     item.item.reset()
-        .setColor(ColorFromPalette(PALETTE, state->slowRotatingHue))
+        .setColor(ColorFromPalette(PALETTE, state->rotatingHue))
+        // .setColor(ColorFromPalette(PALETTE, random8()))
         .setPosition(0)
         .setVelocity(100 + 200 * state->parabolicFxSpeed)
         .setLowerBound(0, 0, 1)

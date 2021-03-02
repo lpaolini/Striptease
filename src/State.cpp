@@ -1,8 +1,7 @@
 #include "State.h"
 
 State::State() {
-    slowRotatingHue = random8();
-    fastRotatingHue = random8();
+    rotatingHue = 0;
     setFxSpeed(DEFAULT_FX_SPEED);
     setCycleSpeed(DEFAULT_CYCLE_SPEED);
 }
@@ -45,10 +44,12 @@ void State::increaseCycleSpeed() {
 }
 
 void State::loop() {
-    float increase = 100 * parabolicFxSpeed * microseconds / 1e6;
+    float increase = 100.0f * parabolicFxSpeed * microseconds / 1e6;
     microseconds = 0;
-    ((slowRotatingHueInternal += increase) >= 256) && (slowRotatingHueInternal -= 256);
-    ((fastRotatingHueInternal += 10 * increase) >= 256) && (fastRotatingHueInternal -= 256);
-    slowRotatingHue = floor(slowRotatingHueInternal);
-    fastRotatingHue = floor(fastRotatingHueInternal);
+
+    rotatingHueInternal += increase;
+    while (rotatingHueInternal >= 256) {
+        rotatingHueInternal -= 256;
+    }
+    rotatingHue = uint8_t(rotatingHueInternal);
 }
