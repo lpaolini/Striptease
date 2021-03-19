@@ -15,9 +15,8 @@ void Controller::setup() {
     brightness->init();
     pause();
     selectFx(0);
-    if (SHOW_STATS) {
-        statsTimer.reset();
-    }
+    standbyTimer.reset();
+    statsTimer.reset();
 }
 
 void Controller::loop() {
@@ -25,17 +24,21 @@ void Controller::loop() {
         stage->fadeOut();
     } else {
         if (mode == PLAY) {
-            bool signalTrigger = !audioSensor->mono->signalDetected || audioSensor->mono->beatDetected;
-            if (!playMode.manual && signalTrigger) {
-                if (cycleTimer.isElapsed()) {
-                    if (playMode.shuffle) {
-                        selectRandomFx();
-                    } else {
-                        selectNextFx();
+            if (standbyTimer.isElapsed()) {
+                mode = STOP;
+            } else {
+                bool signalTrigger = !audioSensor->mono->signalDetected || audioSensor->mono->beatDetected;
+                if (!playMode.manual && signalTrigger) {
+                    if (cycleTimer.isElapsed()) {
+                        if (playMode.shuffle) {
+                            selectRandomFx();
+                        } else {
+                            selectNextFx();
+                        }
                     }
                 }
+                stage->getFx(fx)->loopFlush();
             }
-            stage->getFx(fx)->loopFlush();
         } else {
             if (modeTimer.isElapsed()) {
                 reset();
@@ -69,6 +72,18 @@ void Controller::loop() {
     brightness->loop();
     
     FastLED.show();
+}
+
+void Controller::setStandbyTimer(unsigned long timeout) {
+    standbyTimer.reset(timeout);
+}
+
+void Controller::clearStandbyTimer() {
+    standbyTimer.stop();
+}
+
+void Controller::setStatsTimer(unsigned long timeout) {
+    statsTimer.reset(timeout);
 }
 
 void Controller::setMode(Mode mode, unsigned long duration) {

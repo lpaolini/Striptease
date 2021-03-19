@@ -5,7 +5,8 @@
 #include "Controller.h"
 #include "Timer.h"
 
-#define IRMP_PROTOCOL_NAMES             1
+#define IRMP_PROTOCOL_NAMES             1 // Enable protocol number mapping to protocol strings
+#define IRMP_USE_COMPLETE_CALLBACK      1 // Enable callback functionality
 
 #include <irmp.c.h>
 
@@ -36,6 +37,7 @@ class Remote {
                 uint8_t protocol = irmp_data.protocol;
                 uint16_t command = irmp_data.command;
                 bool repeated = irmp_data.flags & IRMP_FLAG_REPETITION;
+                controller->clearStandbyTimer();
                 handleCommand(protocol, command, repeated);
             }
         }
