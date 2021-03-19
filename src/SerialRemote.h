@@ -37,6 +37,8 @@ class SerialRemote {
         static const unsigned char CMD_FORWARD = 'f';
         static const unsigned char CMD_DECREASE_SPEED = '[';
         static const unsigned char CMD_INCREASE_SPEED = ']';
+        static const unsigned char CMD_INCREASE_BRIGHTNESS = 'q';
+        static const unsigned char CMD_DECREASE_BRIGHTNESS = 'a';
         static const uint8_t MODE_NORMAL = 0;
         static const uint8_t MODE_TIME = 1;
 
@@ -137,6 +139,12 @@ class SerialRemote {
                     break;
                 case CMD_INCREASE_SPEED:
                     controller->increaseFxSpeed();
+                    break;
+                case CMD_INCREASE_BRIGHTNESS:
+                    controller->increaseBrightness();
+                    break;
+                case CMD_DECREASE_BRIGHTNESS:
+                    controller->decreaseBrightness();
                     break;
             }
         }
