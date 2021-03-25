@@ -270,6 +270,10 @@ void Controller::reset() {
     stage->getFx(fx)->reset();
 }
 
+void Controller::setBrightness(uint8_t value) {
+    brightness->set(value);
+}
+
 void Controller::increaseBrightness() {
     brightness->increase();
 }

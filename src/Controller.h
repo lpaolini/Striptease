@@ -73,6 +73,7 @@ class Controller {
         void feedback(uint8_t count = 1);
         void reset();
 
+        void setBrightness(uint8_t value);
         void increaseBrightness();
         void decreaseBrightness();
 
