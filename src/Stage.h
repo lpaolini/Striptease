@@ -21,6 +21,7 @@
 // Fxs
 
 #include "fx/Ants.h"
+#include "fx/Background.h"
 #include "fx/Beat.h"
 #include "fx/Bounce.h"
 #include "fx/VU1.h"
