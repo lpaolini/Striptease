@@ -17,18 +17,18 @@ class Ripple : public Fx {
             uint8_t decay;
         };
         const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::HotPink, CRGB::Blue, CRGB::Aqua, CRGB::Fuchsia);
-        const CRGB BACKGROUND_COLOR = CHSV(160, 255, 30);
         static const uint8_t ITEMS = 10;
         static const unsigned int DECAY_DELAY = 500;
         AudioTrigger *audioTrigger;
         Item *items;
+        CRGB backgroundColor;
         Timer fadeTimer = Timer(10);
         void loopItem(Item &item, bool &trigger, float strength);
         void fadeItem(Item &item);
         void randomizeItem(Item &item, float strength);
 
     public:
-        Ripple(Strip *strip, AudioChannel *audioChannel, State *state);
+        Ripple(Strip *strip, AudioChannel *audioChannel, State *state, CRGB backgroundColor = CHSV(160, 255, 50));
         ~Ripple();
         void loop();
         void reset();

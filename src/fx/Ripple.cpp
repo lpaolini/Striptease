@@ -1,6 +1,7 @@
 #include "Ripple.h"
 
-Ripple::Ripple(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
+Ripple::Ripple(Strip *strip, AudioChannel *audioChannel, State *state, CRGB backgroundColor) : Fx(strip, audioChannel, state) {
+    this->backgroundColor = backgroundColor;
     audioTrigger = new AudioTrigger(audioChannel);
     items = new Item[ITEMS];
     for (uint8_t i = 0; i < ITEMS; i++) {
@@ -25,7 +26,7 @@ void Ripple::reset() {
 }
 
 void Ripple::loop() {
-    strip->paint(BACKGROUND_COLOR, false);
+    strip->paint(backgroundColor);
 
     if (fadeTimer.isElapsed()) {
         for (uint8_t i = 0; i < ITEMS; i++) {
