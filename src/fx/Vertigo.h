@@ -14,7 +14,7 @@ class Vertigo : public Fx {
     private:
         static const uint8_t ITEMS = 5;
         static const uint8_t FADE_RATE = 50;
-        static const uint16_t INHIBIT_DELAY = 250;
+        static const uint16_t INHIBIT_TIME_MS = 100;
         struct Item {
             HarmonicMotion ball;
             elapsedMillis timer;
@@ -23,7 +23,7 @@ class Vertigo : public Fx {
         Item items[ITEMS];
         uint8_t nextItem = 0;
         Timer fadeTimer = Timer(10);
-        Timer inhibitTimer = Timer(INHIBIT_DELAY);
+        Timer inhibitTimer = Timer(INHIBIT_TIME_MS);
         void randomizeItem(Item &item, float strength);
 
     public:
