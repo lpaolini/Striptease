@@ -7,7 +7,7 @@
 class Brightness {
     private:
         static const uint8_t BRIGHTNESS_STEPS = 40;
-        static const uint8_t MIN_BRIGHTNESS = 10;
+        static const uint8_t MIN_BRIGHTNESS = 20;
         static const uint8_t INITIAL_BRIGHTNESS = 10;
         static const uint16_t ON_DURATION_MS = 50;
         static const uint16_t OFF_DURATION_MS = 150;
