@@ -10,7 +10,7 @@ Shooting video of LEDs is very tricky. Getting the right exposure, focus and col
 I did my best, but the live effect from my couch is simply not comparable with what you get on video.
 I think the main reason is frame rate. This video has been shot at 60 fps, but the real animation runs at about __170 fps__...
 
-[Effect showcase](https://youtu.be/ZliKL7l32wE)
+[Effect showcase](https://youtu.be/ZliKL7l32wE) (version 3, April 2021)
 
 # Intro
 
