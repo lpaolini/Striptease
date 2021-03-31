@@ -229,7 +229,7 @@ Example 2
 
 ### Strip buffering
 
-All *Strip* implementations exposes a *buffered()* method which returns an instance of BufferedStrip wrapping the underlying strip.
+All *Strip* implementations expose a *buffered()* method which returns an instance of BufferedStrip wrapping the underlying strip.
 
 This is very useful for composing multiple effects rendered on the same LEDs, when one or more effects alter the underlying strip using methods like fade, blur, shiftUp or shiftDown.
 
