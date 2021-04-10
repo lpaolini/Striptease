@@ -28,11 +28,11 @@ bool Timer::isElapsed() {
 bool Timer::isElapsed(unsigned long duration) {
     if (running) {
         unsigned long current = millis();
-        if (current - last > duration) {
+        if (current - last >= duration) {
             if (autoReset) {
                 last += duration;
                 if (current - last > duration) {
-                    last = millis();
+                    last = current;
                 }
             } else {
                 running = false;

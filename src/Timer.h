@@ -6,7 +6,7 @@
 class Timer {
     private:
         unsigned long last;
-        unsigned int duration;
+        unsigned long duration;
         bool running;
         bool autoReset;
 
