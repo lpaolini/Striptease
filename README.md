@@ -10,9 +10,7 @@ Shooting video of LEDs is very tricky. Getting the right exposure, focus and col
 I did my best, but the live effect from my couch is simply not comparable with what you get on video.
 I think the main reason is frame rate. This video has been shot at 60 fps, but the real animation runs at about __170 fps__...
 
-[Quick demo](http://www.youtube.com/watch?v=GwfFWWeZfM0)
-
-[Effect showcase](https://www.youtube.com/playlist?list=PLWqF5fpWRY7WeD_1VaEDTdr6MzqzkYRuW)
+[Effect showcase](https://youtu.be/ZliKL7l32wE) (version 3, April 2021)
 
 # Intro
 
@@ -229,7 +227,7 @@ Example 2
 
 ### Strip buffering
 
-All *Strip* implementations exposes a *buffered()* method which returns an instance of BufferedStrip wrapping the underlying strip.
+All *Strip* implementations expose a *buffered()* method which returns an instance of BufferedStrip wrapping the underlying strip.
 
 This is very useful for composing multiple effects rendered on the same LEDs, when one or more effects alter the underlying strip using methods like fade, blur, shiftUp or shiftDown.
 
