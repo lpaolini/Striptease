@@ -37,6 +37,7 @@
 #include "fx/Jelly.h"
 #include "fx/Juggle.h"
 #include "fx/Matrix.h"
+#include "fx/Motion.h"
 #include "fx/Orbit.h"
 #include "fx/PeakMeter.h"
 #include "fx/Photons.h"
