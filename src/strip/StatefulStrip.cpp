@@ -41,15 +41,15 @@ uint16_t StatefulStrip::limitToRange(int16_t index) {
 }
 
 uint16_t StatefulStrip::random() {
-    return random16(size());
+    return random16(last());
 }
 
 uint16_t StatefulStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) {
-    return (excludeIndex + excludeCount + random16(size() - 2 * excludeCount)) % size();
+    return (excludeIndex + excludeCount + random16(last() - 2 * excludeCount)) % size();
 }
 
 uint16_t StatefulStrip::randomInRange(float from, float to) {
-    return random16(from * size(), to * size());
+    return random16(from * last(), to * last());
 }
 
 uint16_t StatefulStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
@@ -188,6 +188,6 @@ bool StatefulStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB c
 }
 
 bool StatefulStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
-    uint16_t pos = random16(size() - length);
+    uint16_t pos = random16(last() - length);
     return paint(pos, pos + length, color, add);
 }

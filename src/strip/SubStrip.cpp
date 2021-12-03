@@ -35,15 +35,15 @@ uint16_t SubStrip::limitToRange(int16_t index) {
 }
 
 uint16_t SubStrip::random() {
-    return random16(size());
+    return random16(last());
 }
 
 uint16_t SubStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) {
-    return (excludeIndex + excludeCount + random16(size() - 2 * excludeCount)) % size();
+    return (excludeIndex + excludeCount + random16(last() - 2 * excludeCount)) % size();
 }
 
 uint16_t SubStrip::randomInRange(float from, float to) {
-    return random16(from * size(), to * size());
+    return random16(from * last(), to * last());
 }
 
 uint16_t SubStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
