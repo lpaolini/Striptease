@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.11] (2021-12-03)
+
+### Fixed
+- `JoinedStrip`: fixed probable cause of momentary random freezing / crashing.
+- `JoinedStrip, ReversedStrip, SubStrip, StatefulStrip`: fixed upper boundary of random position.
+
+### Changed
+- Skipped first EEPROM location, where speed for each effect is stored, as location 0 seems not to work.
+
+### Added
+- `Motion`: added class for handling linear/accelerated motion.
+
 ## [1.2.10] (2021-04-11)
 
 ### Fixed
