@@ -305,7 +305,7 @@ bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add
             } else if (isInGap(indexTo)) {
                 // starts in strip 1 and ends in gap
                 bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, add);
-                bool sg = gapStrip->paint(color, add, gapStrip->first(), toGap(indexTo));
+                bool sg = gapStrip->paint(gapStrip->first(), toGap(indexTo), color, add);
                 return s1 || sg;
                 
             } else if (isInStrip2(indexTo)) {
