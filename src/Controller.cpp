@@ -336,7 +336,7 @@ void Controller::decreaseParam() {
 }
 
 void Controller::saveParam() {
-    uint8_t previous = EEPROM.read(fx);
+    uint8_t previous = EEPROM.read(fx + 1);
     uint8_t current = state->getFxSpeed();
     if (current != previous) {
         EEPROM.write(fx, current);
@@ -344,7 +344,7 @@ void Controller::saveParam() {
 }
 
 void Controller::loadParam() {
-    uint8_t previous = min(EEPROM.read(fx), 100);
+    uint8_t previous = min(EEPROM.read(fx + 1), 100);
     state->setFxSpeed(previous ? previous : 50);
 }
             
