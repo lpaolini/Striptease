@@ -8,7 +8,7 @@
 #define IRMP_PROTOCOL_NAMES             1 // Enable protocol number mapping to protocol strings
 #define IRMP_USE_COMPLETE_CALLBACK      1 // Enable callback functionality
 
-#include <irmp.c.h>
+#include <irmp.hpp>
 
 class Remote {
     private:
