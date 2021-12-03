@@ -18,7 +18,7 @@ MyStage::MyStage(AudioSensor *audioSensor, State *state) {
     addFx(new Chaser(left, audioSensor->left, state), new Chaser(right, audioSensor->right, state));
     addFx(new Glitter(front, state));
     addFx(new Orbit(left, state), new Orbit(right, state, 120));
-    addFx(new VU1(left, audioSensor->left), new VU1(right, audioSensor->right));
+    addFx(new VU1(left, audioSensor->left, state), new VU1(right, audioSensor->right, state));
     addFx(new Elastic(left, audioSensor->left, state), new Elastic(right, audioSensor->right, state));
     addFx(new Sinelon(left, state), new Sinelon(right, state));
     addFx(new SineMeter(left, audioSensor->left, state), new SineMeter(right, audioSensor->right, state));
