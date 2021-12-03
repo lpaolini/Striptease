@@ -20,6 +20,7 @@ void VU2::resetPeak() {
         .setCriticalDamping()
         .setLowerBound(0)
         .setRange(0, max(0, size - 1))
+        .setPosition(strip->fromNormalizedPosition(audioChannel->peakSmooth))
         .setShowWhenStable(false);
 }
 

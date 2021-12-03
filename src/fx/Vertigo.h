@@ -19,6 +19,7 @@ class Vertigo : public Fx {
             HarmonicMotion ball;
             elapsedMillis timer;
         };
+        CRGB color;
         AudioTrigger *audioTrigger;
         Item items[ITEMS];
         uint8_t nextItem = 0;
@@ -27,7 +28,7 @@ class Vertigo : public Fx {
         void randomizeItem(Item &item, float strength);
 
     public:
-        Vertigo(Strip *strip, AudioChannel *audioChannel, State *state);
+        Vertigo(Strip *strip, AudioChannel *audioChannel, State *state, CRGB color = CRGB::Blue);
         ~Vertigo();
         void loop();
         void reset();

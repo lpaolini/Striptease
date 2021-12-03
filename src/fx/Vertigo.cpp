@@ -1,6 +1,7 @@
 #include "Vertigo.h"
 
-Vertigo::Vertigo(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
+Vertigo::Vertigo(Strip *strip, AudioChannel *audioChannel, State *state, CRGB color) : Fx(strip, audioChannel, state) {
+    this->color = color;
     audioTrigger = new AudioTrigger(audioChannel);
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].ball.setup(strip);
@@ -41,8 +42,7 @@ void Vertigo::loop() {
 
 void Vertigo::randomizeItem(Item &item, float strength) {
     item.ball.reset()
-        .setColor(CRGB::Blue)
-        // .setAcceleration(100 + 1000 * state->linearFxSpeed)
+        .setColor(color)
         .setAcceleration(50, 0, 2000 * state->linearFxSpeed)
         .setPosition(0)
         .setUpperBound(strip->last());

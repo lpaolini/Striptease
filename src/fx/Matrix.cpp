@@ -37,7 +37,7 @@ void Matrix::loop() {
 void Matrix::addFromTop() {
     if (--countDown == 0) {
         // down[strip->last()] = !down[strip->last() - 1] && random8() < DOWN_PROBABILITY;
-        down[strip->last()] = !down[strip->last() - 1] && random8() < 100 * state->parabolicFxSpeed;
+        down[strip->last()] = !down[strip->last() - 1] && random8() < 50 * state->parabolicFxSpeed;
         for (int i = 0; i < strip->last(); i++) {
             down[i] = down[i + 1];
         }

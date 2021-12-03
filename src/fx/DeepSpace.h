@@ -28,9 +28,10 @@ class DeepSpace : public Fx {
         static constexpr float MAX_MUTATION_DISTANCE = 500;
         static constexpr float MAX_SQUARED_DISTANCE = pow(MAX_DISTANCE, 2);
         static constexpr float MIN_STEERING = 30;
-        static constexpr float MAX_STEERING = 150;
+        static constexpr float MAX_STEERING = 120;
         static constexpr float MIN_TRANSITION_SPEED = 100;
-        static constexpr float MAX_TRANSITION_SPEED = 500;
+        static constexpr float MAX_TRANSITION_SPEED = 300;
+        CRGB baseColor, accentColor;
         AudioTrigger *audioTrigger;
         Item items[ITEMS];
         elapsedMicros time;
@@ -42,7 +43,7 @@ class DeepSpace : public Fx {
         void randomizeItem(Item &item);
 
     public:
-        DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state);
+        DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state, CRGB baseColor = CRGB::Blue, CRGB accenttColor = CRGB::Red);
         ~DeepSpace();
         void loop();
         void reset();

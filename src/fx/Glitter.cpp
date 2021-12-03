@@ -13,7 +13,6 @@ void Glitter::loop() {
         strip->fade(max(1, 20 * state->linearFxSpeed));
     }
     if (timer.isElapsed(100 * (1 - state->linearFxSpeed))) {
-        uint16_t pos = random16(strip->size() - SEGMENT_LENGTH);
-        strip->paint(pos, pos + (SEGMENT_LENGTH - 1), CHSV(state->rotatingHue + random8(64), 255, 255));
+        strip->paintRandomPos(SEGMENT_LENGTH, CHSV(state->rotatingHue + random8(64), 255, 255));
     }
 }

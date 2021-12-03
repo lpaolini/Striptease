@@ -1,6 +1,8 @@
 #include "DeepSpace.h"
 
-DeepSpace::DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state) : Fx(strip, audioChannel, state) {
+DeepSpace::DeepSpace(Strip *strip, AudioChannel *audioChannel, State *state, CRGB baseColor, CRGB accentColor) : Fx(strip, audioChannel, state) {
+    this->baseColor = baseColor;
+    this->accentColor = accentColor;
     this->audioTrigger = new AudioTrigger(audioChannel);
     for (uint16_t i = 0; i < ITEMS; i++) {
         items[i].pixel.setup(strip);
@@ -87,10 +89,10 @@ void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &t
     CRGB color;
     switch (item.type) {
         case NORMAL:
-            color = CHSV(160, 255, brightness);
+            color = CRGB(baseColor).fadeToBlackBy(255 - brightness);
             break;
         case HIGHLIGHT:
-            color = CHSV(0, 255, brightness);
+            color = CRGB(accentColor).fadeToBlackBy(255 - brightness);
             break;
         default:
             color = CRGB::Black;
