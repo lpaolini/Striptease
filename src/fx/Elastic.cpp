@@ -39,14 +39,14 @@ void Elastic::loop() {
 }
 
 void Elastic::randomizeItem(HarmonicMotion &item, float strength) {
-    uint16_t pos = strip->randomExclude(item.getPosition());
+    uint16_t pos = strip->randomExclude(item.getPosition(), strip->size() / 5);
     item.reset()
         .setColor(ColorFromPalette(PALETTE, random8()))
         .setElasticConstant(20)
-        .setCriticalDamping()
+        .setCriticalDamping(.5)
         .setPosition(pos)
         .setFixedPointPosition(pos)
-        .setVelocity(50 + random16(400 * state->linearFxSpeed))
+        .setVelocity(random16(100 + 200 * state->linearFxSpeed, 250 + 500 * state->linearFxSpeed))
         .setMirror(true)
         .setFill(true);
 }
