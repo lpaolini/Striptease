@@ -54,7 +54,7 @@ void Controller::loop() {
                         stage->getMicGainMeterFx()->loopFlush();
                         break;
                     case SET_INPUT_LEVEL:
-                        stage->getInputLevelMeterFx()->loop();
+                        stage->getInputLevelMeterFx()->loopFlush();
                         break;
                     default:
                         break;
@@ -336,16 +336,13 @@ void Controller::decreaseParam() {
 }
 
 void Controller::saveParam() {
-    uint8_t previous = EEPROM.read(fx + 1);
-    uint8_t current = state->getFxSpeed();
-    if (current != previous) {
-        EEPROM.write(fx, current);
-    }
+    uint8_t value = state->getFxSpeed();
+    EEPROM.update(fx + 1, value);
 }
 
 void Controller::loadParam() {
-    uint8_t previous = min(EEPROM.read(fx + 1), 100);
-    state->setFxSpeed(previous ? previous : 50);
+    uint8_t value = min(EEPROM.read(fx + 1), 100);
+    state->setFxSpeed(value ? value : 50);
 }
             
 void Controller::selectFx(uint8_t fx) {
