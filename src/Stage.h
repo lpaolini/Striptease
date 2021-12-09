@@ -43,6 +43,7 @@
 #include "fx/Photons.h"
 #include "fx/Rainbow.h"
 #include "fx/Ripple.h"
+#include "fx/RippleReflections.h"
 #include "fx/Scroller.h"
 #include "fx/Sinelon.h"
 #include "fx/SineMeter.h"
