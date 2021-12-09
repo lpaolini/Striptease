@@ -42,6 +42,7 @@
 #include "fx/PeakMeter.h"
 #include "fx/Photons.h"
 #include "fx/Rainbow.h"
+#include "fx/RainbowMelt.h"
 #include "fx/Ripple.h"
 #include "fx/RippleReflections.h"
 #include "fx/Scroller.h"
