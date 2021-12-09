@@ -55,8 +55,8 @@ HarmonicMotion& HarmonicMotion::setDamping(float b) {
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setCriticalDamping() {
-    this->b = 2 * sqrtf(k);
+HarmonicMotion& HarmonicMotion::setCriticalDamping(float correctionFactor) {
+    this->b = 2 * sqrtf(k) * correctionFactor;
     return *this;
 }
 

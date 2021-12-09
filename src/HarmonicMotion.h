@@ -48,7 +48,7 @@ class HarmonicMotion {
         HarmonicMotion& setAcceleration(float a0, float a1 = 0, float a2 = 0);
         HarmonicMotion& setElasticConstant(float k);
         HarmonicMotion& setDamping(float b);
-        HarmonicMotion& setCriticalDamping();
+        HarmonicMotion& setCriticalDamping(float correctionFactor = 1);
         HarmonicMotion& setPosition(float x);
         HarmonicMotion& setRandomPosition();
         HarmonicMotion& setVelocity(float v);
