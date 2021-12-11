@@ -70,7 +70,7 @@ void DeepSpace::loop() {
 void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &trigger) {
     item.point.translate(0, translationY).rotate(rotation);
 
-    if (item.point.y < 0) {
+    if (item.point.y <= 0) {
         randomizeItem(item);
     } 
 
@@ -78,7 +78,8 @@ void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &t
     float distance = item.point.radius();
     float distanceSquared = pow(distance, 2);
 
-    float pos = min(max(0, 1 - (angle / PI)), 1);
+    // float pos = min(1, max(0, 1 - (angle / PI)));
+    float pos = 1 - (angle / PI);
     uint8_t brightness = min(255, 5 * MAX_SQUARED_DISTANCE / distanceSquared);
 
     if (trigger && item.type == NORMAL && distance < MAX_MUTATION_DISTANCE) {
