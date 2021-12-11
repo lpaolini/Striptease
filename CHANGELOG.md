@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Interval`: implemented rolling arguments for `toTriangle`, `toSquare` and `toWave` functions.
 
 ### Changed
-BREAKING CHANGE: replaced all `float` variables and arguments with `double`.
+- BREAKING CHANGE: replaced all `float` variables and arguments with `double`.
+- `Interval`: changed time precision to microseconds.
 
 ## [1.2.13] (2021-12-11)
 

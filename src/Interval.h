@@ -5,19 +5,19 @@
 
 class Interval {
     private:
-        elapsedMillis timeMilliseconds = 0;
+        elapsedMicros timeMicroseconds = 0;
 
     public:
         void reset() {
-            timeMilliseconds = 0;
+            timeMicroseconds = 0;
         }
 
         double time(double interval) {
-            double intervalMilliseconds = interval * 65536;
-            while (timeMilliseconds >= intervalMilliseconds) {
-                timeMilliseconds -= intervalMilliseconds;
+            double intervalMicroseconds = interval * 65536000;
+            while (timeMicroseconds >= intervalMicroseconds) {
+                timeMicroseconds -= intervalMicroseconds;
             }
-            return double(timeMilliseconds) / double(intervalMilliseconds);
+            return double(timeMicroseconds) / double(intervalMicroseconds);
         }
 
         static double frac(double v) {
