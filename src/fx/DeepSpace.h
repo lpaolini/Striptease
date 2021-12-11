@@ -23,23 +23,23 @@ class DeepSpace : public Fx {
         };
         static const uint16_t ITEMS = 250;
         static const uint16_t SPEED = 500;
-        static constexpr float MIN_DISTANCE = 500;
-        static constexpr float MAX_DISTANCE = 2000;
-        static constexpr float MAX_MUTATION_DISTANCE = 500;
-        static constexpr float MAX_SQUARED_DISTANCE = pow(MAX_DISTANCE, 2);
-        static constexpr float MIN_STEERING = 30;
-        static constexpr float MAX_STEERING = 120;
-        static constexpr float MIN_TRANSITION_SPEED = 100;
-        static constexpr float MAX_TRANSITION_SPEED = 300;
+        static constexpr double MIN_DISTANCE = 500;
+        static constexpr double MAX_DISTANCE = 2000;
+        static constexpr double MAX_MUTATION_DISTANCE = 500;
+        static constexpr double MAX_SQUARED_DISTANCE = pow(MAX_DISTANCE, 2);
+        static constexpr double MIN_STEERING = 30;
+        static constexpr double MAX_STEERING = 120;
+        static constexpr double MIN_TRANSITION_SPEED = 100;
+        static constexpr double MAX_TRANSITION_SPEED = 300;
         CRGB baseColor, accentColor;
         AudioTrigger *audioTrigger;
         Item items[ITEMS];
         elapsedMicros time;
-        float steeringAngle = 0;
-        float transitionSpeed = 0;
-        float transition = 1;
+        double steeringAngle = 0;
+        double transitionSpeed = 0;
+        double transition = 1;
         Timer timer = Timer(1000);
-        void loopItem(Item &item, float translationY, float rotation, bool &trigger);
+        void loopItem(Item &item, double translationY, double rotation, bool &trigger);
         void randomizeItem(Item &item);
 
     public:

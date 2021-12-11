@@ -19,8 +19,8 @@ class Motion : public Fx {
             HarmonicMotion ball;
         };
         CRGB color;
-        float velocityFactor;
-        float accelerationFactor;
+        double velocityFactor;
+        double accelerationFactor;
         AudioTrigger *audioTrigger;
         Item items[ITEMS];
         uint8_t nextItem = 0;
@@ -29,7 +29,7 @@ class Motion : public Fx {
         void resetItem(Item &item);
 
     public:
-        Motion(Strip *strip, AudioChannel *audioChannel, State *state, CRGB color = CRGB::Blue, float velocityFactor = 100, float accelerationFactor = 100);
+        Motion(Strip *strip, AudioChannel *audioChannel, State *state, CRGB color = CRGB::Blue, double velocityFactor = 100, double accelerationFactor = 100);
         ~Motion();
         void loop();
         void reset();

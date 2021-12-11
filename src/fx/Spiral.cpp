@@ -1,6 +1,6 @@
 #include "Spiral.h"
 
-Spiral::Spiral(Strip *strip, State *state, uint16_t count, float turns, float eccentricity) : Fx(strip, state) {
+Spiral::Spiral(Strip *strip, State *state, uint16_t count, double turns, double eccentricity) : Fx(strip, state) {
     this->count = count;
     this->turns = turns;
     this->eccentricity = eccentricity;
@@ -14,7 +14,7 @@ void Spiral::reset() {
     clear();
     for (uint16_t i = 0; i < count; i++) {
         items[i].reset()
-            // .setCenter(.5 + float(random(-50, 50)) / 100)
+            // .setCenter(.5 + double(random(-50, 50)) / 100)
             .setCenter(.5)
             .setRadius(.5 / count * (i + 1))
             .setAngle(turns * 2 * PI / count * i)

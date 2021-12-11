@@ -28,13 +28,13 @@ void DeepSpace::reset() {
 void DeepSpace::loop() {
     strip->off();
 
-    float dT = time / 1e6;
+    double dT = time / 1e6;
     time = 0;
 
     bool trigger = audioTrigger->triggered(1);
 
-    float translationY = SPEED * dT;
-    float rotation = 0;
+    double translationY = SPEED * dT;
+    double rotation = 0;
 
     if (transition == 1) {
         if (timer.isElapsed()) {
@@ -57,7 +57,7 @@ void DeepSpace::loop() {
             timer.reset();
         }
     } else {
-        float previousTransition = transition;
+        double previousTransition = transition;
         transition = min(1, transition + transitionSpeed * dT);
         rotation = steeringAngle * Easing::deltaEaseInOutCubic(transition, previousTransition) / 180 * TWO_PI;
     }
@@ -67,19 +67,19 @@ void DeepSpace::loop() {
     }
 }
 
-void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &trigger) {
+void DeepSpace::loopItem(Item &item, double translationY, double rotation, bool &trigger) {
     item.point.translate(0, translationY).rotate(rotation);
 
     if (item.point.y <= 0) {
         randomizeItem(item);
     } 
 
-    float angle = item.point.angle();
-    float distance = item.point.radius();
-    float distanceSquared = pow(distance, 2);
+    double angle = item.point.angle();
+    double distance = item.point.radius();
+    double distanceSquared = pow(distance, 2);
 
-    // float pos = min(1, max(0, 1 - (angle / PI)));
-    float pos = 1 - (angle / PI);
+    // double pos = min(1, max(0, 1 - (angle / PI)));
+    double pos = 1 - (angle / PI);
     uint8_t brightness = min(255, 5 * MAX_SQUARED_DISTANCE / distanceSquared);
 
     if (trigger && item.type == NORMAL && distance < MAX_MUTATION_DISTANCE) {
@@ -104,8 +104,8 @@ void DeepSpace::loopItem(Item &item, float translationY, float rotation, bool &t
 }
 
 void DeepSpace::randomizeItem(Item &item) {
-    float distance = random16(MIN_DISTANCE, MAX_DISTANCE);
-    float angle = random16(0, 18000) / (100 * PI);
+    double distance = random16(MIN_DISTANCE, MAX_DISTANCE);
+    double angle = random16(0, 18000) / (100 * PI);
     item.point = Point::fromPolar(distance, angle);
     item.type = random8(100) < (state->parabolicFxSpeed * 95 + 5)
         ? NORMAL

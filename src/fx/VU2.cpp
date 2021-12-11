@@ -1,6 +1,6 @@
 #include "VU2.h"
 
-VU2::VU2(Strip *strip, AudioChannel *audioChannel, uint16_t size, float elasticConstant, CRGB color) : Fx(strip, audioChannel) {
+VU2::VU2(Strip *strip, AudioChannel *audioChannel, uint16_t size, double elasticConstant, CRGB color) : Fx(strip, audioChannel) {
     this->size = size;
     this->elasticConstant = elasticConstant;
     this->color = color;

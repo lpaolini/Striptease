@@ -32,7 +32,7 @@ void Drops::loop() {
     }
 }
 
-void Drops::loopItem(Item &item, bool &trigger, float strength) {
+void Drops::loopItem(Item &item, bool &trigger, double strength) {
     item.center.loop();
     item.center.color.fadeToBlackBy(item.decay * 5);
 
@@ -45,7 +45,7 @@ void Drops::loopItem(Item &item, bool &trigger, float strength) {
     }
 }
 
-void Drops::randomizeItem(Item &item, float strength) {
+void Drops::randomizeItem(Item &item, double strength) {
     uint16_t pos = strip->randomInRange(.1, .9);
     item.center.reset()
         .setColor(CRGB::Aqua)

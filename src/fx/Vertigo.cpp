@@ -40,7 +40,7 @@ void Vertigo::loop() {
     }
 }
 
-void Vertigo::randomizeItem(Item &item, float strength) {
+void Vertigo::randomizeItem(Item &item, double strength) {
     item.ball.reset()
         .setColor(color)
         .setAcceleration(50, 0, 2000 * state->linearFxSpeed)

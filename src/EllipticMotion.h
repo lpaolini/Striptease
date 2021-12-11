@@ -12,12 +12,12 @@ class EllipticMotion {
         static const uint8_t MIN_BRIGHTNESS = 75;
         Strip *strip;
         elapsedMicros timeElapsed;
-        float center;
-        float radius;
-        float angle;
-        float angularSpeed;
-        float eccentricity;
-        float eccentricityAngle;
+        double center;
+        double radius;
+        double angle;
+        double angularSpeed;
+        double eccentricity;
+        double eccentricityAngle;
         bool overwrite;
         Pixel pixel;
 
@@ -29,12 +29,12 @@ class EllipticMotion {
         EllipticMotion& reset();
         EllipticMotion& setHue(uint8_t hue);
         EllipticMotion& setSaturation(uint8_t saturation);
-        EllipticMotion& setCenter(float center);
-        EllipticMotion& setRadius(float radius);
-        EllipticMotion& setAngle(float angle);
-        EllipticMotion& setAngularSpeed(float angularSpeed);
-        EllipticMotion& setEccentricity(float eccentricity);
-        EllipticMotion& setEccentricityAngle(float eccentricityAngle);
+        EllipticMotion& setCenter(double center);
+        EllipticMotion& setRadius(double radius);
+        EllipticMotion& setAngle(double angle);
+        EllipticMotion& setAngularSpeed(double angularSpeed);
+        EllipticMotion& setEccentricity(double eccentricity);
+        EllipticMotion& setEccentricityAngle(double eccentricityAngle);
         EllipticMotion& setOverwrite(bool overwrite);
         void loop();
 };

@@ -9,16 +9,16 @@
 
 class Spiral : public Fx {
     private:
-        static constexpr float MIN_ANGULAR_SPEED = 20;
-        static constexpr float MAX_ANGULAR_SPEED = 120;
+        static constexpr double MIN_ANGULAR_SPEED = 20;
+        static constexpr double MAX_ANGULAR_SPEED = 120;
         Timer fadeTimer = Timer(5);
         EllipticMotion *items;
         uint16_t count;
-        float turns;
-        float eccentricity;
+        double turns;
+        double eccentricity;
 
     public:
-        Spiral(Strip *strip, State *state, uint16_t count = 10, float turns = 1, float eccentricity = 0);
+        Spiral(Strip *strip, State *state, uint16_t count = 10, double turns = 1, double eccentricity = 0);
         void loop();
         void reset();
 };

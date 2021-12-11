@@ -24,8 +24,8 @@ void Volcane::reset() {
 }
 
 void Volcane::restart(Item *item) {
-    float g = -2500 * state->parabolicFxSpeed;
-    float v0 = sqrtf(g * -2 * random8(70, 100) / 100 * strip->last());
+    double g = -2500 * state->parabolicFxSpeed;
+    double v0 = sqrtf(g * -2 * random8(70, 100) / 100 * strip->last());
     item->head.reset()
         .setColor(CRGB::Red)
         .setAcceleration(g)

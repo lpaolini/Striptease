@@ -12,8 +12,8 @@ void PeakMeter::reset() {
 
 void PeakMeter::loop() {
     strip->off();
-    float peakSmooth = audioChannel->peakSmooth;
-    float peakHold = audioChannel->peakHold;
+    double peakSmooth = audioChannel->peakSmooth;
+    double peakHold = audioChannel->peakHold;
     if (audioChannel->beatDetected) {
         beat = 0;
     }

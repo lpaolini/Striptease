@@ -1,7 +1,7 @@
 #include "Brightness.h"
 
 void Brightness::applyBrightness(bool dim) {
-    float correctedBrightness = MIN_BRIGHTNESS + (255 - MIN_BRIGHTNESS) * pow(float(brightness) / (BRIGHTNESS_STEPS - 1), 2);
+    double correctedBrightness = MIN_BRIGHTNESS + (255 - MIN_BRIGHTNESS) * pow(double(brightness) / (BRIGHTNESS_STEPS - 1), 2);
     FastLED.setBrightness(dim ? correctedBrightness / 2 : correctedBrightness);
 }
 

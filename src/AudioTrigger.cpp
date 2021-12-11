@@ -13,7 +13,7 @@ void AudioTrigger::loop() {
     beatDetected = beatDetected || audioChannel->beatDetected;
 }
 
-bool AudioTrigger::triggered(float noSignalEventsPerSecond, float signalEventsPerSecond) {
+bool AudioTrigger::triggered(double noSignalEventsPerSecond, double signalEventsPerSecond) {
     unsigned long us = timer;
     bool trigger = audioChannel->signalDetected
         ? beatDetected || audioChannel->beatDetected || random(1e6) < (signalEventsPerSecond * us)

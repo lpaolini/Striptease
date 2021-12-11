@@ -212,7 +212,7 @@ void Controller::decreaseLineInLevel() {
 }
 
 void Controller::resetCycleTimer() {
-    float delay = max(100, 1000 * pow(state->linearCycleSpeed, 2) * MAX_PATTERN_DELAY_S);
+    double delay = max(100, 1000 * pow(state->linearCycleSpeed, 2) * MAX_PATTERN_DELAY_S);
     cycleTimer.reset(delay);
 }
 

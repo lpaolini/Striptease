@@ -47,7 +47,7 @@ void Ripple::fadeItem(Item &item) {
     }
 }
 
-void Ripple::loopItem(Item &item, bool &trigger, float strength) {
+void Ripple::loopItem(Item &item, bool &trigger, double strength) {
     item.ball.loop();
 
     if (!item.ball.color && trigger) {
@@ -56,7 +56,7 @@ void Ripple::loopItem(Item &item, bool &trigger, float strength) {
     }
 }
 
-void Ripple::randomizeItem(Item &item, float strength) {
+void Ripple::randomizeItem(Item &item, double strength) {
     uint16_t pos = strip->random();
     uint8_t size = 5;
     item.ball.reset()

@@ -42,11 +42,11 @@ uint16_t SubStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) {
     return (excludeIndex + excludeCount + random16(last() - 2 * excludeCount)) % size();
 }
 
-uint16_t SubStrip::randomInRange(float from, float to) {
+uint16_t SubStrip::randomInRange(double from, double to) {
     return random16(from * last(), to * last());
 }
 
-uint16_t SubStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
+uint16_t SubStrip::fromNormalizedPosition(double normalizedPosition, int16_t excludeCount) {
     return int(normalizedPosition * (last() - excludeCount));
 }
 
@@ -135,15 +135,15 @@ bool SubStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     }
 }
 
-bool SubStrip::paintNormalized(float position, CRGB color, bool add) {
+bool SubStrip::paintNormalized(double position, CRGB color, bool add) {
     return paint(fromNormalizedPosition(position), color, add);
 }
 
-bool SubStrip::paintNormalized(float positionFrom, float positionTo, CRGB color, bool add) {
+bool SubStrip::paintNormalized(double positionFrom, double positionTo, CRGB color, bool add) {
     return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
 }
 
-bool SubStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
+bool SubStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;
     return paint(indexFrom, indexTo, color, add);

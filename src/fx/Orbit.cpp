@@ -1,6 +1,6 @@
 #include "Orbit.h"
 
-Orbit::Orbit(Strip *strip, State *state, float phase) : Fx(strip, state) {
+Orbit::Orbit(Strip *strip, State *state, double phase) : Fx(strip, state) {
     this->phase = phase;
     for (uint8_t i = 0; i < ITEMS; i++) {
         item[i].setup(strip, state, HUE_STEP * i, phase + ANGLE_STEP * i, SPEED_STEP * i, ECCENTRICITY, ECCENTRICITY_ANGLE);

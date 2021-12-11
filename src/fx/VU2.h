@@ -11,13 +11,13 @@
 class VU2 : public Fx {
     private:
         uint16_t size;
-        float elasticConstant;
+        double elasticConstant;
         CRGB color;
         HarmonicMotion peak;
         void resetPeak();
         
     public:
-        VU2(Strip *strip, AudioChannel *audioChannel, uint16_t size = 10, float elasticConstant = 1000, CRGB color = CRGB::Red);
+        VU2(Strip *strip, AudioChannel *audioChannel, uint16_t size = 10, double elasticConstant = 1000, CRGB color = CRGB::Red);
         void loop();
         void reset();
 };

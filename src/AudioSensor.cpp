@@ -113,12 +113,12 @@ void AudioSensor::decreaseLineInLevel() {
     setLineInLevel(max(0, lineInLevel - 1));
 }
 
-float AudioSensor::getNormalizedMicGain() {
-    return float(micGain) / 63;
+double AudioSensor::getNormalizedMicGain() {
+    return double(micGain) / 63;
 }
 
-float AudioSensor::getNormalizedLineInLevel() {
-    return float(lineInLevel) / 15;
+double AudioSensor::getNormalizedLineInLevel() {
+    return double(lineInLevel) / 15;
 }
 
 void AudioSensor::printStats() {

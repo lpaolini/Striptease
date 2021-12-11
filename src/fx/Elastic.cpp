@@ -38,7 +38,7 @@ void Elastic::loop() {
     }
 }
 
-void Elastic::randomizeItem(HarmonicMotion &item, float strength) {
+void Elastic::randomizeItem(HarmonicMotion &item, double strength) {
     uint16_t pos = strip->randomExclude(item.getPosition(), strip->size() / 5);
     item.reset()
         .setColor(ColorFromPalette(PALETTE, random8()))

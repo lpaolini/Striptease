@@ -10,18 +10,18 @@
 class OrbitItem {
     private:
         static const uint8_t MIN_BRIGHTNESS = 75;
-        static constexpr float MIN_SPEED = 50;
-        static constexpr float SPEED_FACTOR = 300;
+        static constexpr double MIN_SPEED = 50;
+        static constexpr double SPEED_FACTOR = 300;
         Strip *strip;
         State *state;
         uint8_t hue;
-        float phase; // degrees
-        float speed; // degrees per second
-        float eccentricity;
-        float eccentricityAngle;
+        double phase; // degrees
+        double speed; // degrees per second
+        double eccentricity;
+        double eccentricityAngle;
         Pixel pixel;
         elapsedMicros timeElapsed;
-        float angle;
+        double angle;
 
     public:
         OrbitItem();
@@ -29,10 +29,10 @@ class OrbitItem {
             Strip *strip,
             State *state,
             uint8_t hue,
-            float phase,
-            float speed,
-            float eccentricity = 0,
-            float eccentricityAngle = 0
+            double phase,
+            double speed,
+            double eccentricity = 0,
+            double eccentricityAngle = 0
         );
         void reset();
         void loop();

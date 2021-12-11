@@ -38,6 +38,6 @@ bool Pixel::set(int pos, CRGB color, bool add) {
     return strip->paint(posMin, posMax, color, add);
 }
 
-bool Pixel::setNormalized(float pos, CRGB color) {
+bool Pixel::setNormalized(double pos, CRGB color) {
     return set(pos * strip->last(), color);
 }

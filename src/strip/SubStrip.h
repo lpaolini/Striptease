@@ -21,8 +21,8 @@ class SubStrip : public Strip {
         uint16_t limitToRange(int16_t index);
         uint16_t random();
         uint16_t randomExclude(int16_t excludeIndex, int16_t excludeCount = 0);
-        uint16_t randomInRange(float from, float to);
-        uint16_t fromNormalizedPosition(float normalizedPosition, int16_t excludeCount = 0);
+        uint16_t randomInRange(double from, double to);
+        uint16_t fromNormalizedPosition(double normalizedPosition, int16_t excludeCount = 0);
         void off();
         void rainbow(uint8_t initialHue);
         void rainbow(uint8_t initialHue, uint8_t deltaHue);
@@ -39,9 +39,9 @@ class SubStrip : public Strip {
         void paint(CRGB color, bool add = false);
         bool paint(int16_t index, CRGB color, bool add = true);
         bool paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true);
-        bool paintNormalized(float position, CRGB color, bool add = true);
-        bool paintNormalized(float positionFrom, float positionTo, CRGB color, bool add = true);
-        bool paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add = true);
+        bool paintNormalized(double position, CRGB color, bool add = true);
+        bool paintNormalized(double positionFrom, double positionTo, CRGB color, bool add = true);
+        bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true);
         bool paintRandomPos(int16_t length, CRGB color, bool add = true);
 };
 

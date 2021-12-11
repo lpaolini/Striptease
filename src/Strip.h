@@ -41,8 +41,8 @@ class Strip {
         virtual uint16_t last();
         virtual uint16_t random();
         virtual uint16_t randomExclude(int16_t excludeIndex, int16_t excludeCount = 0);
-        virtual uint16_t randomInRange(float from, float to);
-        virtual uint16_t fromNormalizedPosition(float normalizedPosition, int16_t excludeCount = 0);
+        virtual uint16_t randomInRange(double from, double to);
+        virtual uint16_t fromNormalizedPosition(double normalizedPosition, int16_t excludeCount = 0);
         virtual void off();
         virtual void rainbow(uint8_t initialHue);
         virtual void rainbow(uint8_t initialHue, int16_t indexFrom, int16_t indexTo);
@@ -59,9 +59,9 @@ class Strip {
         virtual void paint(CRGB color, bool add = false);
         virtual bool paint(int16_t index, CRGB color, bool add = true);
         virtual bool paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true);
-        virtual bool paintNormalized(float position, CRGB color, bool add = true);
-        virtual bool paintNormalized(float positionFrom, float positionTo, CRGB color, bool add = true);
-        virtual bool paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add = true);
+        virtual bool paintNormalized(double position, CRGB color, bool add = true);
+        virtual bool paintNormalized(double positionFrom, double positionTo, CRGB color, bool add = true);
+        virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true);
         virtual bool paintRandomPos(int16_t length, CRGB color, bool add = true);
 };
 

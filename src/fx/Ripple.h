@@ -23,9 +23,9 @@ class Ripple : public Fx {
         Item *items;
         CRGB backgroundColor;
         Timer fadeTimer = Timer(10);
-        void loopItem(Item &item, bool &trigger, float strength);
+        void loopItem(Item &item, bool &trigger, double strength);
         void fadeItem(Item &item);
-        void randomizeItem(Item &item, float strength);
+        void randomizeItem(Item &item, double strength);
 
     public:
         Ripple(Strip *strip, AudioChannel *audioChannel, State *state, CRGB backgroundColor = CHSV(160, 255, 50));

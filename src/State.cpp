@@ -10,7 +10,7 @@ void State::setup() {}
 
 void State::setFxSpeed(uint8_t speed) {
     fxSpeed = speed;
-    linearFxSpeed = float(fxSpeed) / 100;
+    linearFxSpeed = double(fxSpeed) / 100;
     parabolicFxSpeed = pow(linearFxSpeed, 2);
 }
 
@@ -28,7 +28,7 @@ void State::increaseFxSpeed() {
 
 void State::setCycleSpeed(uint8_t speed) {
     cycleSpeed = speed;
-    linearCycleSpeed = float(cycleSpeed) / 100;
+    linearCycleSpeed = double(cycleSpeed) / 100;
 }
 
 uint8_t State::getCycleSpeed() {
@@ -44,7 +44,7 @@ void State::increaseCycleSpeed() {
 }
 
 void State::loop() {
-    float increase = 100.0f * parabolicFxSpeed * microseconds / 1e6;
+    double increase = 100.0f * parabolicFxSpeed * microseconds / 1e6;
     microseconds = 0;
 
     rotatingHueInternal += increase;

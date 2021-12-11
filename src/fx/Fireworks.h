@@ -29,7 +29,7 @@ class Fireworks : public Fx {
         uint8_t nextItem = 0;
         Timer fadeTimer = Timer(10);
         Timer inhibitTimer = Timer(INHIBIT_DELAY);
-        void randomizeItem(Item &item, float strength);
+        void randomizeItem(Item &item, double strength);
 
     public:
         Fireworks(Strip *strip, AudioChannel *audioChannel, State *state);

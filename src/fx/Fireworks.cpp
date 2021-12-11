@@ -46,7 +46,7 @@ void Fireworks::loop() {
     }
 }
 
-void Fireworks::randomizeItem(Item &item, float strength) {
+void Fireworks::randomizeItem(Item &item, double strength) {
     uint16_t pos = strip->randomInRange(.25, .75);
     item.ball.reset()
         .setColor(ColorFromPalette(PALETTE, random8()))

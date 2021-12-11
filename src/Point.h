@@ -5,26 +5,26 @@
 
 class Point {
     public:
-        float x;
-        float y;
-        static Point fromPolar(float radius, float angle) {
+        double x;
+        double y;
+        static Point fromPolar(double radius, double angle) {
             return Point(
                 radius * cosf(angle),
                 radius * sinf(angle)
             );
         };
         Point() {};
-        Point(float x, float y) {
+        Point(double x, double y) {
             this->x = x;
             this->y = y;
         }
-        float radius() {
+        double radius() {
             return sqrt(pow(x, 2) + pow(y, 2));
         }
-        float angle() {
+        double angle() {
             return x == 0 && y == 0 ? 0 : atan2(y, x);
         }
-        Point& set(float x, float y) {
+        Point& set(double x, double y) {
             this->x = x;
             this->y = y;
             return *this;
@@ -32,12 +32,12 @@ class Point {
         Point& translate(Point p) {
             return translate(p.x, p.y);
         }
-        Point& translate(float tx, float ty) {
+        Point& translate(double tx, double ty) {
             return set(x - tx, y - ty);
         }
-        Point& rotate(float theta) {
-            float cosTheta = cos(theta);
-            float sinTheta = sin(theta);
+        Point& rotate(double theta) {
+            double cosTheta = cos(theta);
+            double sinTheta = sin(theta);
             return set(
                 x * cosTheta - y * sinTheta,
                 x * sinTheta + y * cosTheta

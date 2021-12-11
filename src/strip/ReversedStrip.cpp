@@ -40,11 +40,11 @@ uint16_t ReversedStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount
     return strip->randomExclude(excludeIndex, excludeCount);
 }
 
-uint16_t ReversedStrip::randomInRange(float from, float to) {
+uint16_t ReversedStrip::randomInRange(double from, double to) {
     return strip->randomInRange(from, to);
 }
 
-uint16_t ReversedStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
+uint16_t ReversedStrip::fromNormalizedPosition(double normalizedPosition, int16_t excludeCount) {
     return strip->fromNormalizedPosition(normalizedPosition, excludeCount);
 }
 
@@ -134,15 +134,15 @@ bool ReversedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool a
     return false;
 }
 
-bool ReversedStrip::paintNormalized(float position, CRGB color, bool add) {
+bool ReversedStrip::paintNormalized(double position, CRGB color, bool add) {
     return strip->paintNormalized(1 - position, color, add);
 }
 
-bool ReversedStrip::paintNormalized(float positionFrom, float positionTo, CRGB color, bool add) {
+bool ReversedStrip::paintNormalized(double positionFrom, double positionTo, CRGB color, bool add) {
     return strip->paintNormalized(1 - positionFrom, 1 - positionTo, color, add);
 }
 
-bool ReversedStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
+bool ReversedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     return strip->paintNormalizedSize(1 - positionFrom, size, color, add);
 }
 

@@ -12,8 +12,8 @@
 class Photons: public Fx {
     private:
         const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::White, CRGB::Aqua, CRGB::Red, CRGB::Blue);
-        static constexpr float MIN_SPEED = 100;
-        static constexpr float MAX_SPEED = 1000;
+        static constexpr double MIN_SPEED = 100;
+        static constexpr double MAX_SPEED = 1000;
         static const uint8_t NUM_PHOTONS = 10;
         static const uint8_t MAX_CONCURRENT = 3;
         AudioTrigger *audioTrigger;

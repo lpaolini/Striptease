@@ -8,24 +8,24 @@ AudioChannel::AudioChannel() {
     peakFadeTimer.reset();
 }
 
-void AudioChannel::feedPeak(float value) {
+void AudioChannel::feedPeak(double value) {
     peak = value;
     peakSmooth = max(peakSmooth, value);
     peakHold = max(peakHold, value);
     clipping = value > CLIPPING_THRESHOLD;
 }
 
-void AudioChannel::feedRMS(float value) {
+void AudioChannel::feedRMS(double value) {
     rms = value;
     detectSignal(value);
 }
 
-void AudioChannel::feedRMSLow(float value) {
+void AudioChannel::feedRMSLow(double value) {
     rmsLow = value;
     detectBeat(value);
 }
 
-void AudioChannel::detectSignal(float value) {
+void AudioChannel::detectSignal(double value) {
     if (millis() - lastSignal > SIGNAL_HOLD_MS) {
         signalDetected = false;
     }
@@ -35,7 +35,7 @@ void AudioChannel::detectSignal(float value) {
     }
 }
 
-void AudioChannel::detectBeat(float value) {
+void AudioChannel::detectBeat(double value) {
     beatDetected = beatDetector->isPeak(value);
 }
 
@@ -84,7 +84,7 @@ void AudioChannel::loop(AudioAnalyzePeak *peak, AudioAnalyzeRMS *rms, AudioAnaly
         feedBins(fft);
         feedBands(fft);
 
-        float peakBandValue = -60;
+        double peakBandValue = -60;
         dominantBand = 0;
         for (uint8_t i = 0; i < FFT_BANDS; i++) {
             bands[i].peakSmooth = max(bands[i].peakSmooth, bands[i].peak);

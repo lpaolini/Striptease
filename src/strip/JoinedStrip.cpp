@@ -46,11 +46,11 @@ uint16_t JoinedStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) 
     return (excludeIndex + excludeCount + random16(last() - 2 * excludeCount)) % size();
 }
 
-uint16_t JoinedStrip::randomInRange(float from, float to) {
+uint16_t JoinedStrip::randomInRange(double from, double to) {
     return random16(from * last(), to * last());
 }
 
-uint16_t JoinedStrip::fromNormalizedPosition(float normalizedPosition, int16_t excludeCount) {
+uint16_t JoinedStrip::fromNormalizedPosition(double normalizedPosition, int16_t excludeCount) {
     return int(normalizedPosition * (last() - excludeCount));
 }
 
@@ -333,15 +333,15 @@ bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add
     return false;
 }
 
-bool JoinedStrip::paintNormalized(float position, CRGB color, bool add) {
+bool JoinedStrip::paintNormalized(double position, CRGB color, bool add) {
     return paint(fromNormalizedPosition(position), color, add);
 }
 
-bool JoinedStrip::paintNormalized(float positionFrom, float positionTo, CRGB color, bool add) {
+bool JoinedStrip::paintNormalized(double positionFrom, double positionTo, CRGB color, bool add) {
     return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
 }
 
-bool JoinedStrip::paintNormalizedSize(float positionFrom, int16_t size, CRGB color, bool add) {
+bool JoinedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;
     return paint(indexFrom, indexTo, color, add);

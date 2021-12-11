@@ -8,21 +8,21 @@
 class PeakDetector {
     private:
         unsigned int bufferSize;
-        float peakFactor;
-        float peakInfluence;
+        double peakFactor;
+        double peakInfluence;
         unsigned int peakInhibit;
-        float peakThreshold;
+        double peakThreshold;
         unsigned int skip;
         unsigned int ptr;
-        float *buffer;
-        float avg();
-        float stdDev(float mean);
+        double *buffer;
+        double avg();
+        double stdDev(double mean);
         unsigned long lastPeak;
 
     public:
-        PeakDetector(unsigned int bufferSize, float peakFactor, float peakInfluence, unsigned int peakInhibit, float peakThreshold);
+        PeakDetector(unsigned int bufferSize, double peakFactor, double peakInfluence, unsigned int peakInhibit, double peakThreshold);
         ~PeakDetector();
-        bool isPeak(float value);
+        bool isPeak(double value);
 };
 
 #endif

@@ -13,22 +13,22 @@ class Orbit : public Fx {
     private:
         // static const uint8_t ITEMS = 2;
         // static const uint8_t HUE_STEP = 160;
-        // static constexpr float ANGLE_STEP = -180;
-        // static constexpr float SPEED_STEP = 0;
-        // static constexpr float ECCENTRICITY = .2;
-        // static constexpr float ECCENTRICITY_ANGLE = 270;
+        // static constexpr double ANGLE_STEP = -180;
+        // static constexpr double SPEED_STEP = 0;
+        // static constexpr double ECCENTRICITY = .2;
+        // static constexpr double ECCENTRICITY_ANGLE = 270;
         static const uint8_t ITEMS = 10;
         static const uint8_t HUE_STEP = 20;
-        static constexpr float ANGLE_STEP = -10;
-        static constexpr float SPEED_STEP = 0;
-        static constexpr float ECCENTRICITY = .2;
-        static constexpr float ECCENTRICITY_ANGLE = 270;
-        float phase;
+        static constexpr double ANGLE_STEP = -10;
+        static constexpr double SPEED_STEP = 0;
+        static constexpr double ECCENTRICITY = .2;
+        static constexpr double ECCENTRICITY_ANGLE = 270;
+        double phase;
         OrbitItem item[ITEMS];
         Timer timer = Timer(5);
 
     public:
-        Orbit(Strip *strip, State *state, float phase = 0);
+        Orbit(Strip *strip, State *state, double phase = 0);
         void loop();
         void reset();
 };

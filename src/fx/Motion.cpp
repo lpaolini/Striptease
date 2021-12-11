@@ -1,6 +1,6 @@
 #include "Motion.h"
 
-Motion::Motion(Strip *strip, AudioChannel *audioChannel, State *state, CRGB color, float velocityFactor, float accelerationFactor) : Fx(strip, audioChannel, state) {
+Motion::Motion(Strip *strip, AudioChannel *audioChannel, State *state, CRGB color, double velocityFactor, double accelerationFactor) : Fx(strip, audioChannel, state) {
     this->color = color;
     this->velocityFactor = velocityFactor;
     this->accelerationFactor = accelerationFactor;

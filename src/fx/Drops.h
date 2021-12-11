@@ -22,8 +22,8 @@ class Drops : public Fx {
         };
         AudioTrigger *audioTrigger;
         Item *items;
-        void loopItem(Item &item, bool &trigger, float strength);
-        void randomizeItem(Item &item, float strength);
+        void loopItem(Item &item, bool &trigger, double strength);
+        void randomizeItem(Item &item, double strength);
 
     public:
         Drops(Strip *strip, AudioChannel *audioChannel, State *state);

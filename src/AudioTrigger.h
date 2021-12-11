@@ -13,7 +13,7 @@ class AudioTrigger {
         AudioTrigger(AudioChannel *audioChannel);
         void reset();
         void loop();
-        bool triggered(float noSignalEventsPerSecond = 0, float signalEventsPerSecond = 0);
+        bool triggered(double noSignalEventsPerSecond = 0, double signalEventsPerSecond = 0);
 };
 
 #endif

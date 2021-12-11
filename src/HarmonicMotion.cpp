@@ -38,29 +38,29 @@ HarmonicMotion& HarmonicMotion::setColor(CRGB color) {
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setAcceleration(float a0, float a1, float a2) {
+HarmonicMotion& HarmonicMotion::setAcceleration(double a0, double a1, double a2) {
     this->a0 = a0;
     this->a1 = a1;
     this->a2 = a2;
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setElasticConstant(float k) {
+HarmonicMotion& HarmonicMotion::setElasticConstant(double k) {
     this->k = k;
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setDamping(float b) {
+HarmonicMotion& HarmonicMotion::setDamping(double b) {
     this->b = b;
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setCriticalDamping(float correctionFactor) {
+HarmonicMotion& HarmonicMotion::setCriticalDamping(double correctionFactor) {
     this->b = 2 * sqrtf(k) * correctionFactor;
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setPosition(float x) {
+HarmonicMotion& HarmonicMotion::setPosition(double x) {
     this->x = x;
     return *this;
 }
@@ -69,12 +69,12 @@ HarmonicMotion& HarmonicMotion::setRandomPosition() {
     return setPosition(strip->random());
 }
 
-HarmonicMotion& HarmonicMotion::setVelocity(float v) {
+HarmonicMotion& HarmonicMotion::setVelocity(double v) {
     this->v = v;
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setFixedPointPosition(float x0) {
+HarmonicMotion& HarmonicMotion::setFixedPointPosition(double x0) {
     this->x0 = x0;
     return *this;
 }
@@ -83,14 +83,14 @@ HarmonicMotion& HarmonicMotion::setRandomFixedPointPosition() {
     return setFixedPointPosition(strip->random());
 }
 
-HarmonicMotion& HarmonicMotion::setLowerBound(float x, float r, int8_t boundTrigger) {
+HarmonicMotion& HarmonicMotion::setLowerBound(double x, double r, int8_t boundTrigger) {
     lowerLimit.x = x;
     lowerLimit.r = r;
     lowerLimit.boundTrigger = boundTrigger;
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setUpperBound(float x, float r, int8_t boundTrigger) {
+HarmonicMotion& HarmonicMotion::setUpperBound(double x, double r, int8_t boundTrigger) {
     upperLimit.x = x;
     upperLimit.r = r;
     upperLimit.boundTrigger = boundTrigger;
@@ -123,15 +123,15 @@ HarmonicMotion& HarmonicMotion::setOverwrite(bool overwrite) {
     return *this;
 }
 
-float HarmonicMotion::getPosition() {
+double HarmonicMotion::getPosition() {
     return x;
 }
 
-float HarmonicMotion::getFixedPointPosition() {
+double HarmonicMotion::getFixedPointPosition() {
     return x0;
 }
 
-float HarmonicMotion::getVelocity() {
+double HarmonicMotion::getVelocity() {
     return v;
 }
 
@@ -158,7 +158,7 @@ int HarmonicMotion::getUpperLimitCompensation() {
 }
 
 bool HarmonicMotion::isLowerLimit() {
-    float limit = lowerLimit.x - getLowerLimitCompensation();
+    double limit = lowerLimit.x - getLowerLimitCompensation();
     // if (x <= limit && v < 0) {
     if (x <= limit) {
         x = limit;
@@ -168,7 +168,7 @@ bool HarmonicMotion::isLowerLimit() {
 }
 
 bool HarmonicMotion::isUpperLimit() {
-    float limit = upperLimit.x - getUpperLimitCompensation();
+    double limit = upperLimit.x - getUpperLimitCompensation();
     // if (x >= limit && v > 0) {
     if (x >= limit) {
         x = limit;
@@ -178,7 +178,7 @@ bool HarmonicMotion::isUpperLimit() {
 }
 
 bool HarmonicMotion::isStable() {
-    float force = a0 - (k * (x - x0));
+    double force = a0 - (k * (x - x0));
     bool balanced = abs(force) < 1;
     bool bottom = force < 0 && isLowerLimit();
     bool top = force > 0 && isUpperLimit();
@@ -188,7 +188,7 @@ bool HarmonicMotion::isStable() {
 void HarmonicMotion::update() {
     xPrev = x;
     vPrev = v;
-    float dT = timeElapsed / 1e6;
+    double dT = timeElapsed / 1e6;
     timeElapsed = 0;
     a1 += a2 * dT;
     a0 += a1 * dT;
@@ -215,7 +215,7 @@ void HarmonicMotion::loop() {
     }
 }
 
-void HarmonicMotion::show(float current, float previous, bool mirror) {
+void HarmonicMotion::show(double current, double previous, bool mirror) {
     int pos1 = round(mirror ? 2 * x0 - current : current);
     int pos2 = round(fill ? x0 : mirror ? 2 * x0 - previous : previous);
     int direction = mirror ? -1 : 1;

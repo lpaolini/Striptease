@@ -19,7 +19,7 @@ class Elastic : public Fx {
         HarmonicMotion items[ITEMS];
         uint8_t nextItem = 0;
         Timer fadeTimer = Timer(10);
-        void randomizeItem(HarmonicMotion &item, float strength);
+        void randomizeItem(HarmonicMotion &item, double strength);
 
     public:
         Elastic(Strip *strip, AudioChannel *audioChannel, State *state);

@@ -25,7 +25,7 @@ class Vertigo : public Fx {
         uint8_t nextItem = 0;
         Timer fadeTimer = Timer(10);
         Timer inhibitTimer = Timer(INHIBIT_TIME_MS);
-        void randomizeItem(Item &item, float strength);
+        void randomizeItem(Item &item, double strength);
 
     public:
         Vertigo(Strip *strip, AudioChannel *audioChannel, State *state, CRGB color = CRGB::Blue);
