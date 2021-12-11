@@ -11,8 +11,8 @@ void RainbowMelt::reset() {
 void RainbowMelt::loop() {
     strip->off();
     for (int16_t index = strip->first(); index < strip->last(); index++) {
-        float x = float(index) / strip->size();
-        float t1 = int1.time(.01 + .2 * (1 - state->linearFxSpeed));  // Time it takes for regions to move and melt 
+        float x = float(index) / strip->last();
+        float t1 = int1.time(.02 + .2 * (1 - state->linearFxSpeed));  // Time it takes for regions to move and melt 
         float c1 = 2 * abs(x - .5);  // 0 at strip endpoints, 1 in the middle
         float c2 = Interval::toWave(c1);
         float c3 = Interval::toWave(c2 + t1);
