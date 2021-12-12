@@ -6,7 +6,11 @@
 class Easing {
     public:
         static double easeInOutSine(double x) {
-            return -(cos(PI * x) - 1) / 2;
+            return (1 - cos(PI * x)) / 2;
+        }
+
+        static double easeInSine(double x) {
+            return 1 - cos((PI * x) / 2); 
         }
 
         static double deltaEaseInOutSine(double x1, double x0) {
