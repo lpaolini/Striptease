@@ -13,7 +13,6 @@ class Rainbow : public Fx {
     public:
         Rainbow(Strip *strip, State *state, uint8_t phase = 0);
         void loop();
-        void reset();
 };
 
 #endif

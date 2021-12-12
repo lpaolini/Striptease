@@ -4,10 +4,6 @@ Spectrum::Spectrum(Strip *strip, AudioChannel *audioChannel) : Fx(strip, audioCh
     segmentSize = floor(strip->size() / 16);
 }
 
-void Spectrum::reset() {
-    clear();
-}
-
 void Spectrum::loop() {
     strip->fade(20);
     for (int i = 0; i < 16; i++) {

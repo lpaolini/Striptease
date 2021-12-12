@@ -4,10 +4,6 @@ InputLevelMeter::InputLevelMeter(Strip *strip, AudioChannel *audioChannel, Audio
     this->audioSensor = audioSensor;
 }
 
-void InputLevelMeter::reset() {
-    clear();
-}
-
 void InputLevelMeter::loop() {
     strip->off();
     strip->paintNormalized(0, 1, CHSV(210, 255, 75), false);

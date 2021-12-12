@@ -10,7 +10,6 @@ class ColorBar : public Fx {
     public:
         ColorBar(Strip *strip, State *state);
         void loop();
-        void reset();
 };
 
 #endif

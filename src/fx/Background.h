@@ -13,7 +13,6 @@ class Background: public Fx {
     public:
         Background(Strip *strip, CRGB color = CRGB::Black);
         void loop();
-        void reset();
 };
 
 #endif

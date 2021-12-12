@@ -16,7 +16,6 @@ class Spectrum : public Fx {
     public:
         Spectrum(Strip *strip, AudioChannel *audioChannel);
         void loop();
-        void reset();
 };
 
 #endif

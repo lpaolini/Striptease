@@ -10,7 +10,6 @@ class SpeedMeter : public Fx {
     public:
         SpeedMeter(Strip *strip, State *state);
         void loop();
-        void reset();
 };
 
 #endif

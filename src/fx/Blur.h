@@ -9,7 +9,6 @@ class Blur : public Fx {
     public:
         Blur(Strip *strip);
         void loop();
-        void reset();
 };
 
 #endif

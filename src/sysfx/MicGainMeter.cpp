@@ -4,10 +4,6 @@ MicGainMeter::MicGainMeter(Strip *strip, AudioChannel *audioChannel, AudioSensor
     this->audioSensor = audioSensor;
 }
 
-void MicGainMeter::reset() {
-    clear();
-}
-
 void MicGainMeter::loop() {
     strip->off();
     strip->paintNormalized(0, 1, CHSV(128, 255, 75), false);

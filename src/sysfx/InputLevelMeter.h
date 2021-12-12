@@ -18,7 +18,6 @@ class InputLevelMeter : public Fx {
     public:
         InputLevelMeter(Strip *strip, AudioChannel *audioChannel, AudioSensor *audioSensor);
         void loop();
-        void reset();
 };
 
 #endif

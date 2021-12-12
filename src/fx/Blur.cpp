@@ -2,10 +2,6 @@
 
 Blur::Blur(Strip *strip) : Fx(strip) {}
 
-void Blur::reset() {
-    clear();
-}
-
 void Blur::loop() {
     strip->blur(dim8_raw(beatsin8(3, 64, 192)));
 

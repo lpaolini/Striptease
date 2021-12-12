@@ -10,7 +10,6 @@ class CycleSpeed : public Fx {
     public:
         CycleSpeed(Strip *strip, State *state);
         void loop();
-        void reset();
 };
 
 #endif

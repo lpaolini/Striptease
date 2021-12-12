@@ -18,7 +18,6 @@ class MicGainMeter : public Fx {
     public:
         MicGainMeter(Strip *strip, AudioChannel *audioChannel, AudioSensor *audioSensor);
         void loop();
-        void reset();
 };
 
 #endif
