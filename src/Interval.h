@@ -20,25 +20,12 @@ class Interval {
             return double(timeMicroseconds) / double(intervalMicroseconds);
         }
 
-        static double frac(double v) {
-            double whole;
-            double fractional = modf(v, &whole);
-            return fractional < 0 ? 1 - fractional : fractional;
+        double time(double stdInterval, double cursor) {
+            return time(stdInterval / 3, stdInterval * 3, cursor);
         }
 
-        static double toTriangle(double v) {
-            double v0 = frac(v);
-            return v0 < .5 ? 2 * v0 : 2 * (1 - v0);
-        }
-
-        static double toSquare(double v, double duty) {
-            double v0 = frac(v);
-            return v0 < duty ? 1 : 0;
-        }
-
-        static double toWave(double v) {
-            double v0 = frac(v);
-            return (1 + sin(v0 * TWO_PI)) / 2;
+        double time(double minInterval, double maxInterval, double cursor) {
+            return time(minInterval + (maxInterval - minInterval) * (1 - cursor));
         }
 };
 

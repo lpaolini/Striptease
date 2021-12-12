@@ -12,14 +12,13 @@
 
 class RippleReflections : public Fx {
     private:
-        Interval int1;
-        Interval int2;
-        Interval int3;
+        Interval int1, int2, int3;
+        double t1, t2, t3;
 
     public:
         RippleReflections(Strip *strip, AudioChannel *audioChannel, State *state);
-        void loop();
-        void reset();
+        void beforeRender();
+        CRGB render(int16_t index, double x);
 };
 
 #endif

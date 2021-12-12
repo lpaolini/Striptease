@@ -13,11 +13,12 @@
 class RainbowMelt : public Fx {
     private:
         Interval int1;
+        double t1;
 
     public:
         RainbowMelt(Strip *strip, AudioChannel *audioChannel, State *state);
-        void loop();
-        void reset();
+        void beforeRender();
+        CRGB render(int16_t index, double x);
 };
 
 #endif
