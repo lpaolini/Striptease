@@ -107,6 +107,7 @@ CRGB SubStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         return strip->shiftUp(toStrip(indexFrom), toStrip(indexTo), in);
     }
+    return CRGB::Black;
 }
 
 CRGB SubStrip::shiftDown(CRGB in) {
@@ -117,6 +118,7 @@ CRGB SubStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         return strip->shiftDown(toStrip(indexFrom), toStrip(indexTo), in);
     }
+    return CRGB::Black;
 }
 
 void SubStrip::paint(CRGB color, bool add) {
@@ -127,12 +129,14 @@ bool SubStrip::paint(int16_t index, CRGB color, bool add) {
     if (isInRange(index)) {
         return strip->paint(toStrip(index), color, add);
     }
+    return false;
 }
 
 bool SubStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
         return strip->paint(toStrip(indexFrom), toStrip(indexTo), color, add);
     }
+    return false;
 }
 
 bool SubStrip::paintNormalized(double position, CRGB color, bool add) {
