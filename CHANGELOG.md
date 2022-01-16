@@ -12,10 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - BREAKING CHANGE: replaced all `float` variables and arguments with `double`.
 - `Interval`: changed time precision to microseconds.
+- FastLED has been upgraded to version 3.5.0.
 
 ### Added
 - `Controller`: implemented `setAudioEnabled(bool enabled)` and `toggleAudio()` for muting/unmuting.
 - `Strip`: implemented `getIndex(int16_t index)` and `getPosition(double pos)` for reading CRGB color value.
+- `ColorTwinkles`: ported Pixelblaze fx.
+- `SubtleWave`: ported Pixelblaze fx.
 
 ## [1.2.13] (2021-12-11)
 
