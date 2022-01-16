@@ -16,7 +16,7 @@
         "url": "https://github.com/lpaolini/Striptease"
     },
     "dependencies": {
-        "fastled/FastLED": "^3.4.0",
+        "fastled/FastLED": "^3.5.0",
         "ukw100/IRMP": "^3.5.1"
     },
     "license": "GPL-3.0-or-later",
