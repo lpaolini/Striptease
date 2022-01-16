@@ -15,6 +15,9 @@ class AudioSensor {
 
         AudioInputI2S audioInput;
 
+        AudioAmplifier amp_L;
+        AudioAmplifier amp_R;
+
         AudioAnalyzePeak peak_L;
         AudioAnalyzeRMS rms_L;
         AudioFilterBiquad filter_L;
@@ -35,6 +38,9 @@ class AudioSensor {
         AudioFilterBiquad filter_M;
         AudioAnalyzeRMS rmsLow_M;
         AudioAnalyzeFFT1024 fft_M;
+
+        AudioConnection *patchAmpLeft;
+        AudioConnection *patchAmpRight;
 
         AudioConnection *patchPeakLeft;
         AudioConnection *patchRMSLeft;
@@ -71,6 +77,7 @@ class AudioSensor {
         AudioSensor();
         void setup();
         void loop();
+        void setEnabled(bool enabled);
         void setMicInput();
         void setLineInput();
         void setMicGain(uint8_t micGain);

@@ -138,6 +138,16 @@ void Controller::setMicInput(uint8_t gain) {
     audioSensor->setMicGain(gain);
 }
 
+void Controller::setAudioEnabled(bool enabled) {
+    audioEnabled = enabled;
+    audioSensor->setEnabled(audioEnabled);
+    feedback(audioEnabled ? 2 : 1);
+}
+
+void Controller::toggleAudio() {
+    setAudioEnabled(!audioEnabled);
+}
+
 void Controller::toggleInput() {
     switch (input) {
         case mic:

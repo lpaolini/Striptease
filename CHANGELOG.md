@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - BREAKING CHANGE: replaced all `float` variables and arguments with `double`.
 - `Interval`: changed time precision to microseconds.
 
+### Added
+- `Controller`: implemented `setAudioEnabled(bool enabled)` and `toggleAudio()` for muting/unmuting.
+
 ## [1.2.13] (2021-12-11)
 
 ### Fixed

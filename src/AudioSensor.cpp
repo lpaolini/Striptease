@@ -1,22 +1,26 @@
 #include "AudioSensor.h"
 
 AudioSensor::AudioSensor() {
-    patchPeakLeft = new AudioConnection(audioInput, 0, peak_L, 0);
-    patchRMSLeft = new AudioConnection(audioInput, 0, rms_L, 0);
-    patchFFTLeft = new AudioConnection(audioInput, 0, fft_L, 0);
-    patchFilterLeft = new AudioConnection(audioInput, 0, filter_L, 0);
+
+    patchAmpLeft = new AudioConnection(audioInput, 0, amp_L, 0);
+    patchAmpRight = new AudioConnection(audioInput, 1, amp_R, 0);
+    
+    patchPeakLeft = new AudioConnection(amp_L, 0, peak_L, 0);
+    patchRMSLeft = new AudioConnection(amp_L, 0, rms_L, 0);
+    patchFFTLeft = new AudioConnection(amp_L, 0, fft_L, 0);
+    patchFilterLeft = new AudioConnection(amp_L, 0, filter_L, 0);
     patchRMSLowLeft = new AudioConnection(filter_L, 0, rmsLow_L, 0);
 
-    patchMixerUnfilteredLeft = new AudioConnection(audioInput, 0, mixerUnfiltered, 0);
+    patchMixerUnfilteredLeft = new AudioConnection(amp_L, 0, mixerUnfiltered, 0);
     patchMixerFilteredLeft = new AudioConnection(filter_L, mixerFiltered);
 
-    patchPeakRight = new AudioConnection(audioInput, 1, peak_R, 0);
-    patchRMSRight = new AudioConnection(audioInput, 1, rms_R, 0);
-    patchFFTRight = new AudioConnection(audioInput, 1, fft_R, 0);
-    patchFilterRight = new AudioConnection(audioInput, 1, filter_R, 0);
+    patchPeakRight = new AudioConnection(amp_R, 0, peak_R, 0);
+    patchRMSRight = new AudioConnection(amp_R, 0, rms_R, 0);
+    patchFFTRight = new AudioConnection(amp_R, 0, fft_R, 0);
+    patchFilterRight = new AudioConnection(amp_R, 0, filter_R, 0);
     patchRMSLowRight = new AudioConnection(filter_R, 0, rmsLow_R, 0);
     
-    patchMixerUnfilteredRight = new AudioConnection(audioInput, 1, mixerUnfiltered, 1);
+    patchMixerUnfilteredRight = new AudioConnection(amp_R, 0, mixerUnfiltered, 1);
     patchMixerFilteredRight = new AudioConnection(filter_R, mixerFiltered);
 
     patchPeakMono = new AudioConnection(mixerUnfiltered, peak_M);
@@ -61,6 +65,11 @@ void AudioSensor::loop() {
     left->loop(&peak_L, &rms_L, &rmsLow_L, &fft_L);
     right->loop(&peak_R, &rms_R, &rmsLow_R, &fft_R);
     mono->loop(&peak_M, &rms_M, &rmsLow_M, &fft_M);
+}
+
+void AudioSensor::setEnabled(bool enabled) {
+    amp_L.gain(enabled ? 1 : 0);
+    amp_R.gain(enabled ? 1 : 0);
 }
 
 void AudioSensor::setMicInput() {

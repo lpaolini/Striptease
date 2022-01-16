@@ -33,6 +33,7 @@ class Controller {
             bool shuffle = false;
         } playMode;
         Input input;
+        bool audioEnabled = false;
         Mode mode = PLAY;
         Timer cycleTimer = Timer(0, false);
         Timer modeTimer = Timer(0, false);
@@ -66,6 +67,8 @@ class Controller {
         void setLineInput(uint8_t level);
         void setMicInput(uint8_t gain);
         void toggleInput();
+        void setAudioEnabled(bool enabled);
+        void toggleAudio();
         void increaseInputSensitivity();
         void decreaseInputSensitivity();
 
