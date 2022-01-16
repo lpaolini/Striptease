@@ -44,12 +44,8 @@ void State::increaseCycleSpeed() {
 }
 
 void State::loop() {
-    double increase = 100.0f * parabolicFxSpeed * microseconds / 1e6;
+    double increase = .0001 * parabolicFxSpeed * microseconds;
     microseconds = 0;
-
-    rotatingHueInternal += increase;
-    while (rotatingHueInternal >= 256) {
-        rotatingHueInternal -= 256;
-    }
+    rotatingHueInternal = fmod(rotatingHueInternal + increase, 256);
     rotatingHue = uint8_t(rotatingHueInternal);
 }
