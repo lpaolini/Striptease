@@ -43,6 +43,8 @@ class StatefulStrip : public Strip {
         bool paintNormalized(double positionFrom, double positionTo, CRGB color, bool add = true);
         bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true);
         bool paintRandomPos(int16_t length, CRGB color, bool add = true);
+        CRGB getIndex(int16_t index);
+        CRGB getPosition(double pos);
 };
 
 #endif

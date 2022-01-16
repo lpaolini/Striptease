@@ -157,3 +157,14 @@ bool SubStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
     uint16_t pos = random16(size() - length);
     return paint(pos, pos + length, color, add);
 }
+
+CRGB SubStrip::getIndex(int16_t index) {
+    if (isInRange(index)) {
+        return strip->getIndex(toStrip(index));
+    }
+    return CRGB::Black;
+}
+
+CRGB SubStrip::getPosition(double position) {
+    return getIndex(fromNormalizedPosition(position));
+}

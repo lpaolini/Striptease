@@ -191,3 +191,11 @@ bool StatefulStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
     uint16_t pos = random16(last() - length);
     return paint(pos, pos + length, color, add);
 }
+
+CRGB StatefulStrip::getIndex(int16_t index) {
+    return (*leds)[index];
+}
+
+CRGB StatefulStrip::getPosition(double position) {
+    return getIndex(fromNormalizedPosition(position));
+}

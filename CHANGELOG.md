@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - `Controller`: implemented `setAudioEnabled(bool enabled)` and `toggleAudio()` for muting/unmuting.
+- `Strip`: implemented `getIndex(int16_t index)` and `getPosition(double pos)` for reading CRGB color value.
 
 ## [1.2.13] (2021-12-11)
 

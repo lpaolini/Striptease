@@ -63,6 +63,8 @@ class Strip {
         virtual bool paintNormalized(double positionFrom, double positionTo, CRGB color, bool add = true);
         virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true);
         virtual bool paintRandomPos(int16_t length, CRGB color, bool add = true);
+        virtual CRGB getIndex(int16_t index);
+        virtual CRGB getPosition(double pos);
 };
 
 #endif

@@ -149,3 +149,14 @@ bool ReversedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB 
 bool ReversedStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
     return strip->paintRandomPos(length, color, add);
 }
+
+CRGB ReversedStrip::getIndex(int16_t index) {
+    if (isInRange(index)) {
+        return strip->getIndex(toStrip(index));
+    }
+    return CRGB::Black;
+}
+
+CRGB ReversedStrip::getPosition(double position) {
+    return getIndex(fromNormalizedPosition(position));
+}
