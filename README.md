@@ -36,7 +36,7 @@ Note: at some point, the author decided to go closed-source, distributing compil
 
 This library is designed around the awesome Teensy 4 Development Board, available as [Teensy 4.0](https://www.pjrc.com/store/teensy40.html) or [Teensy 4.1](https://www.pjrc.com/store/teensy41.html), which has been chosen for a number of reasons:
 
-- It's an extremely capable Arduino-compatible board, running an ARM Cortex-M7 at 600 MHz with a float point math unit, 64 & 32 bits;
+- It's an extremely capable Arduino-compatible board, running an ARM Cortex-M7 at 600 MHz with a floating point math unit, 64 & 32 bits;
 - It can be combined with the [Audio Adapter Board](https://www.pjrc.com/store/teensy3_audio.html) for audio I/O and processing;
 - It comes with a large set of libraries including two great ones by Paul Stoffregen (Audio and WS2812Serial), described below;
 - It's relatively cheap, compared to what it offers.
@@ -168,7 +168,7 @@ Teensy 4 is a very powerful device. It supports floating point math in hardware 
 
 ## Strip
 
-*Strip* is the abstract class for strip implementations (below), providing convenience methods for absolute (integer, 0 to pixel count - 1) or normalized (float, 0 to 1) LED addressing. It makes it easier to manipulate strips in a length-agnostic way.
+*Strip* is the abstract class for strip implementations (below), providing convenience methods for absolute (integer, 0 to pixel count - 1) or normalized (double, 0 to 1) LED addressing. It makes it easier to manipulate strips in a length-agnostic way.
 
 ### PhysicalStrip (CRGBSet &leds, uint16_t density = 0)
 
@@ -492,34 +492,34 @@ Reset all parameters to default value.
 ### HarmonicMotion& setColor(CRGB color = CRGB::White);
 Set color of the object.
 
-### HarmonicMotion& setAcceleration(float a0, float a1 = 0, float a2 = 0);
+### HarmonicMotion& setAcceleration(double a0, double a1 = 0, double a2 = 0);
 Set acceleration, by providing a0 and optional higher order acceleration constants.
 
-### HarmonicMotion& setElasticConstant(float k);
+### HarmonicMotion& setElasticConstant(double k);
 Set elastic constant of the spring.
 
-### HarmonicMotion& setDamping(float b);
+### HarmonicMotion& setDamping(double b);
 Set damping.
 
 ### HarmonicMotion& setCriticalDamping();
 Set damping to critical damping value (2 * sqrt(k)).
 
-### HarmonicMotion& setFixedPointPosition(float x0);
+### HarmonicMotion& setFixedPointPosition(double x0);
 Set fixed point position.
 
 ### HarmonicMotion& setFixedPointRandomPosition();
 Set fixed point position randomly.
 
-### HarmonicMotion& setPosition(float x);
+### HarmonicMotion& setPosition(double x);
 Set position of the object.
 
 ### HarmonicMotion& setRandomPosition();
 Set position of the object randomly.
 
-### HarmonicMotion& setVelocity(float v);
+### HarmonicMotion& setVelocity(double v);
 Set velocity of the object.
 
-### HarmonicMotion& setUpperBound(float x, float r = 0, int8_t boundTrigger = 0);
+### HarmonicMotion& setUpperBound(double x, double r = 0, int8_t boundTrigger = 0);
 Set upper bound, with optional rebound and bound trigger.
 
 Bound trigger only makes sense when a range is used (i.e. a segment is rendered vs a single pixel).
@@ -528,7 +528,7 @@ Its value determines when the bound is triggered:
 - 1: bound is triggered when the starting position of the range reaches the bound (i.e. the segment is **past** the bound)
 - -1: bound is triggered when the ending position of the range reaches the bound (i.e. the segment is **within** the bound)
 
-### HarmonicMotion& setLowerBound(float x, float r = 0, int8_t boundTrigger = 0);
+### HarmonicMotion& setLowerBound(double x, double r = 0, int8_t boundTrigger = 0);
 Set lower bound, with optional rebound and bound trigger.
 
 Bound trigger only makes sense when a range is used (i.e. a segment is rendered vs a single pixel).
@@ -552,13 +552,13 @@ Show or hide the object when its position is stable.
 ### HarmonicMotion& setOverwrite(bool overwrite);
 Add or overwrite existing color data.
 
-### float getFixedPointPosition();
+### double getFixedPointPosition();
 Get current fixed point position.
 
-### float getPosition();
+### double getPosition();
 Get current object position.
 
-### float getVelocity();
+### double getVelocity();
 Get current object velocity.
 
 ### bool isStable();
