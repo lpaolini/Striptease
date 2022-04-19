@@ -1,6 +1,8 @@
 #ifndef Stage_h
 #define Stage_h
 
+#include <Arduino.h>
+#include <EEPROM.h>
 #include <WS2812Serial.h>
 #define USE_WS2812SERIAL
 #include <FastLED.h>
@@ -10,6 +12,9 @@
 #include "Fx.h"
 #include "Multiplex.h"
 #include "strip/PhysicalStrip.h"
+#include "strip/ReversedStrip.h"
+#include "strip/JoinedStrip.h"
+#include "strip/SubStrip.h"
 
 // System fxs
 
