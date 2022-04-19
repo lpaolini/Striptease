@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ColorTwinkles`: ported Pixelblaze fx.
 - `SubtleWave`: ported Pixelblaze fx.
 
+## [1.2.14] (2022-04-19)
+
+### Fixed
+- `Stage`: added missing includes
+
 ## [1.2.13] (2021-12-11)
 
 ### Fixed
