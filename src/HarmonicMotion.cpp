@@ -215,11 +215,18 @@ void HarmonicMotion::loop() {
     }
 }
 
-void HarmonicMotion::show(double current, double previous, bool mirror) {
-    int pos1 = round(mirror ? 2 * x0 - current : current);
-    int pos2 = round(fill ? x0 : mirror ? 2 * x0 - previous : previous);
-    int direction = mirror ? -1 : 1;
-    int posMin = min(pos1, pos2) + start * direction;
-    int posMax = max(pos1, pos2) + end * direction;
-    strip->paint(posMin, posMax, color, !overwrite);
+void HarmonicMotion::show(double current, double previous, bool mirrored) {
+    if (mirrored) {
+        int pos1 = round(2 * x0 - current);
+        int pos2 = round(fill ? x0 : 2 * x0 - previous);
+        int posMin = min(pos1, pos2) - end;
+        int posMax = max(pos1, pos2) - start;
+        strip->paint(posMin, posMax, color, !overwrite);
+    } else {
+        int pos1 = round(current);
+        int pos2 = round(fill ? x0 : previous);
+        int posMin = min(pos1, pos2) + start;
+        int posMax = max(pos1, pos2) + end;
+        strip->paint(posMin, posMax, color, !overwrite);
+    }
 }
