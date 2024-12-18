@@ -94,7 +94,7 @@ class Strip {
             return paint(fromNormalizedPosition(position), fromNormalizedPosition(position), color, add);
         }
 
-        virtual Strip *buffered() {
+        virtual Strip *buffered(uint8_t opacity = 255) {
             return this;
         }
 

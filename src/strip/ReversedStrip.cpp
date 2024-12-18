@@ -4,8 +4,8 @@ ReversedStrip::ReversedStrip(Strip *strip) {
     this->strip = strip;
 }
 
-Strip *ReversedStrip::buffered() {
-    return new BufferedStrip(this);
+Strip *ReversedStrip::buffered(uint8_t opacity) {
+    return new BufferedStrip(this, opacity);
 }
 
 uint16_t ReversedStrip::size() {

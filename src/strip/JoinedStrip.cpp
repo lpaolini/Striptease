@@ -9,8 +9,8 @@ JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, int16_t gap) {
     gapStrip = new StatefulStrip(bufferSet);
 }
 
-Strip *JoinedStrip::buffered() {
-    return new BufferedStrip(this);
+Strip *JoinedStrip::buffered(uint8_t opacity) {
+    return new BufferedStrip(this, opacity);
 }
 
 uint16_t JoinedStrip::size() {

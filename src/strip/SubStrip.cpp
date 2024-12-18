@@ -6,8 +6,8 @@ SubStrip::SubStrip(Strip *strip, int16_t start, int16_t end) {
     this->end = min(strip->last(), end);
 }
 
-Strip *SubStrip::buffered() {
-    return new BufferedStrip(this);
+Strip *SubStrip::buffered(uint8_t opacity) {
+    return new BufferedStrip(this, opacity);
 }
 
 uint16_t SubStrip::size() {

@@ -8,7 +8,7 @@
 class PhysicalStrip : public StatefulStrip {
     public:
         PhysicalStrip(CRGBSet &leds, uint16_t density = 0);
-        Strip *buffered();
+        Strip *buffered(uint8_t opacity = 255);
 };
 
 #endif
