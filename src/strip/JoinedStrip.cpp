@@ -1,12 +1,11 @@
 #include "JoinedStrip.h"
-// #include "PhysicalStrip.h"
 
 JoinedStrip::JoinedStrip(Strip *strip1, Strip *strip2, int16_t gap) {
     this->strip1 = strip1;
     this->strip2 = strip2;
     this->gap = max(0, gap);
-    buffer = new CRGB[this->gap];
-    bufferSet = new CRGBSet(buffer, this->gap);
+    CRGB *buffer = new CRGB[this->gap];
+    CRGBSet *bufferSet = new CRGBSet(buffer, this->gap);
     gapStrip = new StatefulStrip(bufferSet);
 }
 
@@ -16,42 +15,6 @@ Strip *JoinedStrip::buffered() {
 
 uint16_t JoinedStrip::size() {
     return strip1->size() + gapStrip->size() + strip2->size();
-}
-
-uint16_t JoinedStrip::first() {
-    return strip1->first();
-}
-
-uint16_t JoinedStrip::center() {
-    return size() / 2;    
-}
-
-uint16_t JoinedStrip::last() {
-    return size() - 1;
-}
-
-bool JoinedStrip::isInRange(int16_t index) {
-    return index >= first() && index <= last();
-}
-
-uint16_t JoinedStrip::limitToRange(int16_t index) {
-    return max(min(index, last()), first());
-}
-
-uint16_t JoinedStrip::random() {
-    return random16(last());
-}
-
-uint16_t JoinedStrip::randomExclude(int16_t excludeIndex, int16_t excludeCount) {
-    return (excludeIndex + excludeCount + random16(last() - 2 * excludeCount)) % size();
-}
-
-uint16_t JoinedStrip::randomInRange(double from, double to) {
-    return random16(from * last(), to * last());
-}
-
-uint16_t JoinedStrip::fromNormalizedPosition(double normalizedPosition, int16_t excludeCount) {
-    return int(normalizedPosition * (last() - excludeCount));
 }
 
 bool JoinedStrip::isInStrip1(int16_t index) {
@@ -84,195 +47,132 @@ void JoinedStrip::off() {
     strip2->off();
 }
 
-void JoinedStrip::rainbow(uint8_t initialHue) {
-    rainbow(initialHue, first(), last());
-}
-
-void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue) {
-    rainbow(initialHue, deltaHue, first(), last());
-}
-
-void JoinedStrip::rainbow(uint8_t initialHue, int16_t indexFrom, int16_t indexTo) {
-    uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
-    rainbow(initialHue, deltaHue, indexFrom, indexTo);
-}
-
 void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                // starts and ends in strip 1
                 strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), toStrip1(indexTo));
             } else if (isInGap(indexTo)) {
-                // starts in strip 1 and ends in gap
                 strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), strip1->last());
                 gapStrip->rainbow(initialHue + deltaHue * (strip1->size() - indexFrom), deltaHue, gapStrip->first(), toGap(indexTo));
             } else if (isInStrip2(indexTo)) {
-                // starts in strip 1 and ends in strip 2
                 strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), strip1->last());
-                gapStrip->rainbow(initialHue + deltaHue * (strip1->size() - indexFrom), deltaHue);
+                gapStrip->Strip::rainbow(initialHue + deltaHue * (strip1->size() - indexFrom), deltaHue);
                 strip2->rainbow(initialHue + deltaHue * (strip1->size() + gap - indexFrom), deltaHue, strip2->first(), toStrip2(indexTo));
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                // starts end ends in gap
                 gapStrip->rainbow(initialHue, deltaHue, toGap(indexFrom), toGap(indexTo));
             } else if (isInStrip2(indexTo)) {
-                // starts in gap and ends in strip 2
                 gapStrip->rainbow(initialHue, deltaHue, toGap(indexFrom), gapStrip->last());
                 strip2->rainbow(initialHue + deltaHue * (strip1->size() + gap - indexFrom), deltaHue, strip2->first(), toStrip2(indexTo));
             }
         } else if (isInStrip2(indexFrom)) {
-            // starts and ends in strip 2
             strip2->rainbow(initialHue, deltaHue, toStrip2(indexFrom), toStrip2(indexTo));
         }
     }
-}
-
-void JoinedStrip::fade(uint8_t amount) {
-    strip1->fade(amount);
-    gapStrip->fade(amount);
-    strip2->fade(amount);
 }
 
 void JoinedStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                // starts and ends in strip 1
                 strip1->fade(amount, toStrip1(indexFrom), toStrip1(indexTo));
             } else if (isInGap(indexTo)) {
-                // starts in strip 1 and ends in gap
                 strip1->fade(amount, toStrip1(indexFrom), strip1->last());
                 gapStrip->fade(amount, gapStrip->first(), toGap(indexTo));
             } else if (isInStrip2(indexTo)) {
-                // starts in strip 1 and ends in strip 2
                 strip1->fade(amount, toStrip1(indexFrom), strip1->last());
-                gapStrip->fade(amount);
+                gapStrip->Strip::fade(amount);
                 strip2->fade(amount, strip2->first(), toStrip2(indexTo));
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                // starts end ends in gap
                 gapStrip->fade(amount, toGap(indexFrom), toGap(indexTo));
             } else if (isInStrip2(indexTo)) {
-                // starts in gap and ends in strip 2
                 gapStrip->fade(amount, toGap(indexFrom), gapStrip->last());
                 strip2->fade(amount, strip2->first(), toStrip2(indexTo));
             }
         } else if (isInStrip2(indexFrom)) {
-            // starts and ends in strip 2
             strip2->fade(amount, toStrip2(indexFrom), toStrip2(indexTo));
         }
     }
-}
-
-void JoinedStrip::blur(uint8_t amount) {
-    strip1->blur(amount);
-    gapStrip->blur(amount);
-    strip2->blur(amount);
 }
 
 void JoinedStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                // starts and ends in strip 1
                 strip1->blur(amount, toStrip1(indexFrom), toStrip1(indexTo));
             } else if (isInGap(indexTo)) {
-                // starts in strip 1 and ends in gap
                 strip1->blur(amount, toStrip1(indexFrom), strip1->last());
                 gapStrip->blur(amount, gapStrip->first(), toGap(indexTo));
             } else if (isInStrip2(indexTo)) {
-                // starts in strip 1 and ends in strip 2
                 strip1->blur(amount, toStrip1(indexFrom), strip1->last());
-                gapStrip->blur(amount);
+                gapStrip->Strip::blur(amount);
                 strip2->blur(amount, strip2->first(), toStrip2(indexTo));
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                // starts end ends in gap
                 gapStrip->blur(amount, toGap(indexFrom), toGap(indexTo));
             } else if (isInStrip2(indexTo)) {
-                // starts in gap and ends in strip 2
                 gapStrip->blur(amount, toGap(indexFrom), gapStrip->last());
                 strip2->blur(amount, strip2->first(), toStrip2(indexTo));
             }
         } else if (isInStrip2(indexFrom)) {
-            // starts and ends in strip 2
             strip2->blur(amount, toStrip2(indexFrom), toStrip2(indexTo));
         }
     }
-}
-
-CRGB JoinedStrip::shiftUp(CRGB in) {
-    return strip2->shiftUp(gapStrip->shiftUp(strip1->shiftUp(in)));
 }
 
 CRGB JoinedStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                // starts and ends in strip 1
                 return strip1->shiftUp(toStrip1(indexFrom), toStrip1(indexTo), in);
             } else if (isInGap(indexTo)) {
-                // starts in strip 1 and ends in gap
                 CRGB fromStrip1 = strip1->shiftUp(toStrip1(indexFrom), strip1->last(), in);
                 return gapStrip->shiftUp(gapStrip->first(), toGap(indexTo), fromStrip1);
             } else if (isInStrip2(indexTo)) {
-                // starts in strip 1 and ends in strip 2
                 CRGB fromStrip1 = strip1->shiftUp(toStrip1(indexFrom), strip1->last(), in);
-                CRGB fromGap = gapStrip->shiftUp(fromStrip1);
+                CRGB fromGap = gapStrip->Strip::shiftUp(fromStrip1);
                 return strip2->shiftUp(strip2->first(), toStrip2(indexTo), fromGap);
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                // starts end ends in gap
                 return gapStrip->shiftUp(toGap(indexFrom), toGap(indexTo), in);
             } else if (isInStrip2(indexTo)) {
-                // starts in gap and ends in strip 2
                 CRGB fromGap = gapStrip->shiftUp(toGap(indexFrom), gapStrip->last(), in);
                 return strip2->shiftUp(strip2->first(), toStrip2(indexTo), fromGap);
             }
         } else if (isInStrip2(indexFrom)) {
-            // starts and ends in strip 2
             return strip2->shiftUp(toStrip2(indexFrom), toStrip2(indexTo), in);
         }
     }
     return CRGB::Black;
 }
 
-CRGB JoinedStrip::shiftDown(CRGB in) {
-    return strip1->shiftDown(gapStrip->shiftDown(strip2->shiftDown(in)));
-}
-
 CRGB JoinedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                // starts and ends in strip 1
                 return strip1->shiftDown(toStrip1(indexFrom), toStrip1(indexTo), in);
             } else if (isInGap(indexTo)) {
-                // starts in strip 1 and ends in gap
                 CRGB fromGap = gapStrip->shiftDown(gapStrip->first(), toGap(indexTo), in);
                 return strip1->shiftDown(toStrip1(indexFrom), strip1->last(), fromGap);
             } else if (isInStrip2(indexTo)) {
-                // starts in strip 1 and ends in strip 2
                 CRGB fromStrip2 = strip2->shiftDown(strip2->first(), toStrip2(indexTo), in);
-                CRGB fromGap = gapStrip->shiftDown(fromStrip2);
+                CRGB fromGap = gapStrip->Strip::shiftDown(fromStrip2);
                 return strip1->shiftDown(toStrip1(indexFrom), strip1->last(), fromGap);
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                // starts end ends in gap
                 return gapStrip->shiftDown(toGap(indexFrom), toGap(indexTo), in);
             } else if (isInStrip2(indexTo)) {
-                // starts in gap and ends in strip 2
                 CRGB fromStrip2 = strip2->shiftDown(strip2->first(), toStrip2(indexTo), in);
                 return gapStrip->shiftDown(toGap(indexFrom), gapStrip->last(), fromStrip2);
             }
         } else if (isInStrip2(indexFrom)) {
-            // starts and ends in strip 2
             return strip2->shiftDown(toStrip2(indexFrom), toStrip2(indexTo), in);
         }
     }
@@ -300,16 +200,12 @@ bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                // starts and ends in strip 1
                 return strip1->paint(toStrip1(indexFrom), toStrip1(indexTo), color, add);
             } else if (isInGap(indexTo)) {
-                // starts in strip 1 and ends in gap
                 bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, add);
                 bool sg = gapStrip->paint(gapStrip->first(), toGap(indexTo), color, add);
                 return s1 || sg;
-                
             } else if (isInStrip2(indexTo)) {
-                // starts in strip 1 and ends in strip 2
                 bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, add);
                 gapStrip->paint(color, add);
                 bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), color, add);
@@ -317,24 +213,17 @@ bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                // starts end ends in gap
                 return gapStrip->paint(toGap(indexFrom), toGap(indexTo), color, add);
             } else if (isInStrip2(indexTo)) {
-                // starts in gap and ends in strip 2
                 bool sg = gapStrip->paint(toGap(indexFrom), gapStrip->last(), color, add);
                 bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), color, add);
                 return sg || s2;
             }
         } else if (isInStrip2(indexFrom)) {
-            // starts and ends in strip 2
             return strip2->paint(toStrip2(indexFrom), toStrip2(indexTo), color, add);
         }
     }
     return false;
-}
-
-bool JoinedStrip::paintNormalized(double position, CRGB color, bool add) {
-    return paint(fromNormalizedPosition(position), color, add);
 }
 
 bool JoinedStrip::paintNormalized(double positionFrom, double positionTo, CRGB color, bool add) {
