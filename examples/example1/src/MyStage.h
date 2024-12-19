@@ -5,9 +5,9 @@
 #include "AudioSensor.h"
 #include "State.h"
 #include "strip/PhysicalStrip.h"
-#include "strip/ReversedStrip.h"
-#include "strip/JoinedStrip.h"
-#include "strip/SubStrip.h"
+#include "strip/virtual/ReversedStrip.h"
+#include "strip/virtual/JoinedStrip.h"
+#include "strip/virtual/SubStrip.h"
 
 // #include "BenScroller.h"
 
