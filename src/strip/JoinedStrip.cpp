@@ -226,19 +226,10 @@ bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add
     return false;
 }
 
-bool JoinedStrip::paintNormalized(double positionFrom, double positionTo, CRGB color, bool add) {
-    return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
-}
-
 bool JoinedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;
     return paint(indexFrom, indexTo, color, add);
-}
-
-bool JoinedStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
-    uint16_t pos = random16(last() - length);
-    return paint(pos, pos + length, color, add);
 }
 
 CRGB JoinedStrip::getIndex(int16_t index) {
@@ -250,8 +241,4 @@ CRGB JoinedStrip::getIndex(int16_t index) {
         return strip2->getIndex(toStrip2(index));
     }
     return CRGB::Black;
-}
-
-CRGB JoinedStrip::getPosition(double position) {
-    return getIndex(fromNormalizedPosition(position));
 }

@@ -14,7 +14,11 @@ class Strip {
             }
         }
 
-    public:
+        uint16_t limitToRange(int16_t index) {
+            return max(min(index, last()), first());
+        }
+
+    protected:
         bool crop(int16_t &indexFrom, int16_t &indexTo) {
             enforceOrder(indexFrom, indexTo);
             if (indexTo < first() || indexFrom > last()) {
@@ -25,12 +29,9 @@ class Strip {
             return true;
         }
 
+    public:
         bool isInRange(int16_t index) {
             return index >= first() && index <= last();
-        }
-
-        uint16_t limitToRange(int16_t index) {
-            return max(min(index, last()), first());
         }
 
         uint16_t first() {
@@ -90,17 +91,28 @@ class Strip {
             return shiftDown(first(), last(), in);
         }
         
-        bool paintNormalized(double position, CRGB color, bool add) {
+        bool paintNormalized(double position, CRGB color, bool add = true) {
             return paint(fromNormalizedPosition(position), fromNormalizedPosition(position), color, add);
+        }
+
+        bool paintRandomPos(int16_t length, CRGB color, bool add = true) {
+            uint16_t pos = random16(last() - length);
+            return paint(pos, pos + length, color, add);
+        }
+
+        bool paintNormalized(double positionFrom, double positionTo, CRGB color, bool add = true) {
+            return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
+        }
+
+        CRGB getPosition(double position) {
+            return getIndex(fromNormalizedPosition(position));
         }
 
         virtual Strip *buffered(uint8_t opacity = 255) {
             return this;
         }
 
-        virtual void flush() {
-            // no-op
-        };
+        virtual void flush() {};
         
         virtual uint16_t size() =0;
         virtual void off() =0;
@@ -112,11 +124,8 @@ class Strip {
         virtual void paint(CRGB color, bool add = false) =0;
         virtual bool paint(int16_t index, CRGB color, bool add = true) =0;
         virtual bool paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true) =0;
-        virtual bool paintNormalized(double positionFrom, double positionTo, CRGB color, bool add = true) =0;
         virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true) =0;
-        virtual bool paintRandomPos(int16_t length, CRGB color, bool add = true) =0;
         virtual CRGB getIndex(int16_t index) =0;
-        virtual CRGB getPosition(double pos) =0;
 };
 
 #endif

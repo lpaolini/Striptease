@@ -106,25 +106,12 @@ bool StatefulStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool a
     return false;
 }
 
-bool StatefulStrip::paintNormalized(double positionFrom, double positionTo, CRGB color, bool add) {
-    return paint(fromNormalizedPosition(positionFrom), fromNormalizedPosition(positionTo), color, add);
-}
-
 bool StatefulStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;
     return paint(indexFrom, indexTo, color, add);
 }
 
-bool StatefulStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
-    uint16_t pos = random16(last() - length);
-    return paint(pos, pos + length, color, add);
-}
-
 CRGB StatefulStrip::getIndex(int16_t index) {
     return (*leds)[index];
-}
-
-CRGB StatefulStrip::getPosition(double position) {
-    return getIndex(fromNormalizedPosition(position));
 }

@@ -67,16 +67,8 @@ bool ReversedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool a
     return false;
 }
 
-bool ReversedStrip::paintNormalized(double positionFrom, double positionTo, CRGB color, bool add) {
-    return strip->paintNormalized(1 - positionFrom, 1 - positionTo, color, add);
-}
-
 bool ReversedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     return strip->paintNormalizedSize(1 - positionFrom, size, color, add);
-}
-
-bool ReversedStrip::paintRandomPos(int16_t length, CRGB color, bool add) {
-    return strip->paintRandomPos(length, color, add);
 }
 
 CRGB ReversedStrip::getIndex(int16_t index) {
@@ -84,8 +76,4 @@ CRGB ReversedStrip::getIndex(int16_t index) {
         return strip->getIndex(toStrip(index));
     }
     return CRGB::Black;
-}
-
-CRGB ReversedStrip::getPosition(double position) {
-    return getIndex(fromNormalizedPosition(position));
 }
