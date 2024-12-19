@@ -108,7 +108,7 @@ class Strip {
             return getIndex(fromNormalizedPosition(position));
         }
 
-        virtual Strip *buffered(uint8_t opacity = 255) {
+        virtual Strip *overlay(uint8_t opacity = 255) {
             return this;
         }
 

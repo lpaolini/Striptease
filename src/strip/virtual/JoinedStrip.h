@@ -19,7 +19,7 @@ class JoinedStrip : public Strip {
 
     public:
         JoinedStrip(Strip *strip, Strip *strip2, int16_t gap = 0);
-        Strip *buffered(uint8_t opacity = 255);
+        Strip *overlay(uint8_t opacity = 255);
         uint16_t size() override;
         void off() override;
         void rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) override;
