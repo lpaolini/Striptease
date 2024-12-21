@@ -20,10 +20,6 @@ uint16_t StatefulStrip::size() {
     return leds->size();
 }
 
-void StatefulStrip::off() {
-    paint(CRGB::Black);
-}
-
 void StatefulStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).fill_rainbow(initialHue, deltaHue);
@@ -72,26 +68,6 @@ CRGB StatefulStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
         }
     }
     return CRGB::Black;
-}
-
-void StatefulStrip::paint(CRGB color, bool add) {
-    if (add) {
-        *leds |= color;
-    } else {
-        *leds = color;
-    }
-}
-
-bool StatefulStrip::paint(int16_t index, CRGB color, bool add) {
-    if (isInRange(index)) {
-        if (add) {
-            (*leds)[index] |= color;
-        } else {
-            (*leds)[index] = color;
-        }
-        return true;
-    }
-    return false;
 }
 
 bool StatefulStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {

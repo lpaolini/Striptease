@@ -41,12 +41,6 @@ int16_t JoinedStrip::toStrip2(int16_t index) {
     return index - strip1->size() - gapStrip->size();
 }
 
-void JoinedStrip::off() {
-    strip1->off();
-    gapStrip->off();
-    strip2->off();
-}
-
 void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
@@ -179,23 +173,6 @@ CRGB JoinedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-void JoinedStrip::paint(CRGB color, bool add) {
-    strip1->paint(color, add);
-    gapStrip->paint(color, add);
-    strip2->paint(color, add);
-}
-
-bool JoinedStrip::paint(int16_t index, CRGB color, bool add) {
-    if (isInStrip1(index)) {
-        return strip1->paint(toStrip1(index), color, add);
-    } else if (isInGap(index)) {
-        return gapStrip->paint(toGap(index), color, add);
-    } else if (isInStrip2(index)) {
-        return strip2->paint(toStrip2(index), color, add);
-    }
-    return false;
-}
-
 bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
@@ -207,7 +184,7 @@ bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add
                 return s1 || sg;
             } else if (isInStrip2(indexTo)) {
                 bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, add);
-                gapStrip->paint(color, add);
+                gapStrip->Strip::paint(color, add);
                 bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), color, add);
                 return s1 || s2;
             }

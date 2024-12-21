@@ -16,10 +16,6 @@ int16_t ReversedStrip::toStrip(int16_t index) {
     return strip->last() - index;
 }
 
-void ReversedStrip::off() {
-    strip->off();
-}
-
 void ReversedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         strip->rainbow(initialHue + (indexTo - indexFrom + 1) * deltaHue, -deltaHue, toStrip(indexTo), toStrip(indexFrom));
@@ -50,14 +46,6 @@ CRGB ReversedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
         return strip->shiftUp(toStrip(indexTo), toStrip(indexFrom), in);
     }
     return CRGB::Black;
-}
-
-void ReversedStrip::paint(CRGB color, bool add) {
-    strip->paint(color, add);
-}
-
-bool ReversedStrip::paint(int16_t index, CRGB color, bool add) {
-    return strip->paint(toStrip(index), color, add);
 }
 
 bool ReversedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {

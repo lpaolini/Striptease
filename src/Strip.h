@@ -62,6 +62,10 @@ class Strip {
             return int(normalizedPosition * (last() - excludeCount));
         }
         
+        void off() {
+            paint(first(), last(), CRGB::Black, false);
+        }
+
         void rainbow(uint8_t initialHue) {
             rainbow(initialHue, first(), last());
         }
@@ -91,6 +95,14 @@ class Strip {
             return shiftDown(first(), last(), in);
         }
         
+        void paint(CRGB color, bool add = true) {
+            paint(first(), last(), color, add);
+        }
+
+        bool paint(int16_t index, CRGB color, bool add = true) {
+            return paint(index, index, color, add);
+        }
+
         bool paintNormalized(double position, CRGB color, bool add = true) {
             return paint(fromNormalizedPosition(position), fromNormalizedPosition(position), color, add);
         }
@@ -115,14 +127,11 @@ class Strip {
         virtual void flush() {};
         
         virtual uint16_t size() =0;
-        virtual void off() =0;
         virtual void rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) =0;
         virtual void fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) =0;
         virtual void blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) =0;
         virtual CRGB shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual CRGB shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
-        virtual void paint(CRGB color, bool add = false) =0;
-        virtual bool paint(int16_t index, CRGB color, bool add = true) =0;
         virtual bool paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true) =0;
         virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true) =0;
         virtual CRGB getIndex(int16_t index) =0;
