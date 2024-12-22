@@ -41,7 +41,7 @@ int16_t JoinedStrip::toStrip2(int16_t index) {
     return index - strip1->size() - gapStrip->size();
 }
 
-void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+void JoinedStrip::_rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -67,7 +67,7 @@ void JoinedStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFro
     }
 }
 
-void JoinedStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void JoinedStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -93,7 +93,7 @@ void JoinedStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     }
 }
 
-void JoinedStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void JoinedStrip::_blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -119,7 +119,7 @@ void JoinedStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     }
 }
 
-CRGB JoinedStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
+CRGB JoinedStrip::_shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -146,7 +146,7 @@ CRGB JoinedStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-CRGB JoinedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
+CRGB JoinedStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -173,7 +173,7 @@ CRGB JoinedStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool JoinedStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool JoinedStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {

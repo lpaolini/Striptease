@@ -16,29 +16,33 @@ void StatefulStrip::setLeds(CRGBSet *leds) {
     this->leds = leds;
 }
 
+Strip *StatefulStrip::overlay(uint8_t opacity) {
+    return this;
+}
+
 uint16_t StatefulStrip::size() {
     return leds->size();
 }
 
-void StatefulStrip::rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+void StatefulStrip::_rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).fill_rainbow(initialHue, deltaHue);
     }
 }
 
-void StatefulStrip::fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void StatefulStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).fadeToBlackBy(amount);
     }
 }
 
-void StatefulStrip::blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void StatefulStrip::_blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).blur1d(amount);
     }
 }
 
-CRGB StatefulStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
+CRGB StatefulStrip::_shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         if (indexFrom == indexTo) {
             return in;
@@ -54,7 +58,7 @@ CRGB StatefulStrip::shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-CRGB StatefulStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
+CRGB StatefulStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     if (crop(indexFrom, indexTo)) {
         if (indexFrom == indexTo) {
             return in;
@@ -70,7 +74,7 @@ CRGB StatefulStrip::shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool StatefulStrip::paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool StatefulStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
         if (add) {
             (*leds)(indexFrom, indexTo) |= color;

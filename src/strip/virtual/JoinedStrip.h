@@ -21,12 +21,12 @@ class JoinedStrip : public Strip {
         JoinedStrip(Strip *strip, Strip *strip2, int16_t gap = 0);
         Strip *overlay(uint8_t opacity = 255);
         uint16_t size() override;
-        void rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) override;
-        void fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;
-        void blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;
-        CRGB shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
-        CRGB shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
-        bool paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true) override;
+        void _rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) override;
+        void _fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;
+        void _blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;
+        CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
+        CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
+        bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true) override;
         bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true) override;
         CRGB getIndex(int16_t index) override;
 };
