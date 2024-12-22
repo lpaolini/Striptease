@@ -22,16 +22,16 @@ class HarmonicMotion {
         double x = 0;             // position
         double x0 = 0;            // fixed point position
         double v = 0;             // velocity
-        int start = 0;           // start led
-        int end = 0;             // end led
-        bool mirror;             // mirror
-        bool fill;               // fill
-        bool showWhenStable;     // show when stable
-        bool overwrite;          // add to pixel color
+        int start = 0;            // start led
+        int end = 0;              // end led
+        bool mirror;              // mirror
+        bool fill;                // fill
+        bool showWhenStable;      // show when stable
+        bool overwrite;           // add to pixel color
         double xPrev;             // previous position
         double vPrev;             // previous velocity
-        Limit lowerLimit;        // lower limit
-        Limit upperLimit;        // upper limit
+        Limit lowerLimit;         // lower limit
+        Limit upperLimit;         // upper limit
         int getLowerLimitCompensation();
         int getUpperLimitCompensation();
         bool isLowerLimit();
