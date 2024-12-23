@@ -211,7 +211,7 @@ void HarmonicMotion::loop() {
         v = 0;
     }
 
-    if (!isStable() || showWhenStable) {
+    if (color && (!isStable() || showWhenStable)) {
         show(x, xPrev, false);
         if (mirror) {
             show(x, xPrev, true);
