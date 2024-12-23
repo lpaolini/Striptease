@@ -135,6 +135,10 @@ double HarmonicMotion::getVelocity() {
     return v;
 }
 
+double HarmonicMotion::getAcceleration() {
+    return a0;
+}
+
 int HarmonicMotion::getLowerLimitCompensation() {
     switch (lowerLimit.boundTrigger) {
         case -1:

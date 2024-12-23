@@ -63,7 +63,7 @@ class HarmonicMotion {
         HarmonicMotion& setOverwrite(bool overwrite);
         double getPosition();
         double getVelocity();
-        double getFixedPointPosition();
+        double getAcceleration();
         bool isStable();
         void loop();
 };
