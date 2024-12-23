@@ -44,7 +44,7 @@ class HarmonicMotion {
         HarmonicMotion();
         HarmonicMotion& setup(Strip *strip);
         HarmonicMotion& reset();
-        HarmonicMotion& setColor(CRGB color = CRGB::White);
+        HarmonicMotion& setColor(CRGB color);
         HarmonicMotion& setAcceleration(double a0, double a1 = 0, double a2 = 0);
         HarmonicMotion& setElasticConstant(double k);
         HarmonicMotion& setDamping(double b);
