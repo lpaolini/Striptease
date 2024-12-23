@@ -19,11 +19,11 @@ uint8_t State::getFxSpeed() {
 }
 
 void State::decreaseFxSpeed() {
-    setFxSpeed(max(fxSpeed - 5, 0));
+    setFxSpeed(max(fxSpeed - 2, 0));
 }
 
 void State::increaseFxSpeed() {
-    setFxSpeed(min(fxSpeed + 5, 100));
+    setFxSpeed(min(fxSpeed + 2, 100));
 }
 
 void State::setCycleSpeed(uint8_t speed) {
@@ -36,11 +36,11 @@ uint8_t State::getCycleSpeed() {
 }
 
 void State::decreaseCycleSpeed() {
-    setCycleSpeed(max(cycleSpeed - 5, 0));
+    setCycleSpeed(max(cycleSpeed - 2, 0));
 }
 
 void State::increaseCycleSpeed() {
-    setCycleSpeed(min(cycleSpeed + 5, 100));
+    setCycleSpeed(min(cycleSpeed + 2, 100));
 }
 
 void State::loop() {

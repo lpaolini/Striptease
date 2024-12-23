@@ -431,6 +431,7 @@ void Controller::decreaseFxSpeed() {
         state->decreaseFxSpeed();
         modeTimer.reset();
     } else {
+        stage->getSpeedMeterFx()->reset();
         setMode(SET_FX_SPEED);
     }
 }
@@ -440,6 +441,7 @@ void Controller::increaseFxSpeed() {
         state->increaseFxSpeed();
         modeTimer.reset();
     } else {
+        stage->getSpeedMeterFx()->reset();
         setMode(SET_FX_SPEED);
     }
 }
@@ -462,6 +464,7 @@ void Controller::increaseCycleSpeed() {
         state->increaseCycleSpeed();
         modeTimer.reset();
     } else {
+        stage->getCycleSpeedFx()->reset();
         setMode(SET_CYCLE_SPEED);
     }
 }
@@ -471,6 +474,7 @@ void Controller::decreaseCycleSpeed() {
         state->decreaseCycleSpeed();
         modeTimer.reset();
     } else {
+        stage->getCycleSpeedFx()->reset();
         setMode(SET_CYCLE_SPEED);
     }
 }

@@ -21,7 +21,7 @@ class Controller {
         static const uint16_t MAX_PATTERN_DELAY_S = 60;
         static const unsigned long INPUT_TIMER_DURATION = 5000;
         static const unsigned long SENSITIVITY_TIMER_DURATION = 60000;
-        static const unsigned long FX_SPEED_TIMER_DURATION = 500;
+        static const unsigned long FX_SPEED_TIMER_DURATION = 1000;
         static const unsigned long CYCLE_SPEED_TIMER_DURATION = 3000;
         Stage *stage;
         AudioSensor *audioSensor;
