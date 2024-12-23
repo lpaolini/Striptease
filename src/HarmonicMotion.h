@@ -37,7 +37,7 @@ class HarmonicMotion {
         bool isLowerLimit();
         bool isUpperLimit();
         void update();
-        void show(double x, double xPrev, bool mirror);
+        void show(bool mirror);
         
     public:
         CRGB color;
@@ -61,6 +61,7 @@ class HarmonicMotion {
         HarmonicMotion& setFill(bool fill);
         HarmonicMotion& setShowWhenStable(bool showWhenStable);
         HarmonicMotion& setOverwrite(bool overwrite);
+        double getFixedPointPosition();
         double getPosition();
         double getVelocity();
         double getAcceleration();

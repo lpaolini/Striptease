@@ -123,12 +123,12 @@ HarmonicMotion& HarmonicMotion::setOverwrite(bool overwrite) {
     return *this;
 }
 
-double HarmonicMotion::getPosition() {
-    return x;
-}
-
 double HarmonicMotion::getFixedPointPosition() {
     return x0;
+}
+
+double HarmonicMotion::getPosition() {
+    return x;
 }
 
 double HarmonicMotion::getVelocity() {
@@ -198,10 +198,6 @@ void HarmonicMotion::update() {
     a0 += a1 * dT;
     v += (a0 - (k * (x - x0) + b * v)) * dT;
     x += v * dT;
-}
-
-void HarmonicMotion::loop() {
-    update();
 
     if (isLowerLimit()) {
         v *= lowerLimit.r;
@@ -210,27 +206,30 @@ void HarmonicMotion::loop() {
     } else if (isStable()) {
         v = 0;
     }
+}
 
+void HarmonicMotion::loop() {
+    update();
     if (color && (!isStable() || showWhenStable)) {
-        show(x, xPrev, false);
+        show(false);
         if (mirror) {
-            show(x, xPrev, true);
+            show(true);
         }
     }
 }
 
-void HarmonicMotion::show(double current, double previous, bool mirrored) {
+void HarmonicMotion::show(bool mirrored) {
     if (mirrored) {
-        int pos1 = round(2 * x0 - current);
-        int pos2 = round(fill ? x0 : 2 * x0 - previous);
-        int posMin = min(pos1, pos2) - end;
-        int posMax = max(pos1, pos2) - start;
+        double pos1 = round(2 * x0 - x);
+        double pos2 = round(fill ? x0 : 2 * x0 - xPrev);
+        double posMin = min(pos1, pos2) - end;
+        double posMax = max(pos1, pos2) - start;
         strip->paint(posMin, posMax, color, !overwrite);
     } else {
-        int pos1 = round(current);
-        int pos2 = round(fill ? x0 : previous);
-        int posMin = min(pos1, pos2) + start;
-        int posMax = max(pos1, pos2) + end;
+        double pos1 = round(x);
+        double pos2 = round(fill ? x0 : xPrev);
+        double posMin = min(pos1, pos2) + start;
+        double posMax = max(pos1, pos2) + end;
         strip->paint(posMin, posMax, color, !overwrite);
     }
 }
