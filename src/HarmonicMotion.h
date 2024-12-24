@@ -6,11 +6,14 @@
 #include "Strip.h"
 
 class HarmonicMotion {
+    public:
+        enum ReboundMode {INSIDE = -1, OUTSIDE = 1, DEFAULT = 0};
+
     private:
         struct Limit {
             double x;
             double r = 1;
-            int8_t boundTrigger = 0;
+            ReboundMode reboundMode = DEFAULT;
         };
         Strip *strip;
         elapsedMicros timeElapsed;
@@ -54,8 +57,8 @@ class HarmonicMotion {
         HarmonicMotion& setVelocity(double v);
         HarmonicMotion& setFixedPointPosition(double x0);
         HarmonicMotion& setRandomFixedPointPosition();
-        HarmonicMotion& setUpperBound(double x, double r = 0, int8_t boundTrigger = 0);
-        HarmonicMotion& setLowerBound(double x, double r = 0, int8_t boundTrigger = 0);
+        HarmonicMotion& setUpperBound(double x, double r = 0, ReboundMode mode = DEFAULT);
+        HarmonicMotion& setLowerBound(double x, double r = 0, ReboundMode mode = DEFAULT);
         HarmonicMotion& setRange(int start, int end);
         HarmonicMotion& setMirror(bool mirror);
         HarmonicMotion& setFill(bool fill);

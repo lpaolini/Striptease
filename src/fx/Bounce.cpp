@@ -42,7 +42,7 @@ void Bounce::resetItem(HarmonicMotion &item) {
         .setRandomPosition()
         .setVelocity(random(100) + 200 * state->parabolicFxSpeed)
         .setDamping(state->linearFxSpeed)
-        .setLowerBound(0, -1, 1)
-        .setUpperBound(strip->last(), -1, 1)
+        .setLowerBound(strip->first(), -1, HarmonicMotion::OUTSIDE)
+        .setUpperBound(strip->last(), -1, HarmonicMotion::OUTSIDE)
         .setRange(0, size);
 }

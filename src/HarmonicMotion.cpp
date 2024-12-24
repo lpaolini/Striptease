@@ -83,17 +83,17 @@ HarmonicMotion& HarmonicMotion::setRandomFixedPointPosition() {
     return setFixedPointPosition(strip->random());
 }
 
-HarmonicMotion& HarmonicMotion::setLowerBound(double x, double r, int8_t boundTrigger) {
+HarmonicMotion& HarmonicMotion::setLowerBound(double x, double r, ReboundMode reboundMode) {
     lowerLimit.x = x;
     lowerLimit.r = r;
-    lowerLimit.boundTrigger = boundTrigger;
+    lowerLimit.reboundMode = reboundMode;
     return *this;
 }
 
-HarmonicMotion& HarmonicMotion::setUpperBound(double x, double r, int8_t boundTrigger) {
+HarmonicMotion& HarmonicMotion::setUpperBound(double x, double r, ReboundMode reboundMode) {
     upperLimit.x = x;
     upperLimit.r = r;
-    upperLimit.boundTrigger = boundTrigger;
+    upperLimit.reboundMode = reboundMode;
     return *this;
 }
 
@@ -140,10 +140,10 @@ double HarmonicMotion::getAcceleration() {
 }
 
 int HarmonicMotion::getLowerLimitCompensation() {
-    switch (lowerLimit.boundTrigger) {
-        case -1:
+    switch (lowerLimit.reboundMode) {
+        case INSIDE:
             return start;
-        case 1:
+        case OUTSIDE:
             return end + 1;
         default:
             return 0;
@@ -151,10 +151,10 @@ int HarmonicMotion::getLowerLimitCompensation() {
 }
 
 int HarmonicMotion::getUpperLimitCompensation() {
-    switch (upperLimit.boundTrigger) {
-        case -1:
+    switch (upperLimit.reboundMode) {
+        case INSIDE:
             return end;
-        case 1:
+        case OUTSIDE:
             return start - 1;
         default:
             return 0;

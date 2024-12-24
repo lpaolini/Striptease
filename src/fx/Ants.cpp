@@ -48,8 +48,8 @@ void Ants::resetItem(Item &item) {
         .setColor(ColorFromPalette(PALETTE, state->rotatingHue))
         .setPosition(0)
         .setVelocity(100 + 200 * state->parabolicFxSpeed)
-        .setLowerBound(0, 0, 1)
-        .setUpperBound(strip->last(), -1, 1)
+        .setLowerBound(strip->first(), 0, HarmonicMotion::OUTSIDE)
+        .setUpperBound(strip->last(), -1, HarmonicMotion::INSIDE)
         .setRange(0, 5);
     item.decay = 2;
 }
