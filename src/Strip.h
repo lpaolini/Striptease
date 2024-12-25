@@ -154,7 +154,7 @@ class Strip {
         }
 
         bool paintRandomPos(int16_t length, CRGB color, bool add = true) {
-            uint16_t pos = random16(last() - length);
+            uint16_t pos = random16(size() - length);
             return _paint(pos, pos + length, color, add);
         }
 
