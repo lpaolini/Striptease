@@ -14,6 +14,12 @@ class Strip {
             }
         }
 
+        static double clamp16(double value) {
+            const double clampedDown = value < INT16_MIN ? INT16_MIN : value;
+            const double clampedUp = clampedDown > INT16_MAX ? INT16_MAX : clampedDown;
+            return round(clampedUp);
+        }
+
         uint16_t limitToRange(int16_t index) {
             return max(min(index, last()), first());
         }
@@ -27,12 +33,6 @@ class Strip {
             indexFrom = limitToRange(indexFrom);
             indexTo = limitToRange(indexTo);
             return true;
-        }
-
-        static double clamp16(double value) {
-            const double clampedDown = value < INT16_MIN ? INT16_MIN : value;
-            const double clampedUp = clampedDown > INT16_MAX ? INT16_MAX : clampedDown;
-            return round(clampedUp);
         }
 
         virtual void _rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) =0;
