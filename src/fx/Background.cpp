@@ -5,5 +5,5 @@ Background::Background(Strip *strip, CRGB color) : Fx(strip) {
 }
 
 void Background::loop() {
-    strip->paint(color);
+    strip->paint(color, false);
 }

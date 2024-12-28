@@ -12,9 +12,7 @@
 
 class Jelly : public Fx {
     private:
-        // const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Red, CRGB::Red, CRGB::White, CRGB::Aqua);
         const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Red, CRGB::Gold, CRGB::Red, CRGB::Blue);
-        const CRGB BACKGROUND_COLOR = CHSV(180, 255, 30);
         static const uint8_t ITEMS = 5;
         static const uint8_t FADE_RATE = 100;
         AudioTrigger *audioTrigger;

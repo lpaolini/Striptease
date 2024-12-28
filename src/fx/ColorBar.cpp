@@ -3,5 +3,5 @@
 ColorBar::ColorBar(Strip *strip, State *state) : Fx(strip, state) {}
 
 void ColorBar::loop() {
-    strip->paint(CHSV(255 * state->linearFxSpeed, 255, 128));
+    strip->paint(CHSV(255 * state->linearFxSpeed, 255, 128), false);
 }

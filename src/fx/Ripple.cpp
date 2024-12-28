@@ -26,7 +26,7 @@ void Ripple::reset() {
 }
 
 void Ripple::loop() {
-    strip->paint(backgroundColor);
+    strip->paint(backgroundColor, false);
 
     if (fadeTimer.isElapsed()) {
         for (uint8_t i = 0; i < ITEMS; i++) {

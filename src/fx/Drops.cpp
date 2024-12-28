@@ -23,7 +23,7 @@ void Drops::reset() {
 }
 
 void Drops::loop() {
-    strip->paint(BACKGROUND_COLOR);
+    strip->paint(BACKGROUND_COLOR, false);
 
     bool trigger = audioTrigger->triggered(1);
 

@@ -15,17 +15,12 @@ void Strobe::reset() {
 }
 
 void Strobe::loop() {
-    if (timer.isElapsed()) {
-        strip->fade(1);
-        strip->blur(100);
-    }
-
     bool trigger = audioTrigger->triggered(1);
 
     if (trigger) {
         strip->off();
         int count = random8(2, 5);
-        CRGB color = ColorFromPalette(PALETTE, state->rotatingHue);
+        CRGB color = ColorFromPalette(PALETTE, random8());
         for (int i = 0; i < count; i++) {
             strip->paintRandomPos(SEGMENT_SIZE, color);
         }
