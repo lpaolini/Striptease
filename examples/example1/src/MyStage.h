@@ -25,8 +25,7 @@ class MyStage : public Stage {
         const static uint16_t STRIP_TOP_DENSITY = 60;
         const static uint8_t STRIP_TOP_PIN = CH6_PIN;
         
-        // const static uint16_t STRIP_XMASTREE_COUNT = 240;
-        const static uint16_t STRIP_XMASTREE_COUNT = 192;
+        const static uint16_t STRIP_XMASTREE_COUNT = 240;
         const static uint16_t STRIP_XMASTREE_DENSITY = 60;
         const static uint8_t STRIP_XMASTREE_PIN = CH3_PIN;
 

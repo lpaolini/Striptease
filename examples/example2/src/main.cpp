@@ -4,7 +4,7 @@
 #include <StripTease.h>
 
 #include "MyStage.h"
-#include "SonyRemote_RMD420.h"
+#include "remote/SonyRemote_RMD420.h"
 
 AudioSensor *audioSensor = new AudioSensor();
 State *state = new State();
@@ -12,7 +12,6 @@ Stage *stage = new MyStage(audioSensor, state);
 Controller *controller = new Controller(stage, audioSensor, state);
 Remote *remote = new SonyRemote_RMD420(controller);
 SerialRemote *serialRemote = new SerialRemote(controller);
-
 
 void init() {
     Serial.begin(115200);
