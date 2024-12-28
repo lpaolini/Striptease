@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - BREAKING CHANGE: replaced all `float` variables and arguments with `double`.
 - BREAKING CHANGE: `Strip` renamed method `buffered` to `overlay`.
+- BREAKING CHANGE: `Stage` method `addStrip` has now the same signature as `PhysicalStrip`.
 - `Interval`: changed time precision to microseconds.
 - FastLED has been upgraded to version 3.9.8
 - IRMP has been upgraded to version 3.6.4
