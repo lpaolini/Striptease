@@ -99,12 +99,16 @@ class Stage {
             Fx *fx8 = nullptr, 
             Fx *fx9 = nullptr
         ) {
+            clear();
             Fx *fx = new Multiplex(fx1, fx2, fx3, fx4, fx5, fx6, fx7, fx8, fx9);
             randomFxIndexes.push_back(fxs.size());
             fxs.push_back(fx);
         }
-        void addStrip(PhysicalStrip *strip) {
+
+        Strip *addStrip(CRGBSet &leds, uint16_t density) {
+            Strip *strip = new PhysicalStrip(leds, density);
             strips.push_back(strip);
+            return strip;
         }
         void setCycleSpeedFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr) {
             cycleSpeed = new Multiplex(fx1, fx2);
@@ -120,6 +124,11 @@ class Stage {
         }
 
     public:
+        void clear() {
+            for (Strip *strip : strips) {
+                strip->off();
+            }
+        }
         void fadeOut() {
             for (Strip *strip : strips) {
                 strip->fade(1);
