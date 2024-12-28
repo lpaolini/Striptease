@@ -4,21 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] (2021-12-11)
+## [1.3.0] (2024-12-28)
 
 ### Fixed
 - `Interval`: implemented rolling arguments for `toTriangle`, `toSquare` and `toWave` functions.
+- `Strip`: implemented double index arguments internally clipped and converted to int16_t, to avoid rollover.
+- `Strip`: removed (a lot of) redundant code in subclasses.
+- `Strip`: calculation of pixel range in mirrored mode.
 
 ### Changed
 - BREAKING CHANGE: replaced all `float` variables and arguments with `double`.
+- BREAKING CHANGE: `Strip` renamed method `buffered` to `overlay`.
 - `Interval`: changed time precision to microseconds.
-- FastLED has been upgraded to version 3.5.0.
+- FastLED has been upgraded to version 3.9.8
+- IRMP has been upgraded to version 3.6.4
+- Reimplemented system effects
 
 ### Added
 - `Controller`: implemented `setAudioEnabled(bool enabled)` and `toggleAudio()` for muting/unmuting.
 - `Strip`: implemented `getIndex(int16_t index)` and `getPosition(double pos)` for reading CRGB color value.
 - `ColorTwinkles`: ported Pixelblaze fx.
 - `SubtleWave`: ported Pixelblaze fx.
+- `Sparks` effect.
+- `Traffic` effect.
 
 ## [1.2.13] (2021-12-11)
 
