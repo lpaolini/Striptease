@@ -113,15 +113,19 @@ class Stage {
             strips.push_back(strip);
             return strip;
         }
+
         void setCycleSpeedFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr) {
             cycleSpeed = new Multiplex(fx1, fx2);
         }
+        
         void setSpeedMeterFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr) {
             speedMeter = new Multiplex(fx1, fx2);
         }
+        
         void setMicGainMeterFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr) {
             micGainMeter = new Multiplex(fx1, fx2);
         }
+        
         void setInputLevelMeterFx(Fx *fx1 = nullptr, Fx *fx2 = nullptr) {
             inputLevelMeter = new Multiplex(fx1, fx2);
         }
@@ -132,20 +136,25 @@ class Stage {
                 strip->off();
             }
         }
+        
         void fadeOut() {
             for (Strip *strip : strips) {
                 strip->fade(1);
             }
         }
+        
         uint16_t getFxCount() {
             return fxs.size();
         }
+        
         uint16_t getNextFxIndex(uint16_t index) {
             return (index + 1) % getFxCount();
         }
+        
         uint16_t getPrevFxIndex(uint16_t index) {
             return (index + getFxCount() - 1) % getFxCount();
         }
+        
         uint16_t getRandomFxIndex() {
             if (randomFxIndex == 0) {
                 std::random_shuffle(randomFxIndexes.begin(), randomFxIndexes.end());
@@ -153,18 +162,23 @@ class Stage {
             randomFxIndex = (randomFxIndex + 1) % getFxCount();
             return randomFxIndexes[randomFxIndex];
         }
+        
         Fx *getFx(uint16_t index) {
             return fxs[index];
         }
+        
         Fx *getCycleSpeedFx() {
             return cycleSpeed;
         }
+        
         Fx *getSpeedMeterFx() {
             return speedMeter;
         }
+        
         Fx *getMicGainMeterFx() {
             return micGainMeter;
         }
+        
         Fx *getInputLevelMeterFx() {
             return inputLevelMeter;
         }
