@@ -1,10 +1,9 @@
 #ifndef SoundbridgeRemote_h
 #define SoundbridgeRemote_h
 
-#include "Remote.h"
-#include "Controller.h"
+#include "remote/IRRemote.h"
 
-class SoundbridgeRemote : public Remote {
+class SoundbridgeRemote : public IRRemote {
     private:
         static const uint16_t CMD_POWER = 0x16;
         static const uint16_t CMD_BRIGHTNESS = 0x42;
@@ -28,7 +27,7 @@ class SoundbridgeRemote : public Remote {
         static const uint16_t MODE_NORMAL = 0;
         static const uint16_t MODE_TIME = 1;
 
-        void handleCommand(uint8_t protocol, uint16_t command, bool repeated) {
+        void handleCommand(uint8_t protocol, uint16_t command, bool repeated) override {
             if (protocol == 2) { // P=NEC A=0x906F
                 if (!repeated) {
                     handleNonRepeatableKey(command);
@@ -105,7 +104,7 @@ class SoundbridgeRemote : public Remote {
         }
 
     public:
-        SoundbridgeRemote(Controller *controller) : Remote(controller) {};
+        SoundbridgeRemote(Controller *controller) : IRRemote(controller) {};
 };
 
 #endif

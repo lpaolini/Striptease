@@ -1,10 +1,9 @@
 #ifndef SonyRemote_RMD420_h
 #define SonyRemote_RMD420_h
 
-#include "Remote.h"
-#include "Controller.h"
+#include "remote/IRRemote.h"
 
-class SonyRemote_RMD420 : public Remote {
+class SonyRemote_RMD420 : public IRRemote {
     private:
         static const uint16_t CMD_CONTINUE = 29;
         static const uint16_t CMD_SHUFFLE = 53;
@@ -37,7 +36,7 @@ class SonyRemote_RMD420 : public Remote {
 
         bool tenPlus = false;
 
-        void handleCommand(uint8_t protocol, uint16_t command, bool repeated) {
+        void handleCommand(uint8_t protocol, uint16_t command, bool repeated) override {
             if (protocol == 1) { // P=SIRCS A=0x0)
                 if (!repeated) {
                     handleNonRepeatableKey(command);
@@ -149,7 +148,7 @@ class SonyRemote_RMD420 : public Remote {
         }
 
     public:
-        SonyRemote_RMD420(Controller *controller) : Remote(controller) {};
+        SonyRemote_RMD420(Controller *controller) : IRRemote(controller) {};
 };
 
 #endif

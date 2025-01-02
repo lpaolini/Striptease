@@ -1,16 +1,19 @@
-#ifndef Remote_h
-#define Remote_h
+#ifndef IRRemote_h
+#define IRRemote_h
 
 #include <Arduino.h>
 #include "Controller.h"
 #include "Timer.h"
 
+#define IRMP_INPUT_PIN                  22
+#define IRMP_SUPPORT_SIRCS_PROTOCOL     1 // Enable SIRCS (Sony) protocol
+#define IRMP_SUPPORT_NEC_PROTOCOL       1 // Enable NEC protocol
 #define IRMP_PROTOCOL_NAMES             1 // Enable protocol number mapping to protocol strings
 #define IRMP_USE_COMPLETE_CALLBACK      1 // Enable callback functionality
 
 #include <irmp.hpp>
 
-class Remote {
+class IRRemote {
     private:
         IRMP_DATA irmp_data;
 
@@ -19,7 +22,7 @@ class Remote {
         virtual void handleCommand(uint8_t protocol, uint16_t command, bool repeated) = 0;
 
     public:
-        Remote(Controller *controller) {
+        IRRemote(Controller *controller) {
             this->controller = controller;
         }
         
