@@ -5,7 +5,7 @@
 #include <FastLED.h>
 #include "Fx.h"
 #include "Timer.h"
-#include "AudioChannel.h"
+#include "audio/AudioChannel.h"
 #include "HarmonicMotion.h"
 
 class VU2 : public Fx {

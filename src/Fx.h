@@ -2,7 +2,7 @@
 #define Fx_h
 
 #include <Arduino.h>
-#include "AudioChannel.h"
+#include "audio/AudioChannel.h"
 #include "State.h"
 #include "Strip.h"
 

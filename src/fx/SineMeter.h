@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include "AudioChannel.h"
+#include "audio/AudioChannel.h"
 #include "Fx.h"
 #include "Pixel.h"
 #include "State.h"

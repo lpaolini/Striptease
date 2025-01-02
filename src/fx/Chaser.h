@@ -4,8 +4,8 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "Fx.h"
-#include "AudioSensor.h"
-#include "AudioTrigger.h"
+#include "audio/AudioSensor.h"
+#include "audio/AudioTrigger.h"
 #include "HarmonicMotion.h"
 #include "State.h"
 #include "Timer.h"

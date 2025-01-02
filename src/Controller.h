@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 
-#include "AudioSensor.h"
+#include "audio/AudioSensor.h"
 #include "Brightness.h"
 #include "Fx.h"
 #include "Stage.h"

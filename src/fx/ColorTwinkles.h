@@ -3,8 +3,8 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include "AudioSensor.h"
-#include "AudioChannel.h"
+#include "audio/AudioSensor.h"
+#include "audio/AudioChannel.h"
 #include "Fx.h"
 #include "Interval.h"
 #include "Pixel.h"

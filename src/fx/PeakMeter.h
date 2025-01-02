@@ -5,7 +5,7 @@
 #include <FastLED.h>
 #include "Fx.h"
 #include "Timer.h"
-#include "AudioChannel.h"
+#include "audio/AudioChannel.h"
 #include "Pixel.h"
 
 class PeakMeter : public Fx {

@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include "AudioSensor.h"
+#include "audio/AudioSensor.h"
 #include "Fx.h"
 #include "Timer.h"
 #include "HarmonicMotion.h"

@@ -3,8 +3,8 @@
 
 #include <Arduino.h>
 #include <math.h>
-#include "AudioChannel.h"
-#include "AudioTrigger.h"
+#include "audio/AudioChannel.h"
+#include "audio/AudioTrigger.h"
 #include "Easing.h"
 #include "Fx.h"
 #include "Pixel.h"
