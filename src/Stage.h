@@ -12,6 +12,9 @@
 #include "Fx.h"
 #include "Multiplex.h"
 #include "strip/PhysicalStrip.h"
+#include "strip/virtual/JoinedStrip.h"
+#include "strip/virtual/ReversedStrip.h"
+#include "strip/virtual/SubStrip.h"
 
 // System fxs
 
