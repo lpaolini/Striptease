@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include "Controller.h"
-#include "Timer.h"
 
 #define IRMP_INPUT_PIN                  22
 #define IRMP_SUPPORT_SIRCS_PROTOCOL     1 // Enable SIRCS (Sony) protocol

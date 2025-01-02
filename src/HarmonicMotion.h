@@ -1,8 +1,6 @@
 #ifndef HarmonicMotion_h
 #define HarmonicMotion_h
 
-#include <Arduino.h>
-#include <FastLED.h>
 #include "strip/Strip.h"
 
 class HarmonicMotion {

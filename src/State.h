@@ -1,7 +1,7 @@
 #ifndef State_h
 #define State_h
 
-#include <FastLED.h>
+#include <Arduino.h>
 
 class State {
     private:

@@ -1,6 +1,8 @@
 #ifndef SubStrip_h
 #define SubStrip_h
 
+#include <FastLED.h>
+#include "strip/Strip.h"
 #include "strip/BufferedStrip.h"
 
 class SubStrip : public Strip {

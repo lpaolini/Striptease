@@ -1,8 +1,6 @@
 #ifndef Multiplex_h
 #define Multiplex_h
 
-#include <Arduino.h>
-#include <FastLED.h>
 #include <vector>
 #include "Fx.h"
 

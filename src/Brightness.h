@@ -1,7 +1,6 @@
 #ifndef Brightness_h
 #define Brightness_h
 
-#include <Arduino.h>
 #include <FastLED.h>
 
 class Brightness {

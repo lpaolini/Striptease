@@ -1,6 +1,7 @@
 #ifndef ReversedStrip_h
 #define ReversedStrip_h
 
+#include <FastLED.h>
 #include "strip/Strip.h"
 #include "strip/BufferedStrip.h"
 

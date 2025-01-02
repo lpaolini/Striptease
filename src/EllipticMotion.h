@@ -1,8 +1,6 @@
 #ifndef EllipticMotion_h
 #define EllipticMotion_h
 
-#include <Arduino.h>
-#include <FastLED.h>
 #include "strip/Strip.h"
 #include "Pixel.h"
 #include "State.h"

@@ -1,8 +1,6 @@
 #ifndef Interval_h
 #define Interval_h
 
-#include <Arduino.h>
-
 class Interval {
     private:
         elapsedMicros timeMicroseconds = 0;

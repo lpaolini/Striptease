@@ -2,8 +2,6 @@
 #define PeakDetector_h
 
 #include <Arduino.h>
-#include <Audio.h>
-#include <FastLED.h>
 
 class PeakDetector {
     private:

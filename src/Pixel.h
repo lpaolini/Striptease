@@ -1,7 +1,6 @@
 #ifndef Pixel_h
 #define Pixel_h
 
-#include <Arduino.h>
 #include <FastLED.h>
 #include "strip/Strip.h"
 

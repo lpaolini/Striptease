@@ -1,9 +1,7 @@
 #ifndef AudioSensor_h
 #define AudioSensor_h
 
-#include <Arduino.h>
 #include <Audio.h>
-#include <FastLED.h>
 #include "AudioChannel.h"
 
 class AudioSensor {

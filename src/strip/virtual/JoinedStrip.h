@@ -1,6 +1,7 @@
 #ifndef JoinedStrip_h
 #define JoinedStrip_h
 
+#include <FastLED.h>
 #include "strip/Strip.h"
 #include "strip/BufferedStrip.h"
 #include "strip/StatefulStrip.h"

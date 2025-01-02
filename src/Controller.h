@@ -6,7 +6,6 @@
 
 #include "audio/AudioSensor.h"
 #include "Brightness.h"
-#include "Fx.h"
 #include "Stage.h"
 #include "State.h"
 #include "strip/Strip.h"

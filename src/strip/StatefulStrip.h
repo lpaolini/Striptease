@@ -1,6 +1,7 @@
 #ifndef StatefulStrip_h
 #define StatefulStrip_h
 
+#include <FastLED.h>
 #include "Strip.h"
 
 class StatefulStrip : public Strip {

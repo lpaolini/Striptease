@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include "Controller.h"
-#include "Timer.h"
 
 class SerialRemote {
     private:

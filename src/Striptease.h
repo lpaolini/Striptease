@@ -1,6 +1,6 @@
   
 /* StripTease Library for Teensy 4.X
- * Copyright (c) 2021, Luca Paolini, lucapaolini70gmail.com
+ * Copyright (c) 2021-2024, Luca Paolini, lucapaolini70gmail.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,8 @@
 
 #include "audio/AudioSensor.h"
 #include "State.h"
-#include "strip/Strip.h"
+#include "Stage.h"
 #include "Controller.h"
-#include "strip/BufferedStrip.h"
-#include "strip/PhysicalStrip.h"
-#include "strip/virtual/JoinedStrip.h"
-#include "strip/virtual/ReversedStrip.h"
-#include "strip/virtual/SubStrip.h"
+#include "remote/IRRemote.h"
+#include "remote/SerialRemote.h"
+

@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <Audio.h>
-#include <FastLED.h>
 #include "PeakDetector.h"
 #include "Timer.h"
 
