@@ -4,11 +4,9 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "audio/AudioSensor.h"
-#include "audio/AudioChannel.h"
 #include "Fx.h"
 #include "Interval.h"
 #include "Pixel.h"
-#include "State.h"
 
 class SubtleWave : public Fx {
     private:

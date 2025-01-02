@@ -4,8 +4,6 @@
 #include <Arduino.h>
 #include "Fx.h"
 #include "HarmonicMotion.h"
-#include "Strip.h"
-#include "State.h"
 
 class SpeedMeter : public Fx {
     private:

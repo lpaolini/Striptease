@@ -3,8 +3,6 @@
 
 #include <Arduino.h>
 #include "Fx.h"
-#include "Strip.h"
-#include "audio/AudioChannel.h"
 #include "audio/AudioSensor.h"
 
 class MicGainMeter : public Fx {

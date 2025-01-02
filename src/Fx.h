@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include "audio/AudioChannel.h"
 #include "State.h"
-#include "Strip.h"
+#include "strip/Strip.h"
 
 class Fx {
     protected:

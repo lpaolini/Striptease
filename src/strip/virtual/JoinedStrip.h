@@ -1,7 +1,7 @@
 #ifndef JoinedStrip_h
 #define JoinedStrip_h
 
-#include "Strip.h"
+#include "strip/Strip.h"
 #include "strip/BufferedStrip.h"
 #include "strip/StatefulStrip.h"
 

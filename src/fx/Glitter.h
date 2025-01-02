@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "Fx.h"
-#include "State.h"
 #include "Timer.h"
 
 class Glitter : public Fx {

@@ -6,7 +6,6 @@
 #include "audio/AudioSensor.h"
 #include "audio/AudioTrigger.h"
 #include "Fx.h"
-#include "State.h"
 #include "Timer.h"
 
 class Strobe : public Fx {

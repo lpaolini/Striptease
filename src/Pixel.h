@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include "Strip.h"
+#include "strip/Strip.h"
 
 class Pixel {
     private:

@@ -3,10 +3,8 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include "audio/AudioChannel.h"
 #include "Fx.h"
 #include "Pixel.h"
-#include "State.h"
 
 class SineMeter : public Fx {
     private:

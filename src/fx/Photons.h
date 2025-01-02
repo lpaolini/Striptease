@@ -7,7 +7,6 @@
 #include "audio/AudioTrigger.h"
 #include "Fx.h"
 #include "HarmonicMotion.h"
-#include "State.h"
 
 class Photons: public Fx {
     private:

@@ -9,7 +9,7 @@
 #include "Fx.h"
 #include "Stage.h"
 #include "State.h"
-#include "Strip.h"
+#include "strip/Strip.h"
 #include "Timer.h"
 
 #define MIN_MAX(v, vmin, vmax) max(vmin, min(vmax, v))

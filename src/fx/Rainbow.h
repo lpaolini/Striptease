@@ -3,8 +3,6 @@
 
 #include <Arduino.h>
 #include "Fx.h"
-#include "Strip.h"
-#include "State.h"
 
 class Rainbow : public Fx {
     private:

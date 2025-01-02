@@ -3,12 +3,9 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include "audio/AudioChannel.h"
 #include "audio/AudioTrigger.h"
 #include "Fx.h"
 #include "HarmonicMotion.h"
-#include "State.h"
-#include "Strip.h"
 
 class Volcane: public Fx {
     private:

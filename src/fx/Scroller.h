@@ -8,12 +8,10 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-#include "audio/AudioChannel.h"
 #include "audio/AudioTrigger.h"
 #include "Easing.h"
 #include "Fx.h"
 #include "Pixel.h"
-#include "State.h"
 
 class Scroller : public Fx {
     private:

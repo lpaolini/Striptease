@@ -7,7 +7,6 @@
 #include "audio/AudioSensor.h"
 #include "audio/AudioTrigger.h"
 #include "HarmonicMotion.h"
-#include "State.h"
 
 class Bounce : public Fx {
     private:

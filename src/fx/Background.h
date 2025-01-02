@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include "Fx.h"
-#include "Strip.h"
 
 class Background: public Fx {
     private:

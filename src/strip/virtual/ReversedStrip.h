@@ -1,7 +1,7 @@
 #ifndef ReversedStrip_h
 #define ReversedStrip_h
 
-#include "Strip.h"
+#include "strip/Strip.h"
 #include "strip/BufferedStrip.h"
 
 class ReversedStrip : public Strip {

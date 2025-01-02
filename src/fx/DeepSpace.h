@@ -3,14 +3,11 @@
 
 #include <Arduino.h>
 #include <math.h>
-#include "audio/AudioChannel.h"
 #include "audio/AudioTrigger.h"
 #include "Easing.h"
 #include "Fx.h"
 #include "Pixel.h"
 #include "Point.h"
-#include "Strip.h"
-#include "State.h"
 #include "Timer.h"
 
 class DeepSpace : public Fx {

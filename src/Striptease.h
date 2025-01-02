@@ -23,7 +23,7 @@
 
 #include "audio/AudioSensor.h"
 #include "State.h"
-#include "Strip.h"
+#include "strip/Strip.h"
 #include "Controller.h"
 #include "strip/BufferedStrip.h"
 #include "strip/PhysicalStrip.h"

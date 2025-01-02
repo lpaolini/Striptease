@@ -7,7 +7,6 @@
 #include "audio/AudioSensor.h"
 #include "audio/AudioTrigger.h"
 #include "HarmonicMotion.h"
-#include "State.h"
 #include "Timer.h"
 
 class Vertigo : public Fx {

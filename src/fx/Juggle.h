@@ -5,7 +5,6 @@
 #include <FastLED.h>
 #include "Fx.h"
 #include "Pixel.h"
-#include "State.h"
 
 class Juggle : public Fx {
     private:

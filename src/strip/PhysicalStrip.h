@@ -2,8 +2,8 @@
 #define PhysicalStrip_h
 
 #include "Strip.h"
-#include "strip/BufferedStrip.h"
-#include "strip/StatefulStrip.h"
+#include "BufferedStrip.h"
+#include "StatefulStrip.h"
 
 class PhysicalStrip : public StatefulStrip {
     public:
