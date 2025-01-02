@@ -162,8 +162,8 @@ class Strip {
             return getIndex(fromNormalizedPosition(normPos));
         }
 
-        virtual Strip *overlay(uint8_t opacity = 255) =0;
         virtual void flush() {};        
+        virtual Strip *overlay(uint8_t opacity = 255) =0;
         virtual uint16_t size() =0;
         virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true) =0;
         virtual CRGB getIndex(int16_t index) =0;
