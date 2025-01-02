@@ -11,11 +11,8 @@
 
 class Traffic : public Fx {
     private:
-        const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Gold, CRGB::Red, CRGB::Blue);
-        static const uint8_t LAYERS = 5;
-        CRGB layerColors[LAYERS];
-        static const uint8_t FIXED_COLORS = 4;
-        CRGB fixedColors[FIXED_COLORS] = {CRGB::Red, CRGB::Green, CRGB::Blue, CRGB::Violet};
+        const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Gold, CRGB::Red, CRGB::Blue, CRGB::Teal);
+        static const uint8_t LAYERS = 10;
         static const uint8_t ITEMS = 100;
         AudioTrigger *audioTrigger;
         HarmonicMotion *items;

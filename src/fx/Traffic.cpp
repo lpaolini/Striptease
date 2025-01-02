@@ -15,13 +15,6 @@ Traffic::~Traffic() {
 
 void Traffic::reset() {
     clear();
-    for (uint8_t i = 0; i < LAYERS; i++) {
-        if (i < FIXED_COLORS) {
-            layerColors[i] = fixedColors[i];
-        } else {            
-            layerColors[i] = ColorFromPalette(PALETTE, random(255));
-        }
-    }
     for (uint8_t i = 0; i < ITEMS; i++) {
         items[i].reset();
     }
@@ -50,10 +43,10 @@ void Traffic::loopItem(HarmonicMotion &item, bool &trigger) {
 void Traffic::resetItem(HarmonicMotion &item) {
     uint8_t layer = random(LAYERS);
     double factor = pow(1 + 5 * (double(1 + layer) / (1 + LAYERS)), 2);
-    double speed = factor * (5 + 20 * state->parabolicFxSpeed);
+    double speed = factor * (5 + (15 + random(10)) * state->parabolicFxSpeed);
 
     item.reset()
-        .setColor(layerColors[layer]);
+        .setColor(ColorFromPalette(PALETTE, random8()));
 
     if (random(10) < 5) {
         item
