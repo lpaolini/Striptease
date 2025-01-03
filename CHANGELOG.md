@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] (2024-01-03)
+### Changed
+- Updated documentation
+- Bumped version to 1.3.0
+
+## [1.3.0-beta4] (2024-01-03)
+
+### Changed
+- BREAKING CHANGE: `Strip` changed `overlay` method signature: opacity is now a double (from 0 to 1).
+- `Multiplex` increased number of multiplexed effects to 20.
+
+## [1.3.0-beta3] (2025-01-02)
+
+### Changed
+- BREAKING CHANGE: Simplified definition of physical strips. It's no more necessary to create CRGBArray(s) and to register them using FastLED.addLeds().
+- `Traffic` improved effect.
+- Grouped strip-related classes.
+- Grouped audio-related classes.
+- Removed examples, now in separate repositories.
+- Removed unnecessary #includes.
+
+### Added
+- Added dummy main.cpp, for a clean compilation.
+  
 ## [1.3.0-beta1] (2024-12-28)
 
 ### Fixed
