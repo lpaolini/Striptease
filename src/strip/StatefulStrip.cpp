@@ -16,7 +16,7 @@ void StatefulStrip::setLeds(CRGBSet *leds) {
     this->leds = leds;
 }
 
-Strip *StatefulStrip::overlay(uint8_t opacity) {
+Strip *StatefulStrip::overlay(double opacity) {
     return this;
 }
 

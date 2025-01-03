@@ -12,7 +12,7 @@ class ReversedStrip : public Strip {
 
     public:
         ReversedStrip(Strip *strip);
-        Strip *overlay(uint8_t opacity = 255);
+        Strip *overlay(double opacity = 1) override;
         uint16_t size() override;
         void _rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) override;
         void _fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;

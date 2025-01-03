@@ -9,10 +9,10 @@ class BufferedStrip : public StatefulStrip {
     private:
         CRGBSet *leds;
         Strip *strip;
-        uint8_t opacity;
+        double opacity;
 
     public:
-        BufferedStrip(Strip *strip, uint8_t opacity);
+        BufferedStrip(Strip *strip, double opacity);
         void flush() override;
 };
 

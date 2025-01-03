@@ -16,7 +16,7 @@ class PhysicalStrip : public StatefulStrip {
             FastLED.addLeds<WS2812SERIAL, PIN, BRG>(array, SIZE);
         }
 
-        Strip *overlay(uint8_t opacity) {
+        Strip *overlay(double opacity) {
             return new BufferedStrip(this, opacity);
         }
 };
