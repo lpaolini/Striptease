@@ -108,8 +108,9 @@ class Stage {
             fxs.push_back(fx);
         }
 
-        Strip *addStrip(CRGBSet &leds, uint16_t density) {
-            Strip *strip = new PhysicalStrip(leds, density);
+        template<uint16_t SIZE, uint8_t PIN, uint16_t DENSITY>
+        Strip *addStrip() {
+            Strip *strip = new PhysicalStrip<SIZE, PIN, DENSITY>();
             strips.push_back(strip);
             return strip;
         }
