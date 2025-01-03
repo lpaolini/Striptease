@@ -92,18 +92,32 @@ class Stage {
         #endif
 
         void addFx(
-            Fx *fx1 = nullptr, 
-            Fx *fx2 = nullptr, 
-            Fx *fx3 = nullptr, 
-            Fx *fx4 = nullptr, 
-            Fx *fx5 = nullptr, 
-            Fx *fx6 = nullptr, 
-            Fx *fx7 = nullptr, 
-            Fx *fx8 = nullptr, 
-            Fx *fx9 = nullptr
+            Fx *fx01 = nullptr, 
+            Fx *fx02 = nullptr, 
+            Fx *fx03 = nullptr, 
+            Fx *fx04 = nullptr, 
+            Fx *fx05 = nullptr, 
+            Fx *fx06 = nullptr, 
+            Fx *fx07 = nullptr, 
+            Fx *fx08 = nullptr, 
+            Fx *fx09 = nullptr,
+            Fx *fx10 = nullptr,
+            Fx *fx11 = nullptr, 
+            Fx *fx12 = nullptr, 
+            Fx *fx13 = nullptr, 
+            Fx *fx14 = nullptr, 
+            Fx *fx15 = nullptr, 
+            Fx *fx16 = nullptr, 
+            Fx *fx17 = nullptr, 
+            Fx *fx18 = nullptr, 
+            Fx *fx19 = nullptr,
+            Fx *fx20 = nullptr
         ) {
             clear();
-            Fx *fx = new Multiplex(fx1, fx2, fx3, fx4, fx5, fx6, fx7, fx8, fx9);
+            Fx *fx = new Multiplex(
+                fx01, fx02, fx03, fx04, fx05, fx06, fx07, fx08, fx09, fx10,
+                fx11, fx12, fx13, fx14, fx15, fx16, fx17, fx18, fx19, fx20
+            );
             randomFxIndexes.push_back(fxs.size());
             fxs.push_back(fx);
         }
