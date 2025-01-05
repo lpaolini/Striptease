@@ -193,7 +193,7 @@ Example 2 - join one right-to-left strip with a left-to-right one into a single 
 
     Strip A = PhysicalStrip(...) => [A5, A4, A3, A2, A1] // right-to-left
     Strip B = PhysicalStrip(...) => [B1, B2, B3, B4, B5] // left-to-right
-    Strip C = ReversedStrip(B)   => [A1, A2, A3, A4, A5] 
+    Strip C = ReversedStrip(A)   => [A1, A2, A3, A4, A5] 
     Strip D = JoinedStrip(C, B)  => [A1, A2, A3, A4, A5, B1, B2, B3, B4, B5]
 
 ### `SubStrip (Strip *strip, int16_t start, int16_t end)`
@@ -203,7 +203,7 @@ Example 2 - join one right-to-left strip with a left-to-right one into a single 
 Example 1
 
     Strip A = PhysicalStrip(...) => [A1, A2, A3, A4, A5, A6]
-    Strip B = SubStrip(A, 2, 5) => [A3, A4, A5, A6]
+    Strip B = SubStrip(A, 2, 4) => [A3, A4, A5]
 
 Example 2
 
