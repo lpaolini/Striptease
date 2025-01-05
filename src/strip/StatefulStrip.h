@@ -5,7 +5,7 @@
 #include "Strip.h"
 
 class StatefulStrip : public Strip {
-    private: 
+    protected: 
         CRGBSet *leds;
         uint16_t density;
 
