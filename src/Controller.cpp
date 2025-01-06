@@ -21,7 +21,7 @@ void Controller::setup() {
 
 void Controller::loop() {
     if (mode == STOP) {
-        stage->fadeOut();
+        stage->fade();
     } else {
         if (mode == PLAY) {
             if (standbyTimer.isElapsed()) {

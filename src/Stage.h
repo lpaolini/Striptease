@@ -152,9 +152,9 @@ class Stage {
             }
         }
         
-        void fadeOut() {
+        void fade(uint8_t amount = 1) {
             for (Strip *strip : strips) {
-                strip->fade(1);
+                strip->fade(amount);
             }
         }
         
