@@ -158,6 +158,12 @@ class Stage {
             }
         }
         
+        void blur(uint8_t amount = 1) {
+            for (Strip *strip : strips) {
+                strip->blur(amount);
+            }
+        }
+        
         uint16_t getFxCount() {
             return fxs.size();
         }
