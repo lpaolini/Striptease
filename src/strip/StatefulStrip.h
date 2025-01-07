@@ -21,8 +21,8 @@ class StatefulStrip : public Strip {
         void _blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;
         CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
         CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
-        bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true) override;
-        bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true) override;
+        bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) override;
+        bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) override;
         CRGB getIndex(int16_t index) override;
 };
 

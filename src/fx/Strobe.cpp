@@ -22,7 +22,7 @@ void Strobe::loop() {
         int count = random8(2, 5);
         CRGB color = ColorFromPalette(PALETTE, random8());
         for (int i = 0; i < count; i++) {
-            strip->paintRandomPos(SEGMENT_SIZE, color);
+            strip->paintRandomPos(SEGMENT_SIZE, color, true);
         }
     }
 }

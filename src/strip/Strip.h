@@ -40,7 +40,7 @@ class Strip {
         virtual void _blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) =0;
         virtual CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
-        virtual bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add = true) =0;
+        virtual bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) =0;
 
     public:
         bool isInRange(int16_t index) {
@@ -133,27 +133,33 @@ class Strip {
             return _shiftDown(clamp16(posFrom), clamp16(posTo), in);
         }
         
-        void paint(CRGB color, bool add = true) {
+        void paint(CRGB color, bool add) {
             _paint(first(), last(), color, add);
         }
 
-        bool paint(double pos, CRGB color, bool add = true) {
+        void paint(CHSV color, bool add) {
+            CRGB rgb;
+            hsv2rgb_rainbow(color, rgb);
+            _paint(first(), last(), rgb, add);
+        }
+
+        bool paint(double pos, CRGB color, bool add) {
             return _paint(clamp16(pos), clamp16(pos), color, add);
         }
 
-        bool paint(double posFrom, double posTo, CRGB color, bool add = true) {
+        bool paint(double posFrom, double posTo, CRGB color, bool add) {
             return _paint(clamp16(posFrom), clamp16(posTo), color, add);
         }
 
-        bool paintNormalized(double normPos, CRGB color, bool add = true) {
+        bool paintNormalized(double normPos, CRGB color, bool add) {
             return _paint(fromNormalizedPosition(normPos), fromNormalizedPosition(normPos), color, add);
         }
 
-        bool paintNormalized(double normPosFrom, double norPosTo, CRGB color, bool add = true) {
+        bool paintNormalized(double normPosFrom, double norPosTo, CRGB color, bool add) {
             return _paint(fromNormalizedPosition(normPosFrom), fromNormalizedPosition(norPosTo), color, add);
         }
 
-        bool paintRandomPos(int16_t length, CRGB color, bool add = true) {
+        bool paintRandomPos(int16_t length, CRGB color, bool add) {
             uint16_t pos = random16(size() - length);
             return _paint(pos, pos + length, color, add);
         }
@@ -165,7 +171,7 @@ class Strip {
         virtual void flush() {};        
         virtual Strip *overlay(double opacity = 1) =0;
         virtual uint16_t size() =0;
-        virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add = true) =0;
+        virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) =0;
         virtual CRGB getIndex(int16_t index) =0;
 };
 

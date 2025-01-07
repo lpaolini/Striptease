@@ -61,7 +61,7 @@ class Fx {
             beforeRender();
             for (int16_t index = strip->first(); index < strip->last(); index++) {
                 double x = double(index) / strip->last();                
-                strip->paint(index, render(index, x));
+                strip->paint(index, render(index, x), true);
             }
         }
         

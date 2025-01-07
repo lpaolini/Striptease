@@ -19,6 +19,6 @@ void MicGainMeter::loop() {
         : beatTimer < BEAT_HOLD
             ? CRGB::Cyan
             : CRGB::White;
-    strip->paintNormalizedSize(audioChannel->peakSmooth, 2, CRGB::White);
+    strip->paintNormalizedSize(audioChannel->peakSmooth, 2, CRGB::White, true);
     strip->paintNormalizedSize(audioChannel->peakHold, 4, color, false);
 }
