@@ -17,6 +17,7 @@ class JoinedStrip : public Strip {
         int16_t toStrip1(int16_t index);
         int16_t toGap(int16_t index);
         int16_t toStrip2(int16_t index);
+        double relativeGradient(int16_t indexFrom, int16_t indexTo, int16_t index, double gradientFrom, double gradientTo);
 
     public:
         JoinedStrip(Strip *strip, Strip *strip2, int16_t gap = 0);
@@ -28,6 +29,7 @@ class JoinedStrip : public Strip {
         CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
         CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
         bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) override;
+        bool _paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) override;
         bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) override;
         CRGB getIndex(int16_t index) override;
 };

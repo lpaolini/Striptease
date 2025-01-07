@@ -57,6 +57,13 @@ bool SubStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) 
     return false;
 }
 
+bool SubStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+    if (crop(indexFrom, indexTo)) {
+        return strip->paint(toStrip(indexFrom), toStrip(indexTo), gradient, gradientFrom, gradientTo, add);
+    }
+    return false;
+}
+
 bool SubStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;

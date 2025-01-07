@@ -35,6 +35,13 @@ HarmonicMotion& HarmonicMotion::reset() {
 
 HarmonicMotion& HarmonicMotion::setColor(CRGB color) {
     this->color = color;
+    this->renderingMode = COLOR;
+    return *this;
+}
+
+HarmonicMotion& HarmonicMotion::setGradient(Gradient *gradient) {
+    this->gradient = gradient;
+    this->renderingMode = GRADIENT;
     return *this;
 }
 
@@ -210,7 +217,7 @@ void HarmonicMotion::update() {
 
 void HarmonicMotion::loop() {
     update();
-    if (color && (!isStable() || showWhenStable)) {
+    if (renderingMode && (!isStable() || showWhenStable)) {
         show(false);
         if (mirror) {
             show(true);
@@ -224,12 +231,25 @@ void HarmonicMotion::show(bool mirrored) {
         double pos2 = round(fill ? x0 : 2 * x0 - xPrev);
         double posMin = min(pos1, pos2) - end;
         double posMax = max(pos1, pos2) - start;
-        strip->paint(posMin, posMax, color, !overwrite);
+        render(posMin, posMax);
     } else {
         double pos1 = round(x);
         double pos2 = round(fill ? x0 : xPrev);
         double posMin = min(pos1, pos2) + start;
         double posMax = max(pos1, pos2) + end;
+        render(posMin, posMax);
+    }
+}
+
+void HarmonicMotion::render(double posMin, double posMax) {
+    switch (renderingMode) {
+    case COLOR:
         strip->paint(posMin, posMax, color, !overwrite);
+        break;
+    case GRADIENT:
+        strip->paint(posMin, posMax, gradient, 0, 1, !overwrite);
+        break;
+    default:
+        break;
     }
 }

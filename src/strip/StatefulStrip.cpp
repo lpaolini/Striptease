@@ -86,6 +86,21 @@ bool StatefulStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool 
     return false;
 }
 
+bool StatefulStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+    if (crop(indexFrom, indexTo)) {
+        for (uint16_t i = indexFrom; i < indexTo; i++) {
+            CRGB color = gradient->getColor(gradientFrom + (gradientTo - gradientFrom) * (i - indexFrom) / (indexTo - indexFrom));
+            if (add) {
+                (*leds)[i] |= color;
+            } else {
+                (*leds)[i] = color;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
 bool StatefulStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;

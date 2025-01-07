@@ -2,6 +2,7 @@
 #define Strip_h
 
 #include <FastLED.h>
+#include "Palette.h"
 
 class Strip {
     private:
@@ -41,6 +42,7 @@ class Strip {
         virtual CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) =0;
+        virtual bool _paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) =0;
 
     public:
         bool isInRange(int16_t index) {
@@ -143,12 +145,20 @@ class Strip {
             _paint(first(), last(), rgb, add);
         }
 
+        void paint(Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+            _paint(first(), last(), gradient, gradientFrom, gradientTo, add);
+        }
+
         bool paint(double pos, CRGB color, bool add) {
             return _paint(clamp16(pos), clamp16(pos), color, add);
         }
 
         bool paint(double posFrom, double posTo, CRGB color, bool add) {
             return _paint(clamp16(posFrom), clamp16(posTo), color, add);
+        }
+
+        bool paint(double posFrom, double posTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+            return _paint(clamp16(posFrom), clamp16(posTo), gradient, gradientFrom, gradientTo, add);
         }
 
         bool paintNormalized(double normPos, CRGB color, bool add) {

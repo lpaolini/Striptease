@@ -2,10 +2,12 @@
 #define HarmonicMotion_h
 
 #include "strip/Strip.h"
+#include "Gradient.h"
 
 class HarmonicMotion {
     public:
         enum ReboundMode {INSIDE = -1, OUTSIDE = 1, DEFAULT = 0};
+        enum RenderingMode {COLOR = 1, GRADIENT = 2};
 
     private:
         struct Limit {
@@ -33,12 +35,15 @@ class HarmonicMotion {
         double vPrev;             // previous velocity
         Limit lowerLimit;         // lower limit
         Limit upperLimit;         // upper limit
+        Gradient *gradient;
+        RenderingMode renderingMode;
         int getLowerLimitCompensation();
         int getUpperLimitCompensation();
         bool isLowerLimit();
         bool isUpperLimit();
         void update();
         void show(bool mirror);
+        void render(double posMin, double posMax);
         
     public:
         CRGB color;
@@ -46,6 +51,7 @@ class HarmonicMotion {
         HarmonicMotion& setup(Strip *strip);
         HarmonicMotion& reset();
         HarmonicMotion& setColor(CRGB color);
+        HarmonicMotion& setGradient(Gradient *gradient);
         HarmonicMotion& setAcceleration(double a0, double a1 = 0, double a2 = 0);
         HarmonicMotion& setElasticConstant(double k);
         HarmonicMotion& setDamping(double b);

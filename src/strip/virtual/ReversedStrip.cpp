@@ -55,6 +55,13 @@ bool ReversedStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool 
     return false;
 }
 
+bool ReversedStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+    if (crop(indexFrom, indexTo)) {
+        return strip->paint(toStrip(indexTo), toStrip(indexFrom), gradient, gradientTo, gradientFrom, add);
+    }
+    return false;
+}
+
 bool ReversedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
     return strip->paintNormalizedSize(1 - positionFrom, size, color, add);
 }
