@@ -45,32 +45,6 @@ double JoinedStrip::relativeGradient(int16_t indexFrom, int16_t indexTo, int16_t
     return gradientFrom + (gradientTo - gradientFrom) * p / (indexTo - indexFrom);
 }
 
-void JoinedStrip::_rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
-    if (crop(indexFrom, indexTo)) {
-        if (isInStrip1(indexFrom)) {
-            if (isInStrip1(indexTo)) {
-                strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), toStrip1(indexTo));
-            } else if (isInGap(indexTo)) {
-                strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), strip1->last());
-                gapStrip->rainbow(initialHue + deltaHue * (strip1->size() - indexFrom), deltaHue, gapStrip->first(), toGap(indexTo));
-            } else if (isInStrip2(indexTo)) {
-                strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), strip1->last());
-                gapStrip->Strip::rainbow(initialHue + deltaHue * (strip1->size() - indexFrom), deltaHue);
-                strip2->rainbow(initialHue + deltaHue * (strip1->size() + gap - indexFrom), deltaHue, strip2->first(), toStrip2(indexTo));
-            }
-        } else if (isInGap(indexFrom)) {
-            if (isInGap(indexTo)) {
-                gapStrip->rainbow(initialHue, deltaHue, toGap(indexFrom), toGap(indexTo));
-            } else if (isInStrip2(indexTo)) {
-                gapStrip->rainbow(initialHue, deltaHue, toGap(indexFrom), gapStrip->last());
-                strip2->rainbow(initialHue + deltaHue * (strip1->size() + gap - indexFrom), deltaHue, strip2->first(), toStrip2(indexTo));
-            }
-        } else if (isInStrip2(indexFrom)) {
-            strip2->rainbow(initialHue, deltaHue, toStrip2(indexFrom), toStrip2(indexTo));
-        }
-    }
-}
-
 void JoinedStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
@@ -177,7 +151,7 @@ CRGB JoinedStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool JoinedStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool JoinedStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -207,7 +181,7 @@ bool JoinedStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool ad
     return false;
 }
 
-bool JoinedStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+bool JoinedStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -236,6 +210,36 @@ bool JoinedStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient,
             }
         } else if (isInStrip2(indexFrom)) {
             return strip2->paint(toStrip2(indexFrom), toStrip2(indexTo), gradient, 0, 1, add);
+        }
+    }
+    return false;
+}
+
+bool JoinedStrip::_paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+    if (crop(indexFrom, indexTo)) {
+        if (isInStrip1(indexFrom)) {
+            if (isInStrip1(indexTo)) {
+                return strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), toStrip1(indexTo));
+            } else if (isInGap(indexTo)) {
+                bool s1 = strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), strip1->last());
+                bool sg = gapStrip->rainbow(initialHue + deltaHue * (strip1->size() - indexFrom), deltaHue, gapStrip->first(), toGap(indexTo));
+                return s1 || sg;
+            } else if (isInStrip2(indexTo)) {
+                bool s1 = strip1->rainbow(initialHue, deltaHue, toStrip1(indexFrom), strip1->last());
+                gapStrip->Strip::rainbow(initialHue + deltaHue * (strip1->size() - indexFrom), deltaHue);
+                bool s2 = strip2->rainbow(initialHue + deltaHue * (strip1->size() + gap - indexFrom), deltaHue, strip2->first(), toStrip2(indexTo));
+                return s1 || s2;
+            }
+        } else if (isInGap(indexFrom)) {
+            if (isInGap(indexTo)) {
+                return gapStrip->rainbow(initialHue, deltaHue, toGap(indexFrom), toGap(indexTo));
+            } else if (isInStrip2(indexTo)) {
+                bool sg = gapStrip->rainbow(initialHue, deltaHue, toGap(indexFrom), gapStrip->last());
+                bool s2 = strip2->rainbow(initialHue + deltaHue * (strip1->size() + gap - indexFrom), deltaHue, strip2->first(), toStrip2(indexTo));
+                return sg || s2;
+            }
+        } else if (isInStrip2(indexFrom)) {
+            return strip2->rainbow(initialHue, deltaHue, toStrip2(indexFrom), toStrip2(indexTo));
         }
     }
     return false;

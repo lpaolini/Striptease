@@ -18,12 +18,6 @@ int16_t SubStrip::toStrip(int16_t index) {
     return start + index;
 }
 
-void SubStrip::_rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
-    if (crop(indexFrom, indexTo)) {
-        strip->rainbow(initialHue, deltaHue, toStrip(indexFrom), toStrip(indexTo));
-    }
-}
-
 void SubStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         strip->fade(amount, toStrip(indexFrom), toStrip(indexTo));
@@ -50,16 +44,23 @@ CRGB SubStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool SubStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool SubStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
         return strip->paint(toStrip(indexFrom), toStrip(indexTo), color, add);
     }
     return false;
 }
 
-bool SubStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+bool SubStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
     if (crop(indexFrom, indexTo)) {
         return strip->paint(toStrip(indexFrom), toStrip(indexTo), gradient, gradientFrom, gradientTo, add);
+    }
+    return false;
+}
+
+bool SubStrip::_paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+    if (crop(indexFrom, indexTo)) {
+        return strip->rainbow(initialHue, deltaHue, toStrip(indexFrom), toStrip(indexTo));
     }
     return false;
 }

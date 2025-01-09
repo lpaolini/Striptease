@@ -36,13 +36,13 @@ class Strip {
             return true;
         }
 
-        virtual void _rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) =0;
         virtual void _fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) =0;
         virtual void _blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) =0;
         virtual CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
-        virtual bool _paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) =0;
-        virtual bool _paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) =0;
+        virtual bool _paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) =0;
+        virtual bool _paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) =0;
+        virtual bool _paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) =0;
 
     public:
         bool isInRange(int16_t index) {
@@ -78,29 +78,29 @@ class Strip {
         }
         
         void off() {
-            _paint(first(), last(), CRGB::Black, false);
+            _paintSolid(first(), last(), CRGB::Black, false);
         }
 
-        void rainbow(uint8_t initialHue) {
+        bool rainbow(uint8_t initialHue) {
             uint8_t deltaHue = max(255 / size(), 1);
-            _rainbow(initialHue, deltaHue, first(), last());
+            return _paintRainbow(initialHue, deltaHue, first(), last());
         }
 
-        void rainbow(uint8_t initialHue, uint8_t deltaHue) {
-            _rainbow(initialHue, deltaHue, first(), last());
+        bool rainbow(uint8_t initialHue, uint8_t deltaHue) {
+            return _paintRainbow(initialHue, deltaHue, first(), last());
         }
 
-        void rainbow(uint8_t initialHue, double posFrom, double posTo) {
+        bool rainbow(uint8_t initialHue, double posFrom, double posTo) {
             uint16_t indexFrom = clamp16(posFrom);
             uint16_t indexTo = clamp16(posTo);
             uint8_t deltaHue = max(255 / (indexTo - indexFrom + 1), 1);
-            _rainbow(initialHue, deltaHue, indexFrom, indexTo);
+            return _paintRainbow(initialHue, deltaHue, indexFrom, indexTo);
         }
 
-        void rainbow(uint8_t initialHue, uint8_t deltaHue, double posFrom, double posTo) {
+        bool rainbow(uint8_t initialHue, uint8_t deltaHue, double posFrom, double posTo) {
             uint16_t indexFrom = clamp16(posFrom);
             uint16_t indexTo = clamp16(posTo);
-            _rainbow(initialHue, deltaHue, indexFrom, indexTo);
+            return _paintRainbow(initialHue, deltaHue, indexFrom, indexTo);
         }
 
         void fade(uint8_t amount) {
@@ -136,42 +136,42 @@ class Strip {
         }
         
         void paint(CRGB color, bool add) {
-            _paint(first(), last(), color, add);
+            _paintSolid(first(), last(), color, add);
         }
 
         void paint(CHSV color, bool add) {
             CRGB rgb;
             hsv2rgb_rainbow(color, rgb);
-            _paint(first(), last(), rgb, add);
+            _paintSolid(first(), last(), rgb, add);
         }
 
         void paint(Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
-            _paint(first(), last(), gradient, gradientFrom, gradientTo, add);
+            _paintGradient(first(), last(), gradient, gradientFrom, gradientTo, add);
         }
 
         bool paint(double pos, CRGB color, bool add) {
-            return _paint(clamp16(pos), clamp16(pos), color, add);
+            return _paintSolid(clamp16(pos), clamp16(pos), color, add);
         }
 
         bool paint(double posFrom, double posTo, CRGB color, bool add) {
-            return _paint(clamp16(posFrom), clamp16(posTo), color, add);
+            return _paintSolid(clamp16(posFrom), clamp16(posTo), color, add);
         }
 
         bool paint(double posFrom, double posTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
-            return _paint(clamp16(posFrom), clamp16(posTo), gradient, gradientFrom, gradientTo, add);
+            return _paintGradient(clamp16(posFrom), clamp16(posTo), gradient, gradientFrom, gradientTo, add);
         }
 
         bool paintNormalized(double normPos, CRGB color, bool add) {
-            return _paint(fromNormalizedPosition(normPos), fromNormalizedPosition(normPos), color, add);
+            return _paintSolid(fromNormalizedPosition(normPos), fromNormalizedPosition(normPos), color, add);
         }
 
         bool paintNormalized(double normPosFrom, double norPosTo, CRGB color, bool add) {
-            return _paint(fromNormalizedPosition(normPosFrom), fromNormalizedPosition(norPosTo), color, add);
+            return _paintSolid(fromNormalizedPosition(normPosFrom), fromNormalizedPosition(norPosTo), color, add);
         }
 
         bool paintRandomPos(int16_t length, CRGB color, bool add) {
             uint16_t pos = random16(size() - length);
-            return _paint(pos, pos + length, color, add);
+            return _paintSolid(pos, pos + length, color, add);
         }
 
         CRGB getPosition(double normPos) {

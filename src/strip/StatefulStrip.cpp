@@ -24,12 +24,6 @@ uint16_t StatefulStrip::size() {
     return leds->size();
 }
 
-void StatefulStrip::_rainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
-    if (crop(indexFrom, indexTo)) {
-        (*leds)(indexFrom, indexTo).fill_rainbow(initialHue, deltaHue);
-    }
-}
-
 void StatefulStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).fadeToBlackBy(amount);
@@ -74,7 +68,7 @@ CRGB StatefulStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool StatefulStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool StatefulStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
     if (crop(indexFrom, indexTo)) {
         if (add) {
             (*leds)(indexFrom, indexTo) |= color;
@@ -86,7 +80,7 @@ bool StatefulStrip::_paint(int16_t indexFrom, int16_t indexTo, CRGB color, bool 
     return false;
 }
 
-bool StatefulStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+bool StatefulStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
     if (crop(indexFrom, indexTo)) {
         for (uint16_t i = indexFrom; i < indexTo; i++) {
             CRGB color = gradient->getColor(gradientFrom + (gradientTo - gradientFrom) * (i - indexFrom) / (indexTo - indexFrom));
@@ -96,6 +90,14 @@ bool StatefulStrip::_paint(int16_t indexFrom, int16_t indexTo, Gradient *gradien
                 (*leds)[i] = color;
             }
         }
+        return true;
+    }
+    return false;
+}
+
+bool StatefulStrip::_paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+    if (crop(indexFrom, indexTo)) {
+        (*leds)(indexFrom, indexTo).fill_rainbow(initialHue, deltaHue);
         return true;
     }
     return false;
