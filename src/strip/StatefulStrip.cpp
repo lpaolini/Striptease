@@ -24,13 +24,13 @@ uint16_t StatefulStrip::size() {
     return leds->size();
 }
 
-void StatefulStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void StatefulStrip::_fade(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).fadeToBlackBy(amount);
     }
 }
 
-void StatefulStrip::_blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void StatefulStrip::_blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).blur1d(amount);
     }

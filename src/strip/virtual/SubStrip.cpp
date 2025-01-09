@@ -18,13 +18,13 @@ int16_t SubStrip::toStrip(int16_t index) {
     return start + index;
 }
 
-void SubStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void SubStrip::_fade(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         strip->fade(amount, toStrip(indexFrom), toStrip(indexTo));
     }
 }
 
-void SubStrip::_blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void SubStrip::_blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         strip->blur(amount, toStrip(indexFrom), toStrip(indexTo));
     }

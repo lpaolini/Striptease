@@ -45,7 +45,7 @@ double JoinedStrip::relativeGradient(int16_t indexFrom, int16_t indexTo, int16_t
     return gradientFrom + (gradientTo - gradientFrom) * p / (indexTo - indexFrom);
 }
 
-void JoinedStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void JoinedStrip::_fade(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
@@ -71,7 +71,7 @@ void JoinedStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
     }
 }
 
-void JoinedStrip::_blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void JoinedStrip::_blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {

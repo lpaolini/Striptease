@@ -14,8 +14,8 @@ class ReversedStrip : public Strip {
         ReversedStrip(Strip *strip);
         Strip *overlay(double opacity = 1) override;
         uint16_t size() override;
-        void _fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;
-        void _blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) override;
+        void _fade(int16_t indexFrom, int16_t indexTo, uint8_t amount) override;
+        void _blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) override;
         CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
         CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) override;
         bool _paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) override;

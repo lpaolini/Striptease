@@ -36,8 +36,8 @@ class Strip {
             return true;
         }
 
-        virtual void _fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) =0;
-        virtual void _blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) =0;
+        virtual void _fade(int16_t indexFrom, int16_t indexTo, uint8_t amount) =0;
+        virtual void _blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) =0;
         virtual CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual bool _paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) =0;
@@ -104,19 +104,19 @@ class Strip {
         }
 
         void fade(uint8_t amount) {
-            _fade(amount, first(), last());
+            _fade(first(), last(), amount);
         }
 
         void fade(uint8_t amount, double posFrom, double posTo) {
-            _fade(amount, clamp16(posFrom), clamp16(posTo));
+            _fade(clamp16(posFrom), clamp16(posTo), amount);
         }
 
         void blur(uint8_t amount) {
-            _blur(amount, first(), last());
+            _blur(first(), last(), amount);
         }
 
         void blur(uint8_t amount, double posFrom, double posTo) {
-            _blur(amount, clamp16(posFrom), clamp16(posTo));
+            _blur(clamp16(posFrom), clamp16(posTo), amount);
         }
 
         CRGB shiftUp(CRGB in = CRGB::Black) {

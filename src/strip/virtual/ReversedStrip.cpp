@@ -16,13 +16,13 @@ int16_t ReversedStrip::toStrip(int16_t index) {
     return strip->last() - index;
 }
 
-void ReversedStrip::_fade(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void ReversedStrip::_fade(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         strip->fade(amount, toStrip(indexTo), toStrip(indexFrom));
     }
 }
 
-void ReversedStrip::_blur(uint8_t amount, int16_t indexFrom, int16_t indexTo) {
+void ReversedStrip::_blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
     if (crop(indexFrom, indexTo)) {
         strip->blur(amount, toStrip(indexTo), toStrip(indexFrom));
     }
