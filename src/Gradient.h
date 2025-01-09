@@ -16,6 +16,12 @@ class Gradient {
             );
         }
 
+        CRGB getInterpolatedColor(uint8_t segments, double fraction) {
+            uint8_t segment = floor(fraction * segments);
+            double segmentFraction = fraction * segments - segment;
+            return interpolate(colors.at(segment), colors.at(segment + 1), segmentFraction);
+        }
+
         void addColors() {}
 
         template <class CRGB, class... Rest>
@@ -33,11 +39,10 @@ class Gradient {
         CRGB getColor(double fraction) {
             if (colors.size()) {
                 uint8_t segments = colors.size() - 1;
-                if (segments > 1) {
-                    if (fraction < 1) {
-                        uint8_t segment = floor(fraction * segments);
-                        return interpolate(colors.at(segment), colors.at(segment + 1), fraction * segments - segment);                    
-                    }
+                if (segments > 0) {
+                    if (fraction <= 0) return colors.at(0);
+                    if (fraction >= 1) return colors.at(segments);
+                    return getInterpolatedColor(segments, fraction);
                 }
                 return colors.at(segments);
             }
