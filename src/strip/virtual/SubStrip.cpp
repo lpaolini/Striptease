@@ -58,7 +58,7 @@ bool SubStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *grad
     return false;
 }
 
-bool SubStrip::_paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+bool SubStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initialHue, uint8_t deltaHue) {
     if (crop(indexFrom, indexTo)) {
         return strip->rainbow(initialHue, deltaHue, toStrip(indexFrom), toStrip(indexTo));
     }

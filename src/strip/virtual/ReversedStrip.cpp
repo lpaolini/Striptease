@@ -56,7 +56,7 @@ bool ReversedStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient 
     return false;
 }
 
-bool ReversedStrip::_paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+bool ReversedStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initialHue, uint8_t deltaHue) {
     if (crop(indexFrom, indexTo)) {
         return strip->rainbow(initialHue + (indexTo - indexFrom + 1) * deltaHue, -deltaHue, toStrip(indexTo), toStrip(indexFrom));
     }

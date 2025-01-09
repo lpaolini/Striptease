@@ -42,7 +42,7 @@ class Strip {
         virtual CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual bool _paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) =0;
         virtual bool _paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) =0;
-        virtual bool _paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) =0;
+        virtual bool _paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initialHue, uint8_t deltaHue) =0;
 
     public:
         bool isInRange(int16_t index) {

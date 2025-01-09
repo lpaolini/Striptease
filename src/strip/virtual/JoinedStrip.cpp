@@ -215,7 +215,7 @@ bool JoinedStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *g
     return false;
 }
 
-bool JoinedStrip::_paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+bool JoinedStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initialHue, uint8_t deltaHue) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {

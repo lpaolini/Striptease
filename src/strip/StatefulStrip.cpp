@@ -95,7 +95,7 @@ bool StatefulStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient 
     return false;
 }
 
-bool StatefulStrip::_paintRainbow(uint8_t initialHue, uint8_t deltaHue, int16_t indexFrom, int16_t indexTo) {
+bool StatefulStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initialHue, uint8_t deltaHue) {
     if (crop(indexFrom, indexTo)) {
         (*leds)(indexFrom, indexTo).fill_rainbow(initialHue, deltaHue);
         return true;
