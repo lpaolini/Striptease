@@ -151,65 +151,65 @@ CRGB JoinedStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool JoinedStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool JoinedStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool overlay) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                return strip1->paint(toStrip1(indexFrom), toStrip1(indexTo), color, add);
+                return strip1->paint(toStrip1(indexFrom), toStrip1(indexTo), color, overlay);
             } else if (isInGap(indexTo)) {
-                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, add);
-                bool sg = gapStrip->paint(gapStrip->first(), toGap(indexTo), color, add);
+                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, overlay);
+                bool sg = gapStrip->paint(gapStrip->first(), toGap(indexTo), color, overlay);
                 return s1 || sg;
             } else if (isInStrip2(indexTo)) {
-                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, add);
-                gapStrip->Strip::paint(color, add);
-                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), color, add);
+                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), color, overlay);
+                gapStrip->Strip::paint(color, overlay);
+                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), color, overlay);
                 return s1 || s2;
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                return gapStrip->paint(toGap(indexFrom), toGap(indexTo), color, add);
+                return gapStrip->paint(toGap(indexFrom), toGap(indexTo), color, overlay);
             } else if (isInStrip2(indexTo)) {
-                bool sg = gapStrip->paint(toGap(indexFrom), gapStrip->last(), color, add);
-                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), color, add);
+                bool sg = gapStrip->paint(toGap(indexFrom), gapStrip->last(), color, overlay);
+                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), color, overlay);
                 return sg || s2;
             }
         } else if (isInStrip2(indexFrom)) {
-            return strip2->paint(toStrip2(indexFrom), toStrip2(indexTo), color, add);
+            return strip2->paint(toStrip2(indexFrom), toStrip2(indexTo), color, overlay);
         }
     }
     return false;
 }
 
-bool JoinedStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+bool JoinedStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool overlay) {
     if (crop(indexFrom, indexTo)) {
         if (isInStrip1(indexFrom)) {
             if (isInStrip1(indexTo)) {
-                return strip1->paint(toStrip1(indexFrom), toStrip1(indexTo), gradient, 0, 1, add);
+                return strip1->paint(toStrip1(indexFrom), toStrip1(indexTo), gradient, 0, 1, overlay);
             } else if (isInGap(indexTo)) {
                 uint16_t p1 = strip1->size() - toStrip1(indexFrom);
-                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), gradient, 0, relativeGradient(indexFrom, indexTo, p1, gradientFrom, gradientTo), add);
-                bool sg = gapStrip->paint(gapStrip->first(), toGap(indexTo), gradient, relativeGradient(indexFrom, indexTo, p1 + 1, gradientFrom, gradientTo), 1, add);
+                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), gradient, 0, relativeGradient(indexFrom, indexTo, p1, gradientFrom, gradientTo), overlay);
+                bool sg = gapStrip->paint(gapStrip->first(), toGap(indexTo), gradient, relativeGradient(indexFrom, indexTo, p1 + 1, gradientFrom, gradientTo), 1, overlay);
                 return s1 || sg;
             } else if (isInStrip2(indexTo)) {
                 uint16_t p1 = strip1->size() - toStrip1(indexFrom);
                 uint16_t p2 = p1 + gap;
-                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), gradient, 0, relativeGradient(indexFrom, indexTo, p1, gradientFrom, gradientTo), add);
-                gapStrip->Strip::paint(gradient, relativeGradient(indexFrom, indexTo, p1 + 1, gradientFrom, gradientTo), relativeGradient(indexFrom, indexTo, p2, gradientFrom, gradientTo), add);
-                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), gradient, relativeGradient(indexFrom, indexTo, p2 + 1, gradientFrom, gradientTo), 1, add);
+                bool s1 = strip1->paint(toStrip1(indexFrom), strip1->last(), gradient, 0, relativeGradient(indexFrom, indexTo, p1, gradientFrom, gradientTo), overlay);
+                gapStrip->Strip::paint(gradient, relativeGradient(indexFrom, indexTo, p1 + 1, gradientFrom, gradientTo), relativeGradient(indexFrom, indexTo, p2, gradientFrom, gradientTo), overlay);
+                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), gradient, relativeGradient(indexFrom, indexTo, p2 + 1, gradientFrom, gradientTo), 1, overlay);
                 return s1 || s2;
             }
         } else if (isInGap(indexFrom)) {
             if (isInGap(indexTo)) {
-                return gapStrip->paint(toGap(indexFrom), toGap(indexTo), gradient, 0, 1, add);
+                return gapStrip->paint(toGap(indexFrom), toGap(indexTo), gradient, 0, 1, overlay);
             } else if (isInStrip2(indexTo)) {
                 uint16_t p2 = gap - toGap(indexFrom);
-                bool sg = gapStrip->paint(toGap(indexFrom), gapStrip->last(), gradient, 0, relativeGradient(indexFrom, indexTo, p2, gradientFrom, gradientTo), add);
-                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), gradient, relativeGradient(indexFrom, indexTo, p2 + 1, gradientFrom, gradientTo), 1, add);
+                bool sg = gapStrip->paint(toGap(indexFrom), gapStrip->last(), gradient, 0, relativeGradient(indexFrom, indexTo, p2, gradientFrom, gradientTo), overlay);
+                bool s2 = strip2->paint(strip2->first(), toStrip2(indexTo), gradient, relativeGradient(indexFrom, indexTo, p2 + 1, gradientFrom, gradientTo), 1, overlay);
                 return sg || s2;
             }
         } else if (isInStrip2(indexFrom)) {
-            return strip2->paint(toStrip2(indexFrom), toStrip2(indexTo), gradient, 0, 1, add);
+            return strip2->paint(toStrip2(indexFrom), toStrip2(indexTo), gradient, 0, 1, overlay);
         }
     }
     return false;
@@ -245,10 +245,10 @@ bool JoinedStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t init
     return false;
 }
 
-bool JoinedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
+bool JoinedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool overlay) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;
-    return paint(indexFrom, indexTo, color, add);
+    return paint(indexFrom, indexTo, color, overlay);
 }
 
 CRGB JoinedStrip::getIndex(int16_t index) {

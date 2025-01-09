@@ -42,16 +42,16 @@ CRGB ReversedStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool ReversedStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool ReversedStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool overlay) {
     if (crop(indexFrom, indexTo)) {
-        return strip->paint(toStrip(indexTo), toStrip(indexFrom), color, add);
+        return strip->paint(toStrip(indexTo), toStrip(indexFrom), color, overlay);
     }
     return false;
 }
 
-bool ReversedStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+bool ReversedStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool overlay) {
     if (crop(indexFrom, indexTo)) {
-        return strip->paint(toStrip(indexTo), toStrip(indexFrom), gradient, gradientTo, gradientFrom, add);
+        return strip->paint(toStrip(indexTo), toStrip(indexFrom), gradient, gradientTo, gradientFrom, overlay);
     }
     return false;
 }
@@ -63,8 +63,8 @@ bool ReversedStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t in
     return false;
 }
 
-bool ReversedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
-    return strip->paintNormalizedSize(1 - positionFrom, size, color, add);
+bool ReversedStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool overlay) {
+    return strip->paintNormalizedSize(1 - positionFrom, size, color, overlay);
 }
 
 CRGB ReversedStrip::getIndex(int16_t index) {

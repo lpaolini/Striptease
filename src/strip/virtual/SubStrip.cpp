@@ -44,16 +44,16 @@ CRGB SubStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
     return CRGB::Black;
 }
 
-bool SubStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) {
+bool SubStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool overlay) {
     if (crop(indexFrom, indexTo)) {
-        return strip->paint(toStrip(indexFrom), toStrip(indexTo), color, add);
+        return strip->paint(toStrip(indexFrom), toStrip(indexTo), color, overlay);
     }
     return false;
 }
 
-bool SubStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
+bool SubStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool overlay) {
     if (crop(indexFrom, indexTo)) {
-        return strip->paint(toStrip(indexFrom), toStrip(indexTo), gradient, gradientFrom, gradientTo, add);
+        return strip->paint(toStrip(indexFrom), toStrip(indexTo), gradient, gradientFrom, gradientTo, overlay);
     }
     return false;
 }
@@ -65,10 +65,10 @@ bool SubStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initial
     return false;
 }
 
-bool SubStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) {
+bool SubStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool overlay) {
     uint16_t indexFrom = fromNormalizedPosition(positionFrom, size);
     uint16_t indexTo = indexFrom + size - 1;
-    return paint(indexFrom, indexTo, color, add);
+    return paint(indexFrom, indexTo, color, overlay);
 }
 
 CRGB SubStrip::getIndex(int16_t index) {

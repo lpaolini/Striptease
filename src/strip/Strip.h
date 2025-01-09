@@ -40,8 +40,8 @@ class Strip {
         virtual void _blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) =0;
         virtual CRGB _shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
         virtual CRGB _shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in = CRGB::Black) =0;
-        virtual bool _paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool add) =0;
-        virtual bool _paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) =0;
+        virtual bool _paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool overlay) =0;
+        virtual bool _paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool overlay) =0;
         virtual bool _paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initialHue, uint8_t deltaHue) =0;
 
     public:
@@ -135,43 +135,43 @@ class Strip {
             return _shiftDown(clamp16(posFrom), clamp16(posTo), in);
         }
         
-        void paint(CRGB color, bool add) {
-            _paintSolid(first(), last(), color, add);
+        void paint(CRGB color, bool overlay) {
+            _paintSolid(first(), last(), color, overlay);
         }
 
-        void paint(CHSV color, bool add) {
+        void paint(CHSV color, bool overlay) {
             CRGB rgb;
             hsv2rgb_rainbow(color, rgb);
-            _paintSolid(first(), last(), rgb, add);
+            _paintSolid(first(), last(), rgb, overlay);
         }
 
-        void paint(Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
-            _paintGradient(first(), last(), gradient, gradientFrom, gradientTo, add);
+        void paint(Gradient *gradient, double gradientFrom, double gradientTo, bool overlay) {
+            _paintGradient(first(), last(), gradient, gradientFrom, gradientTo, overlay);
         }
 
-        bool paint(double pos, CRGB color, bool add) {
-            return _paintSolid(clamp16(pos), clamp16(pos), color, add);
+        bool paint(double pos, CRGB color, bool overlay) {
+            return _paintSolid(clamp16(pos), clamp16(pos), color, overlay);
         }
 
-        bool paint(double posFrom, double posTo, CRGB color, bool add) {
-            return _paintSolid(clamp16(posFrom), clamp16(posTo), color, add);
+        bool paint(double posFrom, double posTo, CRGB color, bool overlay) {
+            return _paintSolid(clamp16(posFrom), clamp16(posTo), color, overlay);
         }
 
-        bool paint(double posFrom, double posTo, Gradient *gradient, double gradientFrom, double gradientTo, bool add) {
-            return _paintGradient(clamp16(posFrom), clamp16(posTo), gradient, gradientFrom, gradientTo, add);
+        bool paint(double posFrom, double posTo, Gradient *gradient, double gradientFrom, double gradientTo, bool overlay) {
+            return _paintGradient(clamp16(posFrom), clamp16(posTo), gradient, gradientFrom, gradientTo, overlay);
         }
 
-        bool paintNormalized(double normPos, CRGB color, bool add) {
-            return _paintSolid(fromNormalizedPosition(normPos), fromNormalizedPosition(normPos), color, add);
+        bool paintNormalized(double normPos, CRGB color, bool overlay) {
+            return _paintSolid(fromNormalizedPosition(normPos), fromNormalizedPosition(normPos), color, overlay);
         }
 
-        bool paintNormalized(double normPosFrom, double norPosTo, CRGB color, bool add) {
-            return _paintSolid(fromNormalizedPosition(normPosFrom), fromNormalizedPosition(norPosTo), color, add);
+        bool paintNormalized(double normPosFrom, double norPosTo, CRGB color, bool overlay) {
+            return _paintSolid(fromNormalizedPosition(normPosFrom), fromNormalizedPosition(norPosTo), color, overlay);
         }
 
-        bool paintRandomPos(int16_t length, CRGB color, bool add) {
+        bool paintRandomPos(int16_t length, CRGB color, bool overlay) {
             uint16_t pos = random16(size() - length);
-            return _paintSolid(pos, pos + length, color, add);
+            return _paintSolid(pos, pos + length, color, overlay);
         }
 
         CRGB getPosition(double normPos) {
@@ -181,7 +181,7 @@ class Strip {
         virtual void flush() {};        
         virtual Strip *overlay(double opacity = 1) =0;
         virtual uint16_t size() =0;
-        virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool add) =0;
+        virtual bool paintNormalizedSize(double positionFrom, int16_t size, CRGB color, bool overlay) =0;
         virtual CRGB getIndex(int16_t index) =0;
 };
 
