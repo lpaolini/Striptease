@@ -31,15 +31,13 @@ class Gradient {
         }
 
         CRGB getColor(double fraction) {
-            if (fraction < 0 || fraction > 1) return CRGB::White;
-
             if (colors.size() > 1) {
+                uint8_t segments = colors.size() - 1;
                 if (fraction < 1) {
-                    uint8_t segments = colors.size() - 1;
                     uint8_t segment = floor(fraction * segments);
                     return interpolate(colors.at(segment), colors.at(segment + 1), fraction * segments - segment);                    
                 } else {
-                    return colors.at(colors.size() - 1);
+                    return colors.at(segments);
                 }
             } else if (colors.size() == 1) {
                 return colors.at(0);
