@@ -21,18 +21,20 @@ class Strip {
             return round(clampedUp);
         }
 
+    protected:
         uint16_t limitToRange(int16_t index) {
             return max(min(index, last()), first());
         }
 
-    protected:
-        bool crop(int16_t &indexFrom, int16_t &indexTo) {
+        bool crop(int16_t &indexFrom, int16_t &indexTo, bool limit = false) {
             enforceOrder(indexFrom, indexTo);
             if (indexTo < first() || indexFrom > last()) {
                 return false;
             }
-            indexFrom = limitToRange(indexFrom);
-            indexTo = limitToRange(indexTo);
+            if (limit) {
+                indexFrom = limitToRange(indexFrom);
+                indexTo = limitToRange(indexTo);
+            }
             return true;
         }
 

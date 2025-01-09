@@ -18,7 +18,7 @@ uint16_t JoinedStrip::size() {
 }
 
 bool JoinedStrip::isInStrip1(int16_t index) {
-    return strip1->isInRange(toStrip1(index));
+    return toStrip1(index) <= strip1->last();
 }
 
 bool JoinedStrip::isInGap(int16_t index) {
@@ -26,7 +26,7 @@ bool JoinedStrip::isInGap(int16_t index) {
 }
 
 bool JoinedStrip::isInStrip2(int16_t index) {
-    return strip2->isInRange(toStrip2(index));
+    return toStrip2(index) >= strip2->first();
 }
 
 int16_t JoinedStrip::toStrip1(int16_t index) {

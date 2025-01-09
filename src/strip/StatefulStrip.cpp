@@ -25,19 +25,19 @@ uint16_t StatefulStrip::size() {
 }
 
 void StatefulStrip::_fade(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
-    if (crop(indexFrom, indexTo)) {
+    if (crop(indexFrom, indexTo, true)) {
         (*leds)(indexFrom, indexTo).fadeToBlackBy(amount);
     }
 }
 
 void StatefulStrip::_blur(int16_t indexFrom, int16_t indexTo, uint8_t amount) {
-    if (crop(indexFrom, indexTo)) {
+    if (crop(indexFrom, indexTo, true)) {
         (*leds)(indexFrom, indexTo).blur1d(amount);
     }
 }
 
 CRGB StatefulStrip::_shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
-    if (crop(indexFrom, indexTo)) {
+    if (crop(indexFrom, indexTo, true)) {
         if (indexFrom == indexTo) {
             return in;
         } else {
@@ -53,7 +53,7 @@ CRGB StatefulStrip::_shiftUp(int16_t indexFrom, int16_t indexTo, CRGB in) {
 }
 
 CRGB StatefulStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
-    if (crop(indexFrom, indexTo)) {
+    if (crop(indexFrom, indexTo, true)) {
         if (indexFrom == indexTo) {
             return in;
         } else {
@@ -69,7 +69,7 @@ CRGB StatefulStrip::_shiftDown(int16_t indexFrom, int16_t indexTo, CRGB in) {
 }
 
 bool StatefulStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, bool overlay) {
-    if (crop(indexFrom, indexTo)) {
+    if (crop(indexFrom, indexTo, true)) {
         if (overlay) {
             (*leds)(indexFrom, indexTo) |= color;
         } else {
@@ -82,7 +82,7 @@ bool StatefulStrip::_paintSolid(int16_t indexFrom, int16_t indexTo, CRGB color, 
 
 bool StatefulStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient *gradient, double gradientFrom, double gradientTo, bool overlay) {
     if (crop(indexFrom, indexTo)) {
-        for (uint16_t i = indexFrom; i < indexTo; i++) {
+        for (uint16_t i = limitToRange(indexFrom); i < limitToRange(indexTo); i++) {
             CRGB color = gradient->getColor(gradientFrom + (gradientTo - gradientFrom) * (i - indexFrom) / (indexTo - indexFrom));
             if (overlay) {
                 (*leds)[i] |= color;
@@ -96,7 +96,7 @@ bool StatefulStrip::_paintGradient(int16_t indexFrom, int16_t indexTo, Gradient 
 }
 
 bool StatefulStrip::_paintRainbow(int16_t indexFrom, int16_t indexTo, uint8_t initialHue, uint8_t deltaHue) {
-    if (crop(indexFrom, indexTo)) {
+    if (crop(indexFrom, indexTo, true)) {
         (*leds)(indexFrom, indexTo).fill_rainbow(initialHue, deltaHue);
         return true;
     }
@@ -110,5 +110,8 @@ bool StatefulStrip::paintNormalizedSize(double positionFrom, int16_t size, CRGB 
 }
 
 CRGB StatefulStrip::getIndex(int16_t index) {
-    return (*leds)[index];
+    if (isInRange(index)) {
+        return (*leds)[index];
+    }
+    return CRGB::Black;
 }
