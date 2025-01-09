@@ -3,7 +3,7 @@
 
 #include <FastLED.h>
 #include "Strip.h"
-#include "Palette.h"
+#include "Gradient.h"
 
 class StatefulStrip : public Strip {
     protected: 

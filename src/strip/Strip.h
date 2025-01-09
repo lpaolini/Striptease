@@ -2,7 +2,7 @@
 #define Strip_h
 
 #include <FastLED.h>
-#include "Palette.h"
+#include "Gradient.h"
 
 class Strip {
     private:
