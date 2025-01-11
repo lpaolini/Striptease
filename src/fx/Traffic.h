@@ -6,11 +6,12 @@
 #include "Fx.h"
 #include "audio/AudioSensor.h"
 #include "audio/AudioTrigger.h"
+#include "Gradient.h"
 #include "HarmonicMotion.h"
 
 class Traffic : public Fx {
     private:
-        const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Gold, CRGB::Red, CRGB::Blue, CRGB::Teal);
+        Gradient GRADIENT = Gradient(CRGB::Gold, CRGB::Red, CRGB::Blue, CRGB::Teal);
         static const uint8_t LAYERS = 10;
         static const uint8_t ITEMS = 100;
         AudioTrigger *audioTrigger;

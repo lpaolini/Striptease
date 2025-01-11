@@ -46,7 +46,7 @@ void Traffic::resetItem(HarmonicMotion &item) {
     double speed = factor * (5 + (15 + random(10)) * state->parabolicFxSpeed);
 
     item.reset()
-        .setColor(ColorFromPalette(PALETTE, random8()));
+        .setColor(GRADIENT.getRandomColor(8));
 
     if (random(10) < 5) {
         item
