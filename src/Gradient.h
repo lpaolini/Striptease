@@ -48,6 +48,10 @@ class Gradient {
             }
             return CRGB::Black;
         }
+
+        CRGB getRandomColor(uint16_t steps = UINT16_MAX) {
+            return getColor((double) (rand() % steps) / (steps - 1));
+        }
 };
 
 #endif
