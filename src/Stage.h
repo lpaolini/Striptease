@@ -51,6 +51,7 @@
 #include "fx/RainbowMelt.h"
 #include "fx/Ripple.h"
 #include "fx/RippleReflections.h"
+#include "fx/Scan.h"
 #include "fx/Scroller.h"
 #include "fx/Sinelon.h"
 #include "fx/SineMeter.h"
