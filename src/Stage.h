@@ -60,6 +60,7 @@
 #include "fx/Spiral.h"
 #include "fx/Strobe.h"
 #include "fx/SubtleWave.h"
+#include "fx/Sunset.h"
 #include "fx/Traffic.h"
 #include "fx/Vertigo.h"
 #include "fx/Volcane.h"
