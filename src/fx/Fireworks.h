@@ -7,12 +7,12 @@
 #include "audio/AudioSensor.h"
 #include "audio/AudioTrigger.h"
 #include "HarmonicMotion.h"
+#include "Gradient.h"
 #include "Timer.h"
 
 class Fireworks : public Fx {
     private:
-        // const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Blue, CRGB::Red, CRGB::Gold);
-        const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Red, CRGB::Gold, CRGB::Red, CRGB::Blue);
+        Gradient GRADIENT = Gradient(CRGB::Red, CRGB::Gold, CRGB::Red, CRGB::Blue);
         static const uint8_t ITEMS = 4;
         static const uint8_t FADE_RATE = 5;
         static const uint16_t DECAY_RATE = 5;

@@ -33,7 +33,7 @@ void Fireworks::loop() {
         }
     }
 
-    bool trigger = audioTrigger->triggered(2);
+    bool trigger = audioTrigger->triggered(1);
 
     if (trigger && items[nextItem].ball.isStable() && inhibitTimer.isElapsed()) {
         inhibitTimer.reset();
@@ -49,7 +49,7 @@ void Fireworks::loop() {
 void Fireworks::randomizeItem(Item &item, double strength) {
     uint16_t pos = strip->randomInRange(.25, .75);
     item.ball.reset()
-        .setColor(ColorFromPalette(PALETTE, random8()))
+        .setColor(GRADIENT.getRandomColor())
         .setDamping(2)
         .setPosition(pos)
         .setFixedPointPosition(pos)
