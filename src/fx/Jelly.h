@@ -7,11 +7,13 @@
 #include "audio/AudioSensor.h"
 #include "audio/AudioTrigger.h"
 #include "HarmonicMotion.h"
+#include "Gradient.h"
 #include "Timer.h"
 
 class Jelly : public Fx {
     private:
-        const CRGBPalette16 PALETTE = CRGBPalette16(CRGB::Red, CRGB::Gold, CRGB::Red, CRGB::Blue);
+        Gradient GRADIENT = Gradient(CRGB::Red, CRGB::Gold, CRGB::Red, CRGB::Blue);
+        static const uint8_t HALF_SIZE = 3;
         static const uint8_t ITEMS = 5;
         static const uint8_t FADE_RATE = 100;
         AudioTrigger *audioTrigger;

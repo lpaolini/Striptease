@@ -14,14 +14,13 @@ Jelly::~Jelly() {
 void Jelly::reset() {
     clear();
     for (int i = 0; i < ITEMS; i++) {
-        uint8_t size = random8(2, 5);
         items[i].reset()
-            .setColor(ColorFromPalette(PALETTE, random8()))
+            .setColor(GRADIENT.getRandomColor(16))
             .setElasticConstant(4)
             .setCriticalDamping()
             .setFixedPointPosition(strip->random())
             .setVelocity(10)
-            .setRange(-size, size)
+            .setRange(-HALF_SIZE, HALF_SIZE)
             .setMirror(false)
             .setShowWhenStable(true);
     }
