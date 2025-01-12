@@ -4,7 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.0-beta1] (2024-01-07)
+## [1.4.0] (2025-01-12)
+### Changed
+- Updated documentation
+- Bumped version to 1.4.0
+
+## [1.4.0-beta2] (2025-01-11)
+### Changed
+- Renamed `Palette` to `Gradient`.
+- Fixed bugs `Strip` boundaries calculation.
+  
+### Added
+- Implemented `CRGB Gradient::getRandomColor(uint16_t maxColors)` method.
+- Implemented `Sunset` effect.
+- Implemented `Scan` effect.
+
+## [1.4.0-beta1] (2025-01-07)
 ### Changed
 - BREAKING CHANGE: `Strip` changed `paint` methods signature: "add" is now required.
 
@@ -16,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated documentation
 - Bumped version to 1.3.0
 
-## [1.3.0-beta4] (2024-01-03)
+## [1.3.0-beta4] (2025-01-03)
 
 ### Changed
 - BREAKING CHANGE: `Strip` changed `overlay` method signature: opacity is now a double (from 0 to 1).
