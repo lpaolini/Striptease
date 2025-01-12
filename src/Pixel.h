@@ -14,7 +14,7 @@ class Pixel {
         Pixel();
         void setup(Strip *strip);
         void reset();
-        bool set(int pos, CRGB color, bool add = true);
+        bool set(int pos, CRGB color, bool overlay = true);
         bool setNormalized(double pos, CRGB color);
 };
 
